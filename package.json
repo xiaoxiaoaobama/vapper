@@ -1,0 +1,39 @@
+{
+  "name": "homo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "yarn lint && jest --verbose",
+    "lint": "standard --fix",
+    "commit": "git-cz"
+  },
+  "repository": "https://github.com/shuidi-fed/homo.git",
+  "author": "HcySunYang <HcySunYang@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cz-lerna-changelog": "^2.0.2",
+    "husky": "^3.0.1",
+    "jest": "^24.8.0",
+    "lerna": "^3.14.1",
+    "lint-staged": "^9.2.0",
+    "standard": "^13.0.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  }
+}
