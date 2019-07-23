@@ -20,6 +20,11 @@
     "lint-staged": "^9.2.0",
     "standard": "^13.0.2"
   },
+  "standard": {
+    "ignore": [
+      "examples/**"
+    ]
+  },
   "lint-staged": {
     "*.js": [
       "npm run lint",
