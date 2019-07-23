@@ -2,5 +2,9 @@
   "name": "@homo/core",
   "version": "0.1.0",
   "main": "lib/index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "vue-meta": "^2.0.5",
+    "vue-server-renderer": "^2.6.10"
+  }
 }
