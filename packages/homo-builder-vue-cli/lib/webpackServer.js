@@ -25,7 +25,7 @@ module.exports = (api) => {
         config
           .plugin('VueSSRServerPlugin')
           .use(require('vue-server-renderer/server-plugin'), [{
-            filename: 'server/vue-ssr-server-bundle.json'
+            filename: api.options.serverBundleFileName
           }])
 
         config.plugin('constants')

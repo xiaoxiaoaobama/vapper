@@ -10,3 +10,10 @@ export default {
   name: 'app'
 }
 </script>
+
+<style>
+.app {
+  color: red;
+}
+</style>
+

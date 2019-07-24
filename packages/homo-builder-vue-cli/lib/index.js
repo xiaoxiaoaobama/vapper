@@ -93,10 +93,13 @@ class Builder extends EventEmitter {
 
   compiledHandler (type) {
     if (!type) return
-    const { logger } = this.api
+    const {
+      logger,
+      options: { serverBundleFileName, clientManifestFileName }
+    } = this.api
     const isServer = type === 'server'
     const fs = isServer ? this.serverCompiler.outputFileSystem : this.devMiddleware.fileSystem
-    const fileName = isServer ? 'server/vue-ssr-server-bundle.json' : 'client/vue-ssr-client-manifest.json'
+    const fileName = isServer ? serverBundleFileName : clientManifestFileName
 
     const JSONContent = JSON.parse(
       fs.readFileSync(
@@ -110,7 +113,7 @@ class Builder extends EventEmitter {
       : this.clientManifest = JSONContent
 
     if (this.serverBundle && this.clientManifest) {
-      logger.debug('Server builde and client manifest generated successfully')
+      logger.debug('Server bundle and client manifest generated successfully')
 
       const result = {
         serverBundle: this.serverBundle,

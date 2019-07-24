@@ -3,7 +3,6 @@ const webpack = require('webpack')
 
 module.exports = (api) => {
   const isProd = api.options.mode === 'production'
-  const fileName = isProd ? '[name].[hash:8]' : '[name]'
 
   return {
     id: 'vue-cli-plugin-homo-webpack-client',
@@ -17,13 +16,11 @@ module.exports = (api) => {
 
         config.output
           .publicPath('/_homo_/')
-          .filename(`client/${fileName}.js`)
-          .chunkFilename(`client/${fileName}.js`)
 
         config
           .plugin('VueSSRClientPlugin')
           .use(require('vue-server-renderer/client-plugin'), [{
-            filename: 'client/vue-ssr-client-manifest.json'
+            filename: api.options.clientManifestFileName
           }])
 
         if (!isProd) {
@@ -42,13 +39,6 @@ module.exports = (api) => {
                 // __PUBLIC_PATH__: JSON.stringify(publicPath)
               }
             ]
-          })
-
-        config
-          .plugin('html')
-          .tap(args => {
-            args[0].filename = 'index.spa.html'
-            return args
           })
       })
     }

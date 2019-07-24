@@ -1,16 +1,22 @@
+const fs = require('fs')
+const path = require('path')
+const { createBundleRenderer } = require('vue-server-renderer')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
-const fs = require('fs')
-const { createBundleRenderer } = require('vue-server-renderer')
+const defaultOptions = require('./options')
 
 class Homo extends PluginApi {
   constructor (options) {
     super()
-    this.options = Object.assign({
-      mode: 'production',
-      entry: 'src/main.js'
-    }, options)
+    this.options = Object.assign(
+      {},
+      defaultOptions,
+      this.loadConfig(),
+      options
+    )
+    this.isProd = options.mode === defaultOptions.mode
     this.logger = new Logger()
+
     this.builder = this.loadBuilder()
 
     this.serverBundle = null
@@ -24,15 +30,36 @@ class Homo extends PluginApi {
     this.hotMiddleware = null
   }
 
+  async setup () {
+    if (this.isProd) {
+      const serverBundle = JSON.parse(
+        fs.readFileSync(this.resolveOut(this.options.serverBundleFileName), 'utf-8')
+      )
+      const clientManifest = JSON.parse(
+        fs.readFileSync(this.resolveOut(this.options.clientManifestFileName), 'utf-8')
+      )
+
+      this.renderer = this.createRenderer({ serverBundle, clientManifest })
+    } else {
+      await this.build()
+    }
+  }
+
   async build () {
+    if (this.isProd) {
+      await this.builder.run()
+      return
+    }
+
     const { serverBundle, clientManifest } = await this.builder.run()
     this.serverBundle = serverBundle
     this.clientManifest = clientManifest
 
     this.renderer = this.createRenderer({ serverBundle, clientManifest })
+
     this.builder.on('change', ({ serverBundle, clientManifest }) => {
       this.renderer = this.createRenderer({ serverBundle, clientManifest })
-      this.logger.debug('Renderer recreated')
+      this.logger.debug('Renderer re-created')
     })
 
     this.devMiddleware = this.builder.devMiddleware
@@ -40,8 +67,10 @@ class Homo extends PluginApi {
   }
 
   async render (req, res) {
-    this.devMiddleware && await this.devMiddleware(req, res)
-    this.hotMiddleware && await this.hotMiddleware(req, res)
+    if (!this.isProd) {
+      this.devMiddleware && await this.devMiddleware(req, res)
+      this.hotMiddleware && await this.hotMiddleware(req, res)
+    }
 
     const html = await this.renderToString({
       url: req.url
@@ -62,18 +91,22 @@ class Homo extends PluginApi {
     )
   }
 
+  createRenderer ({ serverBundle, clientManifest }) {
+    return createBundleRenderer(serverBundle, {
+      runInNewContext: false,
+      template: this.template,
+      clientManifest
+    })
+  }
+
   loadBuilder () {
     const builderRE = /^(@homo\/|homo-|@[\w-]+\/homo-)builder-/
-    const pkg = require(this.resolveCWD('package.json'))
-
-    const builders = Object.keys(pkg.devDependencies || {})
-      .concat(Object.keys(pkg.dependencies || {}))
-      .filter(id => builderRE.test(id))
+    const builders = this.loadDependencies(builderRE)
 
     let Builder
 
     if (!builders.length) {
-      this.logger.debug(`You don't have any builders installed, ` +
+      this.logger.debug(`You have not installed any builder, ` +
         'will use the default builder: `@homo/builder-vue-cli`'
       )
       Builder = require('@homo/builder-vue-cli')
@@ -86,13 +119,40 @@ class Homo extends PluginApi {
     return new Builder(this)
   }
 
-  createRenderer ({ serverBundle, clientManifest }) {
-    return createBundleRenderer(serverBundle, {
-      runInNewContext: false,
-      template: this.template,
-      clientManifest
-    })
+  loadServerStarter () {
+    const serverStarterRE = /^(@homo\/|homo-|@[\w-]+\/homo-)server-/
+    const starters = this.loadDependencies(serverStarterRE)
+
+    let starter
+
+    if (!starters.length) {
+      const customServerFile = this.resolveCWD('homo-server.js')
+      if (
+        fs.existsSync(customServerFile) &&
+        fs.statSync(customServerFile).isFile()
+      ) {
+        this.logger.debug(`Find a custom server starter: ${customServerFile}`)
+        starter = require(customServerFile)
+      } else {
+        this.logger.debug(
+          'You have not installed any server starter, ' +
+          'will use the default server starter: `@homo/server-express`'
+        )
+        starter = require('@homo/server-express')
+      }
+    } else {
+      this.logger.debug(`Find builder: \`${starters[0]}\``)
+      // Only care about the first found builder
+      starter = require(starters[0])
+    }
+
+    return starter
+  }
+
+  resolveOut (...args) {
+    return path.resolve(this.builder.clientWebpackConfig.output.path, ...args)
   }
 }
 
+Homo.defaultOptions = defaultOptions
 module.exports = Homo

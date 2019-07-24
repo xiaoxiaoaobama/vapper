@@ -15,7 +15,7 @@ async function start () {
     homo.render(ctx.req, ctx.res)
   })
 
-  app.listen(9999, () => console.log('Server running at: http://127.0.0.1:9999'))
+  app.listen(9999, () => console.log('Server running at: http://127.0.0.1:9999')) // eslint-disable-line
 }
 
 start()

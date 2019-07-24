@@ -1,14 +1,7 @@
 const express = require('express')
 const app = express()
-const Homo = require('../../packages/core/lib')
 
-const homo = new Homo({
-  mode: 'development'
-  // mode: 'production'
-})
-
-async function start () {
-
+module.exports = async function starter (homo) {
   await homo.setup()
 
   if (homo.isProd) {
@@ -27,7 +20,5 @@ async function start () {
     homo.render(req, res)
   })
 
-  app.listen(9999, () => console.log('Server running at: http://127.0.0.1:9999')) // eslint-disable-line
+  app.listen(9999, () => homo.logger.info('Server running at: http://127.0.0.1:9999'))
 }
-
-start()

@@ -2,9 +2,6 @@ const webpack = require('webpack')
 const ProgressBar = require('./ProgressBar')
 
 module.exports = (api) => {
-  const isProd = api.options.mode === 'production'
-  const fileName = isProd ? '[name].[hash:8]' : '[name]'
-
   return {
     id: 'vue-cli-plugin-homo-webpack-base',
     apply: (vueCliapi) => {
@@ -22,14 +19,6 @@ module.exports = (api) => {
               optimizeSSR: false
             }
           })
-
-        if (isProd) {
-          config.plugin('extract-css').tap(args => {
-            args[0].filename = `client/${fileName}.css`
-            args[0].chunkFilename = `client/${fileName}.css`
-            return args
-          })
-        }
 
         config.module
           .rule('eslint')
