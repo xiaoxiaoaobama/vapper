@@ -2,6 +2,14 @@
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
+## Setup
+
+```sh
+git clone https://github.com/shuidi-fed/homo.git
+cd homo
+yarn install
+```
+
 ## Run demo
 
 ### 1、link
@@ -15,6 +23,7 @@ yarn link
 
 ```sh
 cd examples/vue-cli3
+yarn install
 
 # dev
 homo dev
