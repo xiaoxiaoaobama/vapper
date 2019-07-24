@@ -44,6 +44,10 @@ class PluginApi {
       return null
     }
   }
+
+  validateOptions (schema, options) {
+    return schema.validate(options)
+  }
 }
 
 module.exports = PluginApi

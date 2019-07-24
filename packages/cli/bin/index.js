@@ -7,6 +7,7 @@ cli
   .command('build', 'Build the project for the production environment')
   .allowUnknownOptions()
   .action(async flags => {
+    delete flags['--']
     const homo = new Homo({ ...(flags || {}), mode: 'production' })
     homo.build()
   })
@@ -16,6 +17,7 @@ cli
   .allowUnknownOptions()
   .option('-p, --port <port>', 'Specify the port number')
   .action(async flags => {
+    delete flags['--']
     const homo = new Homo({ ...(flags || {}), mode: 'development' })
     const starter = homo.loadServerStarter()
     starter(homo)
@@ -26,6 +28,7 @@ cli
   .allowUnknownOptions()
   .option('-p, --port <port>', 'Specify the port number')
   .action(async flags => {
+    delete flags['--']
     const homo = new Homo({ ...(flags || {}), mode: 'production' })
     const starter = homo.loadServerStarter()
     starter(homo)

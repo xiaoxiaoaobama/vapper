@@ -2,6 +2,13 @@ const express = require('express')
 const app = express()
 
 module.exports = async function starter (homo) {
+  const {
+    options: {
+      port,
+      host
+    }
+  } = homo
+
   await homo.setup()
 
   if (homo.isProd) {
@@ -20,5 +27,5 @@ module.exports = async function starter (homo) {
     homo.render(req, res)
   })
 
-  app.listen(9999, () => homo.logger.info('Server running at: http://127.0.0.1:9999'))
+  app.listen(port, host, () => homo.logger.info(`Server running at: http://${host}:${port}`))
 }

@@ -3,19 +3,34 @@ const path = require('path')
 const { createBundleRenderer } = require('vue-server-renderer')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
-const defaultOptions = require('./options')
+const { options: defaultOptions, optionsSchema } = require('./options')
 
 class Homo extends PluginApi {
   constructor (options) {
     super()
+    this.defaultOptions = defaultOptions
+    this.optionsSchema = optionsSchema
     this.options = Object.assign(
       {},
       defaultOptions,
       this.loadConfig(),
       options
     )
+
     this.isProd = options.mode === defaultOptions.mode
     this.logger = new Logger()
+    this.setLogLevel(options.logLevel)
+
+    const { error } = this.validateOptions(optionsSchema, this.options)
+    if (error) {
+      if (error.isJoi) {
+        error.details.forEach(e => {
+          this.logger.error(e.message)
+        })
+      } else {
+        this.logger.error(error.toString())
+      }
+    }
 
     this.builder = this.loadBuilder()
 
