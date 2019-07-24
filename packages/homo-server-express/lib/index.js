@@ -13,7 +13,14 @@ module.exports = async function starter (homo) {
 
   if (homo.isProd) {
     app.get('/_homo_/*', (req, res, ...args) => {
-      req.url = req.url.replace(/^\/_homo_/, '')
+      const originalUrl = req.url
+      req.url = originalUrl.replace(/^\/_homo_/, '')
+
+      homo.logger.debug(`
+        proxy: ${originalUrl}
+        to: ${req.url}
+      `)
+
       express.static('dist', {
         dotfiles: 'allow',
         index: false

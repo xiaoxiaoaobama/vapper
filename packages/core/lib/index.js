@@ -19,7 +19,7 @@ class Homo extends PluginApi {
 
     this.isProd = options.mode === defaultOptions.mode
     this.logger = new Logger()
-    this.setLogLevel(options.logLevel)
+    this.logger.setLogLevel(options.logLevel)
 
     const { error } = this.validateOptions(optionsSchema, this.options)
     if (error) {
