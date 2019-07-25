@@ -76,7 +76,8 @@ class Builder extends EventEmitter {
           publicPath: this.clientWebpackConfig.output.publicPath,
           logLevel: 'silent',
           noInfo: true
-        })
+        }),
+        { exclude: ['getFilenameFromUrl'] }
       )
       // hmr
       this.hotMiddleware = pify(

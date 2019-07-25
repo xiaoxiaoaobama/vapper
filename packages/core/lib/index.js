@@ -87,9 +87,28 @@ class Homo extends PluginApi {
       this.hotMiddleware && await this.hotMiddleware(req, res)
     }
 
-    const html = await this.renderToString({
-      url: req.url
-    })
+    let html
+    try {
+      html = await this.renderToString({
+        url: req.url
+      })
+    } catch (err) {
+      if (err.code === 'FALLBACK_SPA') {
+        this.logger.debug(`Fall back SPA mode, url is: ${req.url}`)
+        if (this.isProd) {
+          html = fs.readFileSync(
+            this.resolveOut(this.builder.clientWebpackConfig.output.path, 'index.html'),
+            'utf-8'
+          )
+        } else {
+          req.url = '/_homo_/index.html'
+          html = this.devMiddleware.fileSystem.readFileSync(
+            this.devMiddleware.getFilenameFromUrl(req.url),
+            'utf-8'
+          )
+        }
+      }
+    }
 
     res.setHeader('Content-Type', 'text/html; charset=UTF-8')
     res.end(html)

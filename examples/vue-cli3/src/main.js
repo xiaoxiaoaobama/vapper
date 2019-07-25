@@ -13,8 +13,20 @@ export default function createApp () {
   const router = new VueRouter({
     mode: 'history',
     routes: [
-      { path: '/', component: () => import('./components/Home.vue') }, // eslint-disable-line
-      { path: '/about', component: () => import('./components/About.vue') },
+      {
+        path: '/',
+        component: () => import('./components/Home.vue'),
+        meta: {
+          ssr: true
+        }
+      },
+      {
+        path: '/about',
+        component: () => import('./components/About.vue'),
+        meta: {
+          ssr: false
+        }
+      },
     ]
   })
 

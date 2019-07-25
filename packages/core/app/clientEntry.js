@@ -62,10 +62,14 @@ router.onReady(() => {
     if ($$selfStore) app.$$selfStore = $$selfStore
 
     if ($$error) app.$$error = $$error
-  }
 
-  app.$mount('#_homo_')
-  // This is very important, it is used to avoid repeated data fetch,
-  // and must be after the `$mount()` function
-  clientPlugin.$$resolved = true
+    app.$mount('#_homo_')
+    // This is very important, it is used to avoid repeated data fetch,
+    // and must be after the `$mount()` function
+    clientPlugin.$$resolved = true
+  } else {
+    // fallback SPA mode
+    clientPlugin.$$resolved = true
+    app.$mount('#_homo_')
+  }
 })

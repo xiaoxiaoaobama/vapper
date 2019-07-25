@@ -6,9 +6,6 @@
 
 <script>
 export default {
-  name: 'About',
-  fetchInitialData () {
-    return {}
-  }
+  name: 'About'
 }
 </script>
