@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { clientPlugin } from 'vue-ssr-prefetcher'
 import createApp from './createApp'
-// import { redirect } from './redirect'
+import { redirect } from './redirect'
 import HomoError from './HomoError'
 
 Vue.use(clientPlugin)
@@ -9,8 +9,6 @@ Vue.use(clientPlugin)
 const { app, router, store } = createApp()
 
 router.beforeResolve(async (to, from, next) => {
-  if (!app.$$resolved) return next()
-
   try {
     const matchedComponents = router.getMatchedComponents(to)
     // no matched routes, reject with 404
@@ -32,22 +30,10 @@ router.beforeResolve(async (to, from, next) => {
       app.$forceUpdate()
     }
 
-    // const context = {
-    //   store,
-    //   router,
-    //   route: to,
-    //   redirect,
-    //   type: 'client'
-    // }
+    // Add helpers
+    app.$$redirect = redirect
+    app.$$type = 'client'
 
-    // await Promise.all(
-    //   matchedComponents
-    //     .filter(C => C.fetchInitialData && typeof C.fetchInitialData === 'function')
-    //     .map(async (C, i) => {
-    //       const data = await C.fetchInitialData(context)
-    //       app.$$initialData[C.$$initialDataKey] = data
-    //     })
-    // )
     next()
   } catch (err) {
     // When `redirect` is called, it essentially throws a custom error(HomoError),

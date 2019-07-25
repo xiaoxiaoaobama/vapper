@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import { serverPlugin } from 'vue-ssr-prefetcher'
+import { createServerPlugin } from 'vue-ssr-prefetcher'
 import createApp from './createApp'
-// import { redirect } from './redirect'
+import { redirect } from './redirect'
 import HomoError from './HomoError'
 
-Vue.use(serverPlugin)
-
 export default async context => {
+  const serverPlugin = createServerPlugin()
+  Vue.use(serverPlugin)
   const { app, router, store } = createApp()
 
   router.push(context.url)
@@ -26,24 +26,9 @@ export default async context => {
     })
   }
 
-  // Call fetchInitialData on the route component
-  // const fetchContext = {
-  //   store,
-  //   router,
-  //   route: router.currentRoute,
-  //   redirect,
-  //   type: 'server',
-  //   ctx: context.ctx // server only
-  // }
-  // const $$initialData = {}
-  // await Promise.all(
-  //   matchedComponents
-  //     .filter(C => C.fetchInitialData && typeof C.fetchInitialData === 'function')
-  //     .map(async (C, i) => {
-  //       const data = await C.fetchInitialData(fetchContext)
-  //       $$initialData[C.$$initialDataKey] = data
-  //     })
-  // )
+  // Add helpers
+  app.$$redirect = redirect
+  app.$$type = 'server'
 
   // Set `context.rendered` to `serverPlugin.done`
   context.rendered = serverPlugin.done
