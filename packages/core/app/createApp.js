@@ -10,19 +10,4 @@ Vue.use(Meta, {
   keyName: 'head'
 })
 
-// Make `$$initialData` accessible to every component instance
-Vue.mixin({
-  beforeCreate () {
-    if (!this.$options.fetchInitialData) return
-    this.$$initialData = this.$$initialData ? this.$$initialData : this.$root.$$initialData
-  },
-  data () {
-    if (!this.$options.fetchInitialData) return {}
-    const key = this.$options.$$initialDataKey
-    return {
-      ...this.$$initialData[key]
-    }
-  }
-})
-
 export default createApp

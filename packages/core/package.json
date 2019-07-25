@@ -8,6 +8,7 @@
     "@homo/builder-vue-cli": "^0.1.0",
     "@homo/server-express": "^0.1.0",
     "vue-meta": "^2.0.5",
-    "vue-server-renderer": "^2.6.10"
+    "vue-server-renderer": "^2.6.10",
+    "vue-ssr-prefetcher": "^0.2.1"
   }
 }

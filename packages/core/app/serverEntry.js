@@ -1,6 +1,10 @@
+import Vue from 'vue'
+import { serverPlugin } from 'vue-ssr-prefetcher'
 import createApp from './createApp'
-import { redirect } from './redirect'
+// import { redirect } from './redirect'
 import HomoError from './HomoError'
+
+Vue.use(serverPlugin)
 
 export default async context => {
   const { app, router, store } = createApp()
@@ -21,37 +25,38 @@ export default async context => {
       message: 'Page Not Found'
     })
   }
-  console.log('context.url: ', context.url)
+
   // Call fetchInitialData on the route component
-  const fetchContext = {
-    store,
-    router,
-    route: router.currentRoute,
-    redirect,
-    type: 'server',
-    ctx: context.ctx // server only
-  }
-  const $$initialData = {}
-  await Promise.all(
-    matchedComponents
-      .filter(C => C.fetchInitialData && typeof C.fetchInitialData === 'function')
-      .map(async (C, i) => {
-        const data = await C.fetchInitialData(fetchContext)
-        $$initialData[C.$$initialDataKey] = data
-      })
-  )
+  // const fetchContext = {
+  //   store,
+  //   router,
+  //   route: router.currentRoute,
+  //   redirect,
+  //   type: 'server',
+  //   ctx: context.ctx // server only
+  // }
+  // const $$initialData = {}
+  // await Promise.all(
+  //   matchedComponents
+  //     .filter(C => C.fetchInitialData && typeof C.fetchInitialData === 'function')
+  //     .map(async (C, i) => {
+  //       const data = await C.fetchInitialData(fetchContext)
+  //       $$initialData[C.$$initialDataKey] = data
+  //     })
+  // )
+
+  // Set `context.rendered` to `serverPlugin.done`
+  context.rendered = serverPlugin.done
+
   // The data will be serialized
   context.state = {
     $$stroe: store ? store.state : undefined,
-    $$initialData,
+    $$selfStore: app.$$selfStore,
     $$error: app.$$error
   }
 
   // vue-meta
   context.meta = app.$meta()
-
-  // Add `$$initialData` to the root instance for server-side rendering
-  app.$$initialData = $$initialData
   return app
 }
 

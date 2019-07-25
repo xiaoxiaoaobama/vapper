@@ -1,6 +1,10 @@
+import Vue from 'vue'
+import { clientPlugin } from 'vue-ssr-prefetcher'
 import createApp from './createApp'
-import { redirect } from './redirect'
+// import { redirect } from './redirect'
 import HomoError from './HomoError'
+
+Vue.use(clientPlugin)
 
 const { app, router, store } = createApp()
 
@@ -28,22 +32,22 @@ router.beforeResolve(async (to, from, next) => {
       app.$forceUpdate()
     }
 
-    const context = {
-      store,
-      router,
-      route: to,
-      redirect,
-      type: 'client'
-    }
+    // const context = {
+    //   store,
+    //   router,
+    //   route: to,
+    //   redirect,
+    //   type: 'client'
+    // }
 
-    await Promise.all(
-      matchedComponents
-        .filter(C => C.fetchInitialData && typeof C.fetchInitialData === 'function')
-        .map(async (C, i) => {
-          const data = await C.fetchInitialData(context)
-          app.$$initialData[C.$$initialDataKey] = data
-        })
-    )
+    // await Promise.all(
+    //   matchedComponents
+    //     .filter(C => C.fetchInitialData && typeof C.fetchInitialData === 'function')
+    //     .map(async (C, i) => {
+    //       const data = await C.fetchInitialData(context)
+    //       app.$$initialData[C.$$initialDataKey] = data
+    //     })
+    // )
     next()
   } catch (err) {
     // When `redirect` is called, it essentially throws a custom error(HomoError),
@@ -63,17 +67,19 @@ router.beforeResolve(async (to, from, next) => {
 
 router.onReady(() => {
   if (window.__INITIAL_STATE__) {
-    const { $$stroe, $$initialData, $$error } = window.__INITIAL_STATE__
+    const { $$stroe, $$selfStore, $$error } = window.__INITIAL_STATE__
 
     // We initialize the store state with the data injected from the server
     if ($$stroe) store.replaceState($$stroe)
 
-    if ($$initialData) app.$$initialData = $$initialData
+    // Add `$$selfStore` to the root component instance
+    if ($$selfStore) app.$$selfStore = $$selfStore
 
     if ($$error) app.$$error = $$error
   }
 
   app.$mount('#_homo_')
-  // Avoid getting the same data twice on the server and client
-  app.$$resolved = true
+  // This is very important, it is used to avoid repeated data fetch,
+  // and must be after the `$mount()` function
+  clientPlugin.$$resolved = true
 })
