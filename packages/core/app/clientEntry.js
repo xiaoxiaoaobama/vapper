@@ -62,14 +62,16 @@ router.beforeResolve(async (to, from, next) => {
 })
 
 router.onReady(() => {
-  const { $$stroe, $$initialData, $$error } = window.__INITIAL_STATE__
+  if (window.__INITIAL_STATE__) {
+    const { $$stroe, $$initialData, $$error } = window.__INITIAL_STATE__
 
-  // We initialize the store state with the data injected from the server
-  if ($$stroe) store.replaceState($$stroe)
+    // We initialize the store state with the data injected from the server
+    if ($$stroe) store.replaceState($$stroe)
 
-  if ($$initialData) app.$$initialData = $$initialData
+    if ($$initialData) app.$$initialData = $$initialData
 
-  if ($$error) app.$$error = $$error
+    if ($$error) app.$$error = $$error
+  }
 
   app.$mount('#_homo_')
   // Avoid getting the same data twice on the server and client

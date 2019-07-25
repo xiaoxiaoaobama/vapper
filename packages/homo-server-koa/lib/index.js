@@ -29,8 +29,8 @@ module.exports = async function starter (homo) {
     })
   }
 
-  app.use(serve('public', { index: false }))
   app.use(serve('dist', { index: false }))
+  app.use(serve('public', { index: false }))
 
   app.use((ctx) => {
     ctx.status = 200
