@@ -11,6 +11,9 @@ exports.options = {
     index: false,
     maxAge: '1d'
   },
+  generate: {
+    routes: []
+  },
   serverBundleFileName: 'vue-ssr-server-bundle.json',
   clientManifestFileName: 'vue-ssr-client-manifest.json'
 }
@@ -24,6 +27,9 @@ exports.optionsSchema = Joi.object({
   h: Joi.string().ip(),
   logLevel: Joi.number().min(1).max(5),
   static: Joi.object(),
+  generate: Joi.object({
+    routes: Joi.array().items(Joi.string())
+  }),
   serverBundleFileName: Joi.string().regex(/^.+\.json$/),
   clientManifestFileName: Joi.string().regex(/^.+\.json$/)
 })

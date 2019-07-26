@@ -13,6 +13,15 @@ cli
   })
 
 cli
+  .command('generate', 'Generate pre-rendered html files')
+  .allowUnknownOptions()
+  .action(async flags => {
+    delete flags['--']
+    const homo = new Homo({ ...(flags || {}), mode: 'production' })
+    homo.generate()
+  })
+
+cli
   .command('dev', 'Start the development server')
   .allowUnknownOptions()
   .option('-p, --port <port>', 'Specify the port number')

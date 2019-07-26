@@ -1,6 +1,7 @@
 const EventEmitter = require('events')
 const webpack = require('webpack')
 const MemoryFS = require('memory-fs')
+const FS = require('fs')
 const pify = require('pify')
 const path = require('path')
 
@@ -94,12 +95,19 @@ class Builder extends EventEmitter {
 
   compiledHandler (type) {
     if (!type) return
+
     const {
       logger,
       options: { serverBundleFileName, clientManifestFileName }
     } = this.api
     const isServer = type === 'server'
-    const fs = isServer ? this.serverCompiler.outputFileSystem : this.devMiddleware.fileSystem
+    const fs = isServer
+      ? this.isProd
+        ? FS
+        : this.serverCompiler.outputFileSystem
+      : this.isProd
+        ? FS
+        : this.devMiddleware.fileSystem
     const fileName = isServer ? serverBundleFileName : clientManifestFileName
 
     const JSONContent = JSON.parse(
@@ -115,7 +123,6 @@ class Builder extends EventEmitter {
 
     if (this.serverBundle && this.clientManifest) {
       logger.debug('Server bundle and client manifest generated successfully')
-
       const result = {
         serverBundle: this.serverBundle,
         clientManifest: this.clientManifest

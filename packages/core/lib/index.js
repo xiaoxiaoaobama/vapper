@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 const path = require('path')
 const serveStatic = require('serve-static')
 const compression = require('compression')
@@ -85,6 +85,27 @@ class Homo extends PluginApi {
     this.hotMiddleware = this.builder.hotMiddleware
   }
 
+  async generate () {
+    const { routes } = this.options.generate
+
+    await this.build()
+    await this.setup()
+
+    await Promise.all(routes.map(async (route) => {
+      const html = await this.renderHTML({
+        url: route
+      })
+      if (route.startsWith('/')) route = route.slice(1)
+
+      const fileName = `${route}.html`
+
+      this.logger.debug(`Generate pre-rendered html files: ${fileName}`)
+
+      await fs.ensureFile(this.resolveOut(fileName))
+      await fs.outputFile(this.resolveOut(fileName), html)
+    }))
+  }
+
   async render (req, res) {
     const originalUrl = req.url
     const hasExt = path.extname(originalUrl)
@@ -114,7 +135,7 @@ class Homo extends PluginApi {
 
     let html
     try {
-      html = await this.renderToString({
+      html = await this.renderHTML({
         url: req.url
       })
     } catch (err) {
@@ -138,7 +159,7 @@ class Homo extends PluginApi {
     res.end(html)
   }
 
-  renderToString (context) {
+  renderHTML (context) {
     return new Promise(
       (resolve, reject) => {
         this.renderer.renderToString(context, (err, html) => {
