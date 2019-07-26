@@ -1,5 +1,8 @@
 const fs = require('fs')
 const path = require('path')
+const serveStatic = require('serve-static')
+const finalhandler = require('finalhandler')
+const merge = require('lodash.merge')
 const { createBundleRenderer } = require('vue-server-renderer')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
@@ -10,7 +13,7 @@ class Homo extends PluginApi {
     super()
     this.defaultOptions = defaultOptions
     this.optionsSchema = optionsSchema
-    this.options = Object.assign(
+    this.options = merge(
       {},
       defaultOptions,
       this.loadConfig(),
@@ -82,9 +85,28 @@ class Homo extends PluginApi {
   }
 
   async render (req, res) {
+    const originalUrl = req.url
+    const hasExt = path.extname(originalUrl)
+
     if (!this.isProd) {
       this.devMiddleware && await this.devMiddleware(req, res)
       this.hotMiddleware && await this.hotMiddleware(req, res)
+    }
+
+    // FIX: Treat URLs with extensions as requests for static resources?
+    if (hasExt) {
+      req.url = originalUrl.replace(/^\/_homo_/, '')
+
+      this.logger.debug(`
+        proxy: ${originalUrl}
+        to: ${req.url}
+      `)
+
+      this.isProd
+        ? serveStatic('dist', this.options.static)(req, res, finalhandler(req, res))
+        : serveStatic('public', this.options.static)(req, res, finalhandler(req, res))
+
+      return
     }
 
     let html
@@ -96,10 +118,9 @@ class Homo extends PluginApi {
       if (err.code === 'FALLBACK_SPA') {
         this.logger.debug(`Fall back SPA mode, url is: ${req.url}`)
         if (this.isProd) {
-          html = fs.readFileSync(
-            this.resolveOut(this.builder.clientWebpackConfig.output.path, 'index.html'),
-            'utf-8'
-          )
+          req.url = '/index.html'
+          serveStatic('dist', this.options.static)(req, res, finalhandler(req, res))
+          return
         } else {
           req.url = '/_homo_/index.html'
           html = this.devMiddleware.fileSystem.readFileSync(

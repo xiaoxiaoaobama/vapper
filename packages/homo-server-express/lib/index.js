@@ -11,25 +11,6 @@ module.exports = async function starter (homo) {
 
   await homo.setup()
 
-  if (homo.isProd) {
-    app.get('/_homo_/*', (req, res, ...args) => {
-      const originalUrl = req.url
-      req.url = originalUrl.replace(/^\/_homo_/, '')
-
-      homo.logger.debug(`
-        proxy: ${originalUrl}
-        to: ${req.url}
-      `)
-
-      express.static('dist', {
-        dotfiles: 'allow',
-        index: false
-      })(req, res, ...args)
-    })
-  }
-
-  app.use(express.static('public', { index: false }))
-
   app.get('*', (req, res) => {
     homo.render(req, res)
   })

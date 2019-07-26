@@ -6,6 +6,11 @@ exports.options = {
   port: 4000,
   host: '0.0.0.0',
   logLevel: 5,
+  static: {
+    dotfiles: 'allow',
+    index: false,
+    maxAge: '1d'
+  },
   serverBundleFileName: 'vue-ssr-server-bundle.json',
   clientManifestFileName: 'vue-ssr-client-manifest.json'
 }
@@ -16,6 +21,7 @@ exports.optionsSchema = Joi.object({
   port: Joi.number(),
   host: Joi.string().ip(),
   logLevel: Joi.number().min(1).max(5),
+  static: Joi.object(),
   serverBundleFileName: Joi.string().regex(/^.+\.json$/),
   clientManifestFileName: Joi.string().regex(/^.+\.json$/)
 })
