@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const serveStatic = require('serve-static')
+const compression = require('compression')
 const finalhandler = require('finalhandler')
 const merge = require('lodash.merge')
 const { createBundleRenderer } = require('vue-server-renderer')
@@ -92,6 +93,8 @@ class Homo extends PluginApi {
       this.devMiddleware && await this.devMiddleware(req, res)
       this.hotMiddleware && await this.hotMiddleware(req, res)
     }
+
+    compression()(req, res, () => {})
 
     // FIX: Treat URLs with extensions as requests for static resources?
     if (hasExt) {
