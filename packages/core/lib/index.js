@@ -3,6 +3,7 @@ const path = require('path')
 const serveStatic = require('serve-static')
 const compression = require('compression')
 const finalhandler = require('finalhandler')
+const { minify } = require('html-minifier')
 const merge = require('lodash.merge')
 const { createBundleRenderer } = require('vue-server-renderer')
 const PluginApi = require('./PluginApi')
@@ -178,11 +179,23 @@ class Homo extends PluginApi {
   }
 
   renderHTML (context) {
+    let htmlMinifier = this.options.htmlMinifier
+    htmlMinifier = htmlMinifier === true
+      ? {
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+        minifyCSS: true
+      }
+      : htmlMinifier
+
     return new Promise(
       (resolve, reject) => {
         this.renderer.renderToString(context, (err, html) => {
           if (err) reject(err)
-          resolve(html)
+          resolve(htmlMinifier ? minify(html, htmlMinifier) : html)
         })
       }
     )
