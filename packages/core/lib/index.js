@@ -129,8 +129,8 @@ class Homo extends PluginApi {
     const hasExt = path.extname(req.url)
 
     if (!this.isProd) {
-      this.devMiddleware && await this.devMiddleware(req, res)
-      this.hotMiddleware && await this.hotMiddleware(req, res)
+      await this.devMiddleware(req, res)
+      await this.hotMiddleware(req, res)
     }
 
     compression()(req, res, () => {})

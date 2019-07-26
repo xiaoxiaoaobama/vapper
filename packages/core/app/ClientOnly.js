@@ -1,5 +1,5 @@
 export default {
-  name: 'homo-no-ssr',
+  name: 'ClientOnly',
   mounted () {
     this.already = true
     this.$forceUpdate()
