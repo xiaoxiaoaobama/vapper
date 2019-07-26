@@ -65,6 +65,8 @@ class Homo extends PluginApi {
   }
 
   async build () {
+    await fs.remove(this.resolveOut('.'))
+
     if (this.isProd) {
       await this.builder.run()
       return
@@ -95,9 +97,7 @@ class Homo extends PluginApi {
       const html = await this.renderHTML({
         url: route
       })
-      if (route.startsWith('/')) route = route.slice(1)
-
-      const fileName = `${route}.html`
+      const fileName = this.urlToFileName(route)
 
       this.logger.debug(`Generate pre-rendered html files: ${fileName}`)
 
@@ -106,9 +106,27 @@ class Homo extends PluginApi {
     }))
   }
 
+  urlToFileName (url) {
+    return url.endsWith('/')
+      ? url.slice(1) + 'index.html'
+      : url.slice(1) + '.html'
+  }
+
   async render (req, res) {
     const originalUrl = req.url
-    const hasExt = path.extname(originalUrl)
+
+    // Serve pre-rendered html file
+    const { generate } = this.options
+    if (
+      generate &&
+      generate.routes &&
+      generate.routes.length &&
+      generate.routes.includes(originalUrl)
+    ) {
+      req.url = this.urlToFileName(originalUrl)
+    }
+
+    const hasExt = path.extname(req.url)
 
     if (!this.isProd) {
       this.devMiddleware && await this.devMiddleware(req, res)
@@ -119,7 +137,7 @@ class Homo extends PluginApi {
 
     // FIX: Treat URLs with extensions as requests for static resources?
     if (hasExt) {
-      req.url = originalUrl.replace(/^\/_homo_/, '')
+      req.url = req.url.replace(/^\/_homo_/, '')
 
       this.logger.debug(`
         proxy: ${originalUrl}

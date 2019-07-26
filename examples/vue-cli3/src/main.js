@@ -24,9 +24,16 @@ export default function createApp () {
         path: '/about',
         component: () => import('./components/About.vue'),
         meta: {
-          ssr: true
+          ssr: false
         }
       },
+      {
+        path: '/foo/bar',
+        component: () => import('./components/About.vue'),
+        meta: {
+          ssr: true
+        }
+      }
     ]
   })
 

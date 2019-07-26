@@ -1,5 +1,5 @@
 module.exports = {
   generate: {
-    routes: ['/about']
+    routes: ['/foo/bar']
   }
 }

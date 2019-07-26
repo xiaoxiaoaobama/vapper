@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "homo dev",
     "build": "homo build",
-    "start": "homo start"
+    "start": "homo start",
+    "generate": "homo generate"
   },
   "dependencies": {
     "@homo/server-koa": "^0.1.0",
