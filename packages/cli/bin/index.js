@@ -16,6 +16,7 @@ cli
   .command('dev', 'Start the development server')
   .allowUnknownOptions()
   .option('-p, --port <port>', 'Specify the port number')
+  .option('-h, --host <host>', 'Specify the host')
   .action(async flags => {
     delete flags['--']
     const homo = new Homo({ ...(flags || {}), mode: 'development' })
@@ -27,6 +28,7 @@ cli
   .command('start', 'Start the production server')
   .allowUnknownOptions()
   .option('-p, --port <port>', 'Specify the port number')
+  .option('-h, --host <host>', 'Specify the host')
   .action(async flags => {
     delete flags['--']
     const homo = new Homo({ ...(flags || {}), mode: 'production' })
