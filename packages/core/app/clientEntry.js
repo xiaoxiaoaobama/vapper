@@ -52,7 +52,10 @@ router.beforeResolve(async (to, from, next) => {
 })
 
 router.onReady(() => {
+  // In poi, when we fall back to spa mode,
+  // the html page doesn't include `#_home_`, so use `#app`
   const el = document.querySelector('#_homo_') || document.querySelector('#app')
+
   if (window.__INITIAL_STATE__) {
     const { $$stroe, $$selfStore, $$error } = window.__INITIAL_STATE__
 

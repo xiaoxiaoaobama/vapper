@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "build": "homo build",
-    "dev": "homo dev"
+    "dev": "homo dev",
+    "start": "homo start",
+    "generate": "homo generate"
   },
   "dependencies": {
     "vue": "^2.6.10",

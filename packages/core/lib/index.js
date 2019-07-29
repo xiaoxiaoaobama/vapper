@@ -182,16 +182,19 @@ class Homo extends PluginApi {
 
   renderHTML (context) {
     let htmlMinifier = this.options.htmlMinifier
-    htmlMinifier = htmlMinifier === true
-      ? {
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true,
-        minifyCSS: true
-      }
-      : htmlMinifier
+    htmlMinifier =
+      this.isProd
+        ? htmlMinifier === true
+          ? {
+            collapseWhitespace: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            useShortDoctype: true,
+            minifyCSS: true
+          }
+          : htmlMinifier
+        : {}
 
     return new Promise(
       (resolve, reject) => {

@@ -14,7 +14,7 @@ export default {
       res: ''
     }
   },
-  name: 'app',
+  name: 'App',
   async created() {
     const fetchName = this.$createFetcher(fetch)
     this.res = await fetchName()
