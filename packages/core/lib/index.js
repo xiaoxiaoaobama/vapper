@@ -8,6 +8,7 @@ const merge = require('lodash.merge')
 const { createBundleRenderer } = require('vue-server-renderer')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
+const Builder = require('./Builder')
 const { options: defaultOptions, optionsSchema } = require('./options')
 
 class Homo extends PluginApi {
@@ -37,7 +38,7 @@ class Homo extends PluginApi {
       }
     }
 
-    this.builder = this.loadBuilder()
+    this.builder = new Builder(this)
 
     this.serverBundle = null
     this.clientManifest = null
@@ -194,7 +195,10 @@ class Homo extends PluginApi {
     return new Promise(
       (resolve, reject) => {
         this.renderer.renderToString(context, (err, html) => {
-          if (err) reject(err)
+          if (err) {
+            reject(err)
+            return
+          }
           resolve(htmlMinifier ? minify(html, htmlMinifier) : html)
         })
       }
@@ -207,26 +211,6 @@ class Homo extends PluginApi {
       template: this.template,
       clientManifest
     })
-  }
-
-  loadBuilder () {
-    const builderRE = /^(@homo\/|homo-|@[\w-]+\/homo-)builder-/
-    const builders = this.loadDependencies(builderRE)
-
-    let Builder
-
-    if (!builders.length) {
-      this.logger.debug(`You have not installed any builder, ` +
-        'will use the default builder: `@homo/builder-vue-cli`'
-      )
-      Builder = require('@homo/builder-vue-cli')
-    } else {
-      this.logger.debug(`Find builder: \`${builders[0]}\``)
-      // Only care about the first found builder
-      Builder = require(builders[0])
-    }
-
-    return new Builder(this)
   }
 
   loadServerStarter () {

@@ -1,0 +1,17 @@
+{
+  "name": "poi",
+  "private": true,
+  "scripts": {
+    "build": "homo build",
+    "dev": "homo dev"
+  },
+  "dependencies": {
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.7"
+  },
+  "devDependencies": {
+    "@homo/configer-poi": "^0.1.0",
+    "poi": "^12.4.2",
+    "vue-template-compiler": "^2.6.10"
+  }
+}

@@ -28,19 +28,6 @@ module.exports = (api) => {
             filename: api.options.serverBundleFileName
           }])
 
-        config.plugin('constants')
-          .tap(args => {
-            return [
-              {
-                ...args,
-                'process.server': true,
-                'process.client': false,
-                __DEV__: !this.isProd
-                // __PUBLIC_PATH__: JSON.stringify(publicPath)
-              }
-            ]
-          })
-
         // Fix mini-css-extract-plugin error on server:
         // https://github.com/Akryum/vue-cli-plugin-ssr/commit/806418e35d3949686777734a3ecd35e3d8bafc2c#diff-dcad1e1d8aa8e615b1ac7e7d74d54282
         const langs = ['css', 'postcss', 'scss', 'sass', 'less', 'stylus']

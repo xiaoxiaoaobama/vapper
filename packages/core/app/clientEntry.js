@@ -52,6 +52,7 @@ router.beforeResolve(async (to, from, next) => {
 })
 
 router.onReady(() => {
+  const el = document.querySelector('#_homo_') || document.querySelector('#app')
   if (window.__INITIAL_STATE__) {
     const { $$stroe, $$selfStore, $$error } = window.__INITIAL_STATE__
 
@@ -63,13 +64,13 @@ router.onReady(() => {
 
     if ($$error) app.$$error = $$error
 
-    app.$mount('#_homo_')
+    app.$mount(el)
     // This is very important, it is used to avoid repeated data fetch,
     // and must be after the `$mount()` function
     clientPlugin.$$resolved = true
   } else {
     // fallback SPA mode
     clientPlugin.$$resolved = true
-    app.$mount('#_homo_')
+    app.$mount(el)
   }
 })

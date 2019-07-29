@@ -1,6 +1,6 @@
 const Service = require('@vue/cli-service')
 
-module.exports = class VueCliService {
+module.exports = class Configer {
   constructor (api) {
     const { options } = api
 

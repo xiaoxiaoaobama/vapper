@@ -27,19 +27,6 @@ module.exports = (api) => {
           config
             .plugin('hmr').use(webpack.HotModuleReplacementPlugin)
         }
-
-        config.plugin('constants')
-          .tap(args => {
-            return [
-              {
-                ...args,
-                'process.server': false,
-                'process.client': true,
-                __DEV__: !this.isProd
-                // __PUBLIC_PATH__: JSON.stringify(publicPath)
-              }
-            ]
-          })
       })
     }
   }

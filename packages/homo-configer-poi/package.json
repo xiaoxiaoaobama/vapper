@@ -1,0 +1,9 @@
+{
+  "name": "@homo/configer-poi",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "poi": "^12.7.1"
+  }
+}

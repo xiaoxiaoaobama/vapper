@@ -35,16 +35,6 @@ module.exports = (api) => {
           ])
 
         config
-          .plugin('constants')
-          .use(webpack.DefinePlugin, [
-            {
-              'process.env.NODE_ENV': JSON.stringify(
-                this.isProd ? 'production' : 'development'
-              )
-            }
-          ])
-
-        config
           .plugin('Progress')
           .use(webpack.ProgressPlugin, [
             {
