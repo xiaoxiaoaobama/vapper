@@ -120,6 +120,7 @@ class Homo extends PluginApi {
     // Serve pre-rendered html file
     const { generate } = this.options
     if (
+      this.isProd &&
       generate &&
       generate.routes &&
       generate.routes.length &&
