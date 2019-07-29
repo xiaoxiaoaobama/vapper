@@ -1,7 +1,5 @@
 const Poi = require('poi')
-const webpackBaseConfig = require('./webpackBase')
-const webpackClientConfig = require('./webpackClient')
-const webpackServerConfig = require('./webpackServer')
+const webpackConfig = require('@homo/webpack-config')
 
 module.exports = class Configer {
   constructor (api) {
@@ -15,15 +13,15 @@ module.exports = class Configer {
 
   getServerConfig () {
     const config = this.poi.createWebpackChain({ mode: this.mode })
-    webpackBaseConfig(this.api, config)
-    webpackServerConfig(this.api, config)
+    webpackConfig.base(this.api, config)
+    webpackConfig.server(this.api, config)
     return config.toConfig()
   }
 
   getClientConfig () {
     const config = this.poi.createWebpackChain({ mode: this.mode })
-    webpackBaseConfig(this.api, config)
-    webpackClientConfig(this.api, config)
+    webpackConfig.base(this.api, config)
+    webpackConfig.client(this.api, config)
     return config.toConfig()
   }
 }

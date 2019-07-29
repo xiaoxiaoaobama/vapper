@@ -1,29 +1,13 @@
 const webpack = require('webpack')
 const ProgressBar = require('./ProgressBar')
+const webpackConfig = require('@homo/webpack-config')
 
 module.exports = (api) => {
   return {
     id: 'vue-cli-plugin-homo-webpack-base',
     apply: (vueCliapi) => {
       vueCliapi.chainWebpack(config => {
-        config.resolve.alias
-          .set('#entry$', api.resolveCWD(api.options.entry))
-
-        config.module
-          .rule('vue')
-          .use('vue-loader')
-          .loader('vue-loader')
-          .tap(args => {
-            return {
-              ...args,
-              optimizeSSR: false
-            }
-          })
-
-        config.module
-          .rule('eslint')
-          .exclude
-          .add(api.resolveCore('.'))
+        webpackConfig.base(api, config)
 
         config
           .plugin('PrintStatusPlugin')

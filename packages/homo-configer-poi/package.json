@@ -4,6 +4,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
+    "@homo/webpack-config": "^0.1.0",
     "poi": "^12.7.1"
   }
 }
