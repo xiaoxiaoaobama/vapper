@@ -15,7 +15,7 @@ module.exports = async function starter (homo) {
   app.use((ctx) => {
     ctx.status = 200
     ctx.respond = false
-    homo.render(ctx.req, ctx.res)
+    homo.handler(ctx.req, ctx.res)
   })
 
   app.listen(port, host, () => homo.logger.info(`Server running at: http://${host}:${port}`))

@@ -11,9 +11,7 @@ module.exports = async function starter (homo) {
 
   await homo.setup()
 
-  app.get('*', (req, res) => {
-    homo.render(req, res)
-  })
+  app.get('*', homo.handler)
 
   app.listen(port, host, () => homo.logger.info(`Server running at: http://${host}:${port}`))
 }

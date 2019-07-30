@@ -2,7 +2,6 @@ const EventEmitter = require('events')
 const webpack = require('webpack')
 const MemoryFS = require('memory-fs')
 const FS = require('fs')
-const pify = require('pify')
 const path = require('path')
 
 /**
@@ -71,19 +70,14 @@ class Builder extends EventEmitter {
     if (this.isProd) {
       this.clientCompiler.run()
     } else {
-      this.devMiddleware = pify(
-        require('webpack-dev-middleware')(this.clientCompiler, {
-          publicPath: this.clientWebpackConfig.output.publicPath,
-          logLevel: 'silent',
-          noInfo: true
-        }),
-        { exclude: ['getFilenameFromUrl'] }
-      )
-      this.hotMiddleware = pify(
-        require('webpack-hot-middleware')(this.clientCompiler, {
-          log: false
-        })
-      )
+      this.devMiddleware = require('webpack-dev-middleware')(this.clientCompiler, {
+        publicPath: this.clientWebpackConfig.output.publicPath,
+        logLevel: 'silent',
+        noInfo: true
+      })
+      this.hotMiddleware = require('webpack-hot-middleware')(this.clientCompiler, {
+        log: false
+      })
     }
 
     this.clientCompiler.hooks.done.tap('@homo-builder-vue-cli', () => {

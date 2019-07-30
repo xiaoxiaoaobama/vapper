@@ -1,19 +1,22 @@
 const fs = require('fs-extra')
 const path = require('path')
-const serveStatic = require('serve-static')
+const connect = require('connect')
 const compression = require('compression')
-const finalhandler = require('finalhandler')
 const { minify } = require('html-minifier')
 const merge = require('lodash.merge')
 const { createBundleRenderer } = require('vue-server-renderer')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
 const Builder = require('./Builder')
+const serveStaticMiddleware = require('./middlewares/serveStatic')
+const fallbackSpaMiddleware = require('./middlewares/fallbackSpa')
 const { options: defaultOptions, optionsSchema } = require('./options')
 
 class Homo extends PluginApi {
   constructor (options) {
     super()
+    this.app = connect()
+
     this.defaultOptions = defaultOptions
     this.optionsSchema = optionsSchema
     this.options = merge(
@@ -51,6 +54,10 @@ class Homo extends PluginApi {
     this.hotMiddleware = null
   }
 
+  get handler () {
+    return this.app
+  }
+
   async setup () {
     if (this.isProd) {
       const serverBundle = JSON.parse(
@@ -64,6 +71,16 @@ class Homo extends PluginApi {
     } else {
       await this.build()
     }
+
+    // install middleware
+    this.app.use(compression())
+    if (!this.isProd) {
+      this.app.use(this.devMiddleware)
+      this.app.use(this.hotMiddleware)
+    }
+    this.app.use(serveStaticMiddleware(this))
+    this.app.use(this.render.bind(this))
+    this.app.use(fallbackSpaMiddleware(this))
   }
 
   async build () {
@@ -114,70 +131,17 @@ class Homo extends PluginApi {
       : url.slice(1) + '.html'
   }
 
-  async render (req, res) {
-    const originalUrl = req.url
-
-    // Serve pre-rendered html file
-    const { generate } = this.options
-    if (
-      this.isProd &&
-      generate &&
-      generate.routes &&
-      generate.routes.length &&
-      generate.routes.includes(originalUrl)
-    ) {
-      req.url = this.urlToFileName(originalUrl)
-    }
-
-    const hasExt = path.extname(req.url)
-
-    if (!this.isProd) {
-      await this.devMiddleware(req, res)
-      await this.hotMiddleware(req, res)
-    }
-
-    compression()(req, res, () => {})
-
-    // FIX: Treat URLs with extensions as requests for static resources?
-    if (hasExt) {
-      req.url = req.url.replace(/^\/_homo_/, '')
-
-      this.logger.debug(`
-        proxy: ${originalUrl}
-        to: ${req.url}
-      `)
-
-      this.isProd
-        ? serveStatic('dist', this.options.static)(req, res, finalhandler(req, res))
-        : serveStatic('public', this.options.static)(req, res, finalhandler(req, res))
-
-      return
-    }
-
+  async render (req, res, next) {
     let html
     try {
       html = await this.renderHTML({
         url: req.url
       })
+      res.setHeader('Content-Type', 'text/html; charset=UTF-8')
+      res.end(html)
     } catch (err) {
-      if (err.code === 'FALLBACK_SPA') {
-        this.logger.debug(`Fall back SPA mode, url is: ${req.url}`)
-        if (this.isProd) {
-          req.url = '/index.html'
-          serveStatic('dist', this.options.static)(req, res, finalhandler(req, res))
-          return
-        } else {
-          req.url = '/_homo_/index.html'
-          html = this.devMiddleware.fileSystem.readFileSync(
-            this.devMiddleware.getFilenameFromUrl(req.url),
-            'utf-8'
-          )
-        }
-      }
+      next(err)
     }
-
-    res.setHeader('Content-Type', 'text/html; charset=UTF-8')
-    res.end(html)
   }
 
   renderHTML (context) {
