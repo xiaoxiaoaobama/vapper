@@ -1,7 +1,21 @@
 #!/usr/bin/env node
 
-const cli = require('cac')()
 const Homo = require('@homo/core')
+const cli = Homo.cli
+
+const pluginApi = new Homo.PluginApi()
+
+const config = pluginApi.loadConfig()
+if (config && config.plugins) {
+  ;(config.plugins || [])
+    .forEach(plugin => {
+      if (typeof plugin.CLI === 'function') {
+        plugin.CLI(Homo)
+      } else if (Array.isArray(plugin)) {
+        plugin[0].CLI(Homo, plugin[0])
+      }
+    })
+}
 
 cli
   .command('build', 'Build the project for the production environment')
@@ -10,15 +24,6 @@ cli
     delete flags['--']
     const homo = new Homo({ ...(flags || {}), mode: 'production' })
     homo.build()
-  })
-
-cli
-  .command('generate', 'Generate pre-rendered html files')
-  .allowUnknownOptions()
-  .action(async flags => {
-    delete flags['--']
-    const homo = new Homo({ ...(flags || {}), mode: 'production' })
-    homo.generate()
   })
 
 cli

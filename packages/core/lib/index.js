@@ -1,5 +1,6 @@
 const fs = require('fs-extra')
 const path = require('path')
+const cac = require('cac')()
 const connect = require('connect')
 const compression = require('compression')
 const { minify } = require('html-minifier')
@@ -16,6 +17,7 @@ class Homo extends PluginApi {
   constructor (options) {
     super()
     this.app = connect()
+    this.cli = cac
 
     this.defaultOptions = defaultOptions
     this.optionsSchema = optionsSchema
@@ -52,6 +54,8 @@ class Homo extends PluginApi {
     // Development only
     this.devMiddleware = null
     this.hotMiddleware = null
+
+    this.initPlugins()
   }
 
   get handler () {
@@ -79,6 +83,9 @@ class Homo extends PluginApi {
       this.app.use(this.hotMiddleware)
     }
     this.app.use(serveStaticMiddleware(this))
+    for (const m of this.middlewares) {
+      this.app.use(m)
+    }
     this.app.use(this.render.bind(this))
     this.app.use(fallbackSpaMiddleware(this))
   }
@@ -104,31 +111,6 @@ class Homo extends PluginApi {
 
     this.devMiddleware = this.builder.devMiddleware
     this.hotMiddleware = this.builder.hotMiddleware
-  }
-
-  async generate () {
-    const { routes } = this.options.generate
-
-    await this.build()
-    await this.setup()
-
-    await Promise.all(routes.map(async (route) => {
-      const html = await this.renderHTML({
-        url: route
-      })
-      const fileName = this.urlToFileName(route)
-
-      this.logger.debug(`Generate pre-rendered html files: ${fileName}`)
-
-      await fs.ensureFile(this.resolveOut(fileName))
-      await fs.outputFile(this.resolveOut(fileName), html)
-    }))
-  }
-
-  urlToFileName (url) {
-    return url.endsWith('/')
-      ? url.slice(1) + 'index.html'
-      : url.slice(1) + '.html'
   }
 
   async render (req, res, next) {
@@ -181,6 +163,18 @@ class Homo extends PluginApi {
     })
   }
 
+  initPlugins () {
+    // const plugins = this.loadDependencies()
+
+    ;(this.options.plugins || []).forEach(plugin => {
+      if (typeof plugin === 'function') {
+        plugin.call(this, this)
+      } else if (Array.isArray(plugin)) {
+        plugin[0].call(this, this, plugin[1])
+      }
+    })
+  }
+
   loadServerStarter () {
     const serverStarterRE = /^(@homo\/|homo-|@[\w-]+\/homo-)server-/
     const starters = this.loadDependencies(serverStarterRE)
@@ -217,4 +211,7 @@ class Homo extends PluginApi {
 }
 
 Homo.defaultOptions = defaultOptions
+Homo.cli = cac
+Homo.PluginApi = PluginApi
+
 module.exports = Homo

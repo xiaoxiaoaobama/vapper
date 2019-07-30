@@ -3,8 +3,12 @@ const fs = require('fs')
 
 class PluginApi {
   constructor () {
+    // path
     this.cwd = process.cwd()
     this.corePath = path.resolve(__dirname, '../')
+
+    // server middlewares
+    this.middlewares = new Set()
   }
 
   /**
@@ -47,6 +51,10 @@ class PluginApi {
 
   validateOptions (schema, options) {
     return schema.validate(options)
+  }
+
+  use (fn) {
+    this.middlewares.add(fn)
   }
 }
 

@@ -6,18 +6,6 @@ module.exports = (api) => {
   return (req, res, next) => {
     const originalUrl = req.url
 
-    // Serve pre-rendered html file
-    const { generate } = api.options
-    if (
-      api.isProd &&
-      generate &&
-      generate.routes &&
-      generate.routes.length &&
-      generate.routes.includes(originalUrl)
-    ) {
-      req.url = api.urlToFileName(originalUrl)
-    }
-
     // FIX: Treat URLs with extensions as requests for static resources?
     const hasExt = path.extname(req.url)
     if (hasExt) {

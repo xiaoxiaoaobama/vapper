@@ -7,6 +7,7 @@
     "@hapi/joi": "^15.1.0",
     "@homo/configer-vue-cli": "^0.1.0",
     "@homo/server-express": "^0.1.0",
+    "cac": "^6.5.2",
     "compression": "^1.7.4",
     "connect": "^3.7.0",
     "finalhandler": "^1.1.2",
