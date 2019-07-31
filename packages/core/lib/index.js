@@ -93,11 +93,11 @@ class Homo extends PluginApi {
       this.app.use(this.hotMiddleware)
     }
     this.app.use(serveStaticMiddleware(this))
+    this.app.use(fallbackSpaMiddleware(this))
     for (const m of this.middlewares) {
       this.app.use(m)
     }
     this.app.use(this.render.bind(this))
-    this.app.use(fallbackSpaMiddleware(this))
   }
 
   async build () {

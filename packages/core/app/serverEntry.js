@@ -31,13 +31,6 @@ export default async context => {
       code: 404,
       message: 'Page Not Found'
     })
-  } else {
-    const routeMeta = router.currentRoute.meta
-    if (!routeMeta.ssr) {
-      throw new HomoError({
-        code: 'FALLBACK_SPA'
-      })
-    }
   }
 
   // Add helpers

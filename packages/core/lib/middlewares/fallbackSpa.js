@@ -2,8 +2,9 @@ const serveStatic = require('serve-static')
 const finalhandler = require('finalhandler')
 
 module.exports = (api) => {
-  return (err, req, res, next) => {
-    if (err.code === 'FALLBACK_SPA') {
+  return (req, res, next) => {
+    const meta = api.getRouteMeta(req.url)
+    if (!meta.ssr) {
       api.logger.debug(`Fall back SPA mode, url is: ${req.url}`)
       if (api.isProd) {
         req.url = '/index.html'
@@ -20,6 +21,6 @@ module.exports = (api) => {
       return
     }
 
-    next(err)
+    next()
   }
 }
