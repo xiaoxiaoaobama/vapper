@@ -9,6 +9,8 @@ class PluginApi {
 
     // server middlewares
     this.middlewares = new Set()
+
+    this.hooks = new Map()
   }
 
   /**
@@ -62,6 +64,22 @@ class PluginApi {
     const res = this.router.resolve(location)
     if (!res.resolved.matched.length) return null
     return res.resolved.meta
+  }
+
+  hookInto (name, fn) {
+    const has = this.hooks.has(name)
+    if (!has) this.hooks.set(name, new Set())
+    const hooks = this.hooks.get(name)
+    hooks.add(fn)
+  }
+
+  invokeHook (name, ...args) {
+    const has = this.hooks.has(name)
+    if (!has) return
+    const hooks = this.hooks.get(name)
+    for (const h of hooks) {
+      h(...args)
+    }
   }
 }
 

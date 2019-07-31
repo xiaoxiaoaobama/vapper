@@ -66,6 +66,8 @@ class Homo extends PluginApi {
   }
 
   async setup () {
+    this.invokeHook('before:setup')
+
     if (this.isProd) {
       const serverBundle = JSON.parse(
         fs.readFileSync(this.resolveOut(this.options.serverBundleFileName), 'utf-8')
@@ -98,6 +100,8 @@ class Homo extends PluginApi {
       this.app.use(m)
     }
     this.app.use(this.render.bind(this))
+
+    this.invokeHook('after:setup')
   }
 
   async build () {
@@ -116,7 +120,7 @@ class Homo extends PluginApi {
 
     this.builder.on('change', ({ serverBundle, clientManifest }) => {
       this.renderer = this.createRenderer({ serverBundle, clientManifest })
-      this.logger.debug('Renderer re-created')
+      this.logger.debug('Renderer updated')
     })
 
     this.devMiddleware = this.builder.devMiddleware
@@ -124,11 +128,14 @@ class Homo extends PluginApi {
   }
 
   async render (req, res, next) {
+    this.invokeHook('before:render')
     let html
     try {
       html = await this.renderHTML({
         url: req.url
       })
+
+      this.invokeHook('after:render')
       res.setHeader('Content-Type', 'text/html; charset=UTF-8')
       res.end(html)
     } catch (err) {
