@@ -27,6 +27,7 @@ module.exports = (api, options) => {
   api.use((req, res, next) => {
     // Serve pre-rendered html file
     const originalUrl = req.url
+    console.log(api.getRouteMeta(req.url))
     if (
       api.isProd &&
       routes &&

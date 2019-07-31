@@ -9,8 +9,7 @@
     "generate": "homo generate"
   },
   "dependencies": {
-    "@homo/server-koa": "^0.1.0",
-    "@homo/plugin-static-generate": "^0.1.0",
+    "@homo/plugin-prerender": "^0.1.0",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
     "koa": "^2.7.0",

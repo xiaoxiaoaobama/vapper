@@ -1,5 +1,5 @@
 {
-  "name": "@homo/plugin-static-generate",
+  "name": "@homo/plugin-prerender",
   "version": "0.1.0",
   "main": "lib/index.js",
   "license": "MIT",

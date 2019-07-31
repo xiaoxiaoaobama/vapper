@@ -55,6 +55,9 @@ class Homo extends PluginApi {
     this.devMiddleware = null
     this.hotMiddleware = null
 
+    // When `setup` is complete, it is an instance of vue-router
+    this.router = null
+
     this.initPlugins()
   }
 
@@ -74,6 +77,13 @@ class Homo extends PluginApi {
       this.renderer = this.createRenderer({ serverBundle, clientManifest })
     } else {
       await this.build()
+    }
+
+    // Get the vue-router instance
+    try {
+      await this.renderHTML({ fake: true })
+    } catch (err) {
+      this.router = err.router
     }
 
     // install middleware

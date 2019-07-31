@@ -56,6 +56,13 @@ class PluginApi {
   use (fn) {
     this.middlewares.add(fn)
   }
+
+  getRouteMeta (location) {
+    if (!this.router) return null
+    const res = this.router.resolve(location)
+    if (!res.resolved.matched.length) return null
+    return res.resolved.meta
+  }
 }
 
 module.exports = PluginApi

@@ -9,6 +9,13 @@ export default async context => {
   Vue.use(serverPlugin)
   const { app, router, store } = createApp()
 
+  // This is a fake rendering in the `setup` to get the router instance
+  if (context.fake) {
+    throw new HomoError({
+      router
+    })
+  }
+
   router.push(context.url)
 
   // Waiting for the route to be ready

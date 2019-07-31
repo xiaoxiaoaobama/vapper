@@ -1,9 +1,9 @@
-const staticGenerate = require('@homo/plugin-static-generate')
+const prerender = require('@homo/plugin-prerender')
 
 module.exports = {
   plugins: [
     [
-      staticGenerate,
+      prerender,
       {
         routes: ['/foo/bar']
       }
