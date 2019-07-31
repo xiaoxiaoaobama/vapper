@@ -1,6 +1,9 @@
 {
   "name": "@homo/core",
   "version": "0.1.0",
+  "bin": {
+    "homo": "bin/cli.js"
+  },
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {

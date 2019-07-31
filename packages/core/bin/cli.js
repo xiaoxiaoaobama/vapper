@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const Homo = require('@homo/core')
+const Homo = require('../lib')
 const cli = Homo.cli
 
 const pluginApi = new Homo.PluginApi()
