@@ -21,7 +21,7 @@
     "serve-static": "^1.14.1",
     "vue-meta": "^2.0.5",
     "vue-server-renderer": "^2.6.10",
-    "vue-ssr-prefetcher": "^0.3.0",
+    "vue-ssr-prefetcher": "^0.4.0",
     "webpack": "^4.38.0",
     "webpack-dev-middleware": "^3.7.0",
     "webpack-hot-middleware": "^2.25.0"

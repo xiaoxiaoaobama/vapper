@@ -4,7 +4,7 @@ import createApp from './createApp'
 import { redirect } from './redirect'
 import HomoError from './HomoError'
 
-Vue.use(clientPlugin, { stop: false })
+Vue.use(clientPlugin)
 
 const { app, router, store } = createApp()
 

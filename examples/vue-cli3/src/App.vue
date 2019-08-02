@@ -1,24 +1,12 @@
 <template>
   <div id="_homo_">
     <router-view/>
-    <p>{{ res }}</p>
   </div>
 </template>
 
 <script>
-import fetch from '../fetch'
-
 export default {
-  data () {
-    return {
-      res: ''
-    }
-  },
-  name: 'app',
-  async created() {
-    const fetchName = this.$createFetcher(fetch)
-    this.res = await fetchName()
-  }
+  name: 'app'
 }
 </script>
 
