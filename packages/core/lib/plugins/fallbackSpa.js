@@ -1,7 +1,7 @@
 const serveStatic = require('serve-static')
 const finalhandler = require('finalhandler')
 
-module.exports = (api, options = {}) => {
+module.exports = (api) => {
   api.use((req, res, next) => {
     const meta = api.getRouteMeta(req.url)
 
@@ -15,7 +15,7 @@ module.exports = (api, options = {}) => {
   })
 
   api.use('after:render', (err, req, res, next) => {
-    if (err && err.isVapper) {
+    if (api.options.fallBackSpa && err && err.isVapper) {
       api.logger.debug(`Server rendering encountered an error:`, err)
       api.logger.debug(`Will fall back SPA mode, url is: ${req.url}`)
       fallBack(req, res)

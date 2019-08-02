@@ -13,6 +13,7 @@ exports.options = {
   },
   plugins: [],
   htmlMinifier: false,
+  fallBackSpa: true,
   serverBundleFileName: 'vue-ssr-server-bundle.json',
   clientManifestFileName: 'vue-ssr-client-manifest.json'
 }
@@ -36,6 +37,7 @@ exports.optionsSchema = Joi.object({
     Joi.func()
   ),
   htmlMinifier: Joi.alternatives().try(Joi.object(), Joi.boolean()),
+  fallBackSpa: Joi.boolean(),
   serverBundleFileName: Joi.string().regex(/^.+\.json$/),
   clientManifestFileName: Joi.string().regex(/^.+\.json$/)
 })
