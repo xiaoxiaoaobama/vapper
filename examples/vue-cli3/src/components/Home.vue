@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    Home
+    Home {{ a.b.c }}
   </div>
 </template>
 

@@ -9,8 +9,8 @@ const { createBundleRenderer } = require('vue-server-renderer')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
 const Builder = require('./Builder')
-const serveStaticMiddleware = require('./middlewares/serveStatic')
-const fallbackSpaMiddleware = require('./middlewares/fallbackSpa')
+const serveStaticPlugin = require('./plugins/serveStatic')
+const fallbackSpaPlugin = require('./plugins/fallbackSpa')
 const { options: defaultOptions, optionsSchema } = require('./options')
 
 class Homo extends PluginApi {
@@ -94,12 +94,13 @@ class Homo extends PluginApi {
       this.app.use(this.devMiddleware)
       this.app.use(this.hotMiddleware)
     }
-    this.app.use(serveStaticMiddleware(this))
-    this.app.use(fallbackSpaMiddleware(this))
-    for (const m of this.middlewares) {
+    for (const m of this.middlewares[this.allowMiddlewareTypes[0]]) {
       this.app.use(m)
     }
     this.app.use(this.render.bind(this))
+    for (const m of this.middlewares[this.allowMiddlewareTypes[1]]) {
+      this.app.use(m)
+    }
 
     this.invokeHook('after:setup')
   }
@@ -139,6 +140,7 @@ class Homo extends PluginApi {
       res.setHeader('Content-Type', 'text/html; charset=UTF-8')
       res.end(html)
     } catch (err) {
+      err.isVapper = true
       next(err)
     }
   }
@@ -182,14 +184,20 @@ class Homo extends PluginApi {
 
   initPlugins () {
     // const plugins = this.loadDependencies()
+    this.buildInPlugins = [
+      serveStaticPlugin,
+      fallbackSpaPlugin
+    ]
 
-    ;(this.options.plugins || []).forEach(plugin => {
-      if (typeof plugin === 'function') {
-        plugin.call(this, this)
-      } else if (Array.isArray(plugin)) {
-        plugin[0].call(this, this, plugin[1])
-      }
-    })
+    this.buildInPlugins
+      .concat((this.options.plugins || []))
+      .forEach(plugin => {
+        if (typeof plugin === 'function') {
+          plugin.call(this, this)
+        } else if (Array.isArray(plugin)) {
+          plugin[0].call(this, this, plugin[1])
+        }
+      })
   }
 
   loadServerStarter () {

@@ -8,7 +8,11 @@ class PluginApi {
     this.corePath = path.resolve(__dirname, '../')
 
     // server middlewares
-    this.middlewares = new Set()
+    this.middlewares = {
+      'before:render': new Set(),
+      'after:render': new Set()
+    }
+    this.allowMiddlewareTypes = ['before:render', 'after:render']
 
     this.hooks = new Map()
   }
@@ -55,8 +59,20 @@ class PluginApi {
     return schema.validate(options)
   }
 
-  use (fn) {
-    this.middlewares.add(fn)
+  use (type, fn) {
+    if (typeof type === 'function') {
+      fn = type
+      type = this.allowMiddlewareTypes[0]
+    }
+
+    if (!this.allowMiddlewareTypes.includes(type)) {
+      console.error(
+        `The type of middleware must be either a or b.` +
+        `The type of error you provide is: ${type}`
+      )
+      return
+    }
+    this.middlewares[type].add(fn)
   }
 
   getRouteMeta (location) {
