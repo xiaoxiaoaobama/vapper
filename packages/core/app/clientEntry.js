@@ -20,16 +20,6 @@ router.beforeResolve(async (to, from, next) => {
       })
     }
 
-    /**
-     * The current route is not 404, but app.$$error exists,
-     * indicating that the last route was 404, so we need to force the update,
-     * otherwise we will always render the 404 page.
-     */
-    if (app.$$error) {
-      app.$$error = null
-      app.$forceUpdate()
-    }
-
     // Add helpers
     app.$$redirect = redirect
     app.$$type = 'client'
@@ -40,11 +30,6 @@ router.beforeResolve(async (to, from, next) => {
     // catches the error and redirects
     if (err.name === 'HomoError' && err.code === 'REDIRECT') {
       next(err.redirectURL)
-    } else if (err.name === 'HomoError' && err.code === 404) {
-      // Set a 404 error and force an update in order to render a 404 page
-      app.$$error = err
-      app.$forceUpdate()
-      next()
     } else {
       console.error(err)
     }
@@ -57,15 +42,13 @@ router.onReady(() => {
   const el = document.querySelector('#_homo_') || document.querySelector('#app')
 
   if (window.__INITIAL_STATE__) {
-    const { $$stroe, $$selfStore, $$error } = window.__INITIAL_STATE__
+    const { $$stroe, $$selfStore } = window.__INITIAL_STATE__
 
     // We initialize the store state with the data injected from the server
     if ($$stroe) store.replaceState($$stroe)
 
     // Add `$$selfStore` to the root component instance
     if ($$selfStore) app.$$selfStore = $$selfStore
-
-    if ($$error) app.$$error = $$error
 
     app.$mount(el)
     // This is very important, it is used to avoid repeated data fetch,

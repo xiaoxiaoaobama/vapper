@@ -26,11 +26,13 @@ export default async context => {
   if (!matchedComponents.length) {
     console.log('404 url: ', context.url)
     // Add error data - 404
-    app.$$error = new HomoError({
+    app.error = app.error || new HomoError({
       url: context.url,
       code: 404,
       message: 'Page Not Found'
     })
+
+    throw app.error
   }
 
   // Add helpers
@@ -43,8 +45,8 @@ export default async context => {
   // The data will be serialized
   context.state = {
     $$stroe: store ? store.state : undefined,
-    $$selfStore: app.$$selfStore,
-    $$error: app.$$error
+    // vue-ssr-prefetcher
+    $$selfStore: app.$$selfStore
   }
 
   // vue-meta
