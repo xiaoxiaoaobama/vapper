@@ -5,7 +5,7 @@ module.exports = (api) => {
   api.use((req, res, next) => {
     const meta = api.getRouteMeta(req.url)
 
-    if (!meta.ssr) {
+    if (meta && !meta.ssr) {
       api.logger.debug(`Fall back SPA mode, url is: ${req.url}`)
       fallBack(req, res)
       return
