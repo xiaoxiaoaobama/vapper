@@ -17,7 +17,7 @@ module.exports = (
   let key = ''
 
   api.use((req, res, next) => {
-    isCacheable = cacheable(req.url)
+    isCacheable = cacheable(req)
 
     if (isCacheable) {
       key = getCacheKey(req)
