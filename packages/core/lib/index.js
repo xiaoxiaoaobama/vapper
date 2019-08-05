@@ -11,6 +11,7 @@ const Logger = require('./Logger')
 const Builder = require('./Builder')
 const serveStaticPlugin = require('./plugins/serveStatic')
 const fallbackSpaPlugin = require('./plugins/fallbackSpa')
+const microCachingPlugin = require('./plugins/microCaching')
 const { options: defaultOptions, optionsSchema } = require('./options')
 
 class Homo extends PluginApi {
@@ -50,6 +51,7 @@ class Homo extends PluginApi {
     const templatePath = this.resolveCore('app/index.template.html')
     this.template = fs.readFileSync(templatePath, 'utf-8')
     this.renderer = null
+    this.htmlContent = ''
 
     // Development only
     this.devMiddleware = null
@@ -130,15 +132,16 @@ class Homo extends PluginApi {
 
   async render (req, res, next) {
     this.invokeHook('before:render')
-    let html
     try {
-      html = await this.renderHTML({
+      this.htmlContent = await this.renderHTML({
         url: req.url
       })
 
-      this.invokeHook('after:render')
+      this.invokeHook('after:render', this.htmlContent)
+
       res.setHeader('Content-Type', 'text/html; charset=UTF-8')
-      res.end(html)
+      res.end(this.htmlContent)
+      next()
     } catch (err) {
       err.isVapper = true
       next(err)
@@ -186,7 +189,8 @@ class Homo extends PluginApi {
     // const plugins = this.loadDependencies()
     this.buildInPlugins = [
       serveStaticPlugin,
-      fallbackSpaPlugin
+      fallbackSpaPlugin,
+      [microCachingPlugin, this.options.pageCache]
     ]
 
     this.buildInPlugins

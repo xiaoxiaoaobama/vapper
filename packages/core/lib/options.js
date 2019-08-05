@@ -15,7 +15,8 @@ exports.options = {
   htmlMinifier: false,
   fallBackSpa: true,
   serverBundleFileName: 'vue-ssr-server-bundle.json',
-  clientManifestFileName: 'vue-ssr-client-manifest.json'
+  clientManifestFileName: 'vue-ssr-client-manifest.json',
+  pageCache: {}
 }
 
 exports.optionsSchema = Joi.object({
@@ -39,5 +40,10 @@ exports.optionsSchema = Joi.object({
   htmlMinifier: Joi.alternatives().try(Joi.object(), Joi.boolean()),
   fallBackSpa: Joi.boolean(),
   serverBundleFileName: Joi.string().regex(/^.+\.json$/),
-  clientManifestFileName: Joi.string().regex(/^.+\.json$/)
+  clientManifestFileName: Joi.string().regex(/^.+\.json$/),
+  pageCache: Joi.object({
+    cacheOptions: Joi.object(),
+    cacheable: Joi.func(),
+    getCacheKey: Joi.func()
+  })
 })
