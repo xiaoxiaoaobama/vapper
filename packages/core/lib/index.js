@@ -179,6 +179,7 @@ class Homo extends PluginApi {
 
   createRenderer ({ serverBundle, clientManifest }) {
     return createBundleRenderer(serverBundle, {
+      ...this.options.rendererOptions,
       runInNewContext: false,
       template: this.template,
       clientManifest
