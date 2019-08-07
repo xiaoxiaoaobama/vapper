@@ -1,8 +1,10 @@
 const Koa = require('koa')
-
 const app = new Koa()
+const Homo = require('@homo/core')
 
-module.exports = async function starter (homo) {
+async function starter () {
+  const homo = new Homo({ mode: process.env.NODE_ENV || 'production' })
+
   const {
     options: {
       port,
@@ -20,3 +22,5 @@ module.exports = async function starter (homo) {
 
   app.listen(port, host, () => homo.logger.info(`Server running at: http://${host}:${port}`))
 }
+
+starter()
