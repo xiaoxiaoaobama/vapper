@@ -205,34 +205,23 @@ class Homo extends PluginApi {
       })
   }
 
-  loadServerStarter () {
-    const serverStarterRE = /^(@homo\/|homo-|@[\w-]+\/homo-)server-/
-    const starters = this.loadDependencies(serverStarterRE)
+  listen (...args) {
+    this.app.listen(...args)
+  }
 
-    let starter
-
-    if (!starters.length) {
-      const customServerFile = this.resolveCWD('homo-server.js')
-      if (
-        fs.existsSync(customServerFile) &&
-        fs.statSync(customServerFile).isFile()
-      ) {
-        this.logger.debug(`Find a custom server starter: ${customServerFile}`)
-        starter = require(customServerFile)
-      } else {
-        this.logger.debug(
-          'You have not installed any server starter, ' +
-          'will use the default server starter: `@homo/server-express`'
-        )
-        starter = require('@homo/server-express')
+  async startServer () {
+    const {
+      options: {
+        port,
+        host
       }
-    } else {
-      this.logger.debug(`Find builder: \`${starters[0]}\``)
-      // Only care about the first found builder
-      starter = require(starters[0])
-    }
+    } = this
 
-    return starter
+    await this.setup()
+
+    this.listen(port, host)
+
+    this.logger.info(`Server running at: http://${host}:${port}`)
   }
 
   resolveOut (...args) {

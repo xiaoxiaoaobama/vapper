@@ -34,8 +34,7 @@ cli
   .action(async flags => {
     delete flags['--']
     const homo = new Homo({ ...(flags || {}), mode: 'development' })
-    const starter = homo.loadServerStarter()
-    starter(homo)
+    homo.startServer()
   })
 
 cli
@@ -46,8 +45,7 @@ cli
   .action(async flags => {
     delete flags['--']
     const homo = new Homo({ ...(flags || {}), mode: 'production' })
-    const starter = homo.loadServerStarter()
-    starter(homo)
+    homo.startServer()
   })
 
 cli.help()
