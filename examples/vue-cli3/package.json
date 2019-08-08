@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "homo dev",
-    "build": "homo build",
-    "start": "homo start",
-    "generate": "homo generate"
+    "dev": "vapper dev",
+    "build": "vapper build",
+    "start": "vapper start",
+    "generate": "vapper generate"
   },
   "dependencies": {
-    "@homo/plugin-prerender": "^0.1.0",
+    "@vapper/plugin-prerender": "^0.1.0",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
     "koa": "^2.7.0",

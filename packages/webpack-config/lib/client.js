@@ -11,7 +11,7 @@ module.exports = (api, config) => {
     .add(api.resolveCore('app/clientEntry.js'))
 
   config.output
-    .publicPath('/_homo_/')
+    .publicPath('/_vapper_/')
 
   config
     .plugin('VueSSRClientPlugin')

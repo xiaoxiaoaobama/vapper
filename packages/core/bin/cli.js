@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-const Homo = require('../lib')
-const cli = Homo.cli
+const Vapper = require('../lib')
+const cli = Vapper.cli
 
-const pluginApi = new Homo.PluginApi()
+const pluginApi = new Vapper.PluginApi()
 
 const config = pluginApi.loadConfig()
 if (config && config.plugins) {
   ;(config.plugins || [])
     .forEach(plugin => {
       if (typeof plugin.CLI === 'function') {
-        plugin.CLI(Homo)
+        plugin.CLI(Vapper)
       } else if (Array.isArray(plugin)) {
-        plugin[0].CLI(Homo, plugin[0])
+        plugin[0].CLI(Vapper, plugin[0])
       }
     })
 }
@@ -22,8 +22,8 @@ cli
   .allowUnknownOptions()
   .action(async flags => {
     delete flags['--']
-    const homo = new Homo({ ...(flags || {}), mode: 'production' })
-    homo.build()
+    const vapper = new Vapper({ ...(flags || {}), mode: 'production' })
+    vapper.build()
   })
 
 cli
@@ -33,8 +33,8 @@ cli
   .option('-h, --host <host>', 'Specify the host')
   .action(async flags => {
     delete flags['--']
-    const homo = new Homo({ ...(flags || {}), mode: 'development' })
-    homo.startServer()
+    const vapper = new Vapper({ ...(flags || {}), mode: 'development' })
+    vapper.startServer()
   })
 
 cli
@@ -44,8 +44,8 @@ cli
   .option('-h, --host <host>', 'Specify the host')
   .action(async flags => {
     delete flags['--']
-    const homo = new Homo({ ...(flags || {}), mode: 'production' })
-    homo.startServer()
+    const vapper = new Vapper({ ...(flags || {}), mode: 'production' })
+    vapper.startServer()
   })
 
 cli.help()

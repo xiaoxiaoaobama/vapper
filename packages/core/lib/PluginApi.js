@@ -42,7 +42,7 @@ class PluginApi {
   }
 
   loadConfig () {
-    const p = this.resolveCWD('homo.config.js')
+    const p = this.resolveCWD('vapper.config.js')
 
     try {
       const configFileStat = fs.statSync(p)

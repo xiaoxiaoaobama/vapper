@@ -1,9 +1,9 @@
 
-const webpackConfig = require('@homo/webpack-config')
+const webpackConfig = require('@vapper/webpack-config')
 
 module.exports = (api) => {
   return {
-    id: 'vue-cli-plugin-homo-webpack-server',
+    id: 'vue-cli-plugin-vapper-webpack-server',
     apply: (vueCliapi) => {
       vueCliapi.chainWebpack(config => {
         webpackConfig.server(api, config)

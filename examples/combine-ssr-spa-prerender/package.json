@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate": "homo generate",
-    "start": "homo start"
+    "generate": "vapper generate",
+    "start": "vapper start"
   },
   "dependencies": {
     "core-js": "^2.6.5",
@@ -12,7 +12,7 @@
     "vue-router": "^3.0.7"
   },
   "devDependencies": {
-    "@homo/plugin-prerender": "^0.1.0",
+    "@vapper/plugin-prerender": "^0.1.0",
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-plugin-eslint": "^3.9.0",
     "@vue/cli-service": "^3.9.0",

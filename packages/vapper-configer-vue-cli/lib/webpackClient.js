@@ -1,11 +1,11 @@
 
-const webpackConfig = require('@homo/webpack-config')
+const webpackConfig = require('@vapper/webpack-config')
 
 module.exports = (api) => {
   const isProd = api.options.mode === 'production'
 
   return {
-    id: 'vue-cli-plugin-homo-webpack-client',
+    id: 'vue-cli-plugin-vapper-webpack-client',
     apply: (vueCliapi) => {
       vueCliapi.chainWebpack(config => {
         webpackConfig.client(api, config)

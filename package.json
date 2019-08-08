@@ -1,5 +1,5 @@
 {
-  "name": "homo",
+  "name": "vapper",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -9,7 +9,7 @@
     "lint": "standard --fix",
     "commit": "git-cz"
   },
-  "repository": "https://github.com/shuidi-fed/homo.git",
+  "repository": "https://github.com/vapperjs/vapper.git",
   "author": "HcySunYang <HcySunYang@outlook.com>",
   "license": "MIT",
   "devDependencies": {

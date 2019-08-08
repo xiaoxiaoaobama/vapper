@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { createServerPlugin } from 'vue-ssr-prefetcher'
 import createApp from './createApp'
 import { redirect } from './redirect'
-import HomoError from './HomoError'
+import VapperError from './VapperError'
 
 export default async context => {
   const serverPlugin = createServerPlugin()
@@ -11,7 +11,7 @@ export default async context => {
 
   // This is a fake rendering in the `setup` to get the router instance
   if (context.fake) {
-    throw new HomoError({
+    throw new VapperError({
       router
     })
   }
@@ -26,7 +26,7 @@ export default async context => {
   if (!matchedComponents.length) {
     console.log('404 url: ', context.url)
     // Add error data - 404
-    app.error = app.error || new HomoError({
+    app.error = app.error || new VapperError({
       url: context.url,
       code: 404,
       message: 'Page Not Found'

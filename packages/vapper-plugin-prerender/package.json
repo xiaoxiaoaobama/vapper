@@ -1,5 +1,5 @@
 {
-  "name": "@homo/plugin-prerender",
+  "name": "@vapper/plugin-prerender",
   "version": "0.1.0",
   "main": "lib/index.js",
   "license": "MIT",

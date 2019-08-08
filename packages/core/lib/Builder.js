@@ -59,7 +59,7 @@ class Builder extends EventEmitter {
       this.serverCompiler.watch({}, () => {})
     }
 
-    this.serverCompiler.hooks.done.tap('@homo-builder-vue-cli', () => {
+    this.serverCompiler.hooks.done.tap('@vapper-builder-vue-cli', () => {
       this.compiledHandler('server')
     })
   }
@@ -80,7 +80,7 @@ class Builder extends EventEmitter {
       })
     }
 
-    this.clientCompiler.hooks.done.tap('@homo-builder-vue-cli', () => {
+    this.clientCompiler.hooks.done.tap('@vapper-builder-vue-cli', () => {
       this.compiledHandler('client')
     })
   }
@@ -126,16 +126,16 @@ class Builder extends EventEmitter {
   }
 
   loadConfiger () {
-    const builderRE = /^(@homo\/|homo-|@[\w-]+\/homo-)configer-/
+    const builderRE = /^(@vapper\/|vapper-|@[\w-]+\/vapper-)configer-/
     const builders = this.api.loadDependencies(builderRE)
 
     let Configer
 
     if (!builders.length) {
       this.api.logger.debug(`You have not installed any Configer, ` +
-        'will use the default configer: `@homo/configer-vue-cli`'
+        'will use the default configer: `@vapper/configer-vue-cli`'
       )
-      Configer = require('@homo/configer-vue-cli')
+      Configer = require('@vapper/configer-vue-cli')
     } else {
       this.api.logger.debug(`Find builder: \`${builders[0]}\``)
       // Only care about the first found builder

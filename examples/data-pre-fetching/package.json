@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "homo dev"
+    "dev": "vapper dev"
   },
   "dependencies": {
     "core-js": "^2.6.5",

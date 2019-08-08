@@ -2,17 +2,17 @@
  * https://stackoverflow.com/questions/1382107/whats-a-good-way-to-extend-error-in-javascript
  */
 
-export default function HomoError (data) {
+export default function VapperError (data) {
   const instance = Reflect.construct(Error, {})
   Reflect.setPrototypeOf(instance, Reflect.getPrototypeOf(this))
 
-  instance.name = 'HomoError'
+  instance.name = 'VapperError'
 
   Object.assign(instance, data)
 
   return instance
 }
-HomoError.prototype = Object.create(Error.prototype, {
+VapperError.prototype = Object.create(Error.prototype, {
   constructor: {
     value: Error,
     enumerable: false,
@@ -20,4 +20,4 @@ HomoError.prototype = Object.create(Error.prototype, {
     configurable: true
   }
 })
-Reflect.setPrototypeOf(HomoError, Error)
+Reflect.setPrototypeOf(VapperError, Error)

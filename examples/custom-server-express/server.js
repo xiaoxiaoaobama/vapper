@@ -1,22 +1,22 @@
 const express = require('express')
 const app = express()
-const Homo = require('@homo/core')
+const Vapper = require('@vapper/core')
 
 async function starter () {
-  const homo = new Homo({ mode: process.env.NODE_ENV || 'production' })
+  const vapper = new Vapper({ mode: process.env.NODE_ENV || 'production' })
 
   const {
     options: {
       port,
       host
     }
-  } = homo
+  } = vapper
 
-  await homo.setup()
+  await vapper.setup()
 
-  app.get('*', homo.handler)
+  app.get('*', vapper.handler)
 
-  app.listen(port, host, () => homo.logger.info(`Server running at: http://${host}:${port}`))
+  app.listen(port, host, () => vapper.logger.info(`Server running at: http://${host}:${port}`))
 }
 
 starter()

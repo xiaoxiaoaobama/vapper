@@ -1,10 +1,10 @@
 const webpack = require('webpack')
 const ProgressBar = require('./ProgressBar')
-const webpackConfig = require('@homo/webpack-config')
+const webpackConfig = require('@vapper/webpack-config')
 
 module.exports = (api) => {
   return {
-    id: 'vue-cli-plugin-homo-webpack-base',
+    id: 'vue-cli-plugin-vapper-webpack-base',
     apply: (vueCliapi) => {
       vueCliapi.chainWebpack(config => {
         webpackConfig.base(api, config)

@@ -14,7 +14,7 @@ const fallbackSpaPlugin = require('./plugins/fallbackSpa')
 const microCachingPlugin = require('./plugins/microCaching')
 const { options: defaultOptions, optionsSchema } = require('./options')
 
-class Homo extends PluginApi {
+class Vapper extends PluginApi {
   constructor (options) {
     super()
     this.app = connect()
@@ -229,8 +229,8 @@ class Homo extends PluginApi {
   }
 }
 
-Homo.defaultOptions = defaultOptions
-Homo.cli = cac
-Homo.PluginApi = PluginApi
+Vapper.defaultOptions = defaultOptions
+Vapper.cli = cac
+Vapper.PluginApi = PluginApi
 
-module.exports = Homo
+module.exports = Vapper

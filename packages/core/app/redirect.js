@@ -1,7 +1,7 @@
-import HomoError from './HomoError'
+import VapperError from './VapperError'
 
 export function redirect (url) {
-  throw new HomoError({
+  throw new VapperError({
     code: 'REDIRECT',
     redirectURL: url
   })

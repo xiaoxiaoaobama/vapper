@@ -1,12 +1,12 @@
-# homo (WIP)
+# vapper (WIP)
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 ## Setup
 
 ```sh
-git clone https://github.com/shuidi-fed/homo.git
-cd homo
+git clone https://github.com/vapperjs/vapper.git
+cd vapper
 yarn install
 ```
 
@@ -26,18 +26,18 @@ cd examples/vue-cli3
 yarn install
 
 # dev
-homo dev
+vapper dev
 
 # build
-homo build
+vapper build
 
 # start the production server
-homo start
+vapper start
 ```
 
 ## Author
 
-**Homo** © [HcySunYang](https://github.com/HcySunYang), Released under the [MIT](./LICENSE) License.<br>
+**Vapper** © [HcySunYang](https://github.com/HcySunYang), Released under the [MIT](./LICENSE) License.<br>
 Authored and maintained by HcySunYang.
 
 > [homepage](http://hcysun.me/homepage/) · GitHub [@HcySunYang](https://github.com/HcySunYang) · Twitter [@HcySunYang](https://twitter.com/HcySunYang)

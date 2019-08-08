@@ -1,5 +1,5 @@
 const Poi = require('poi')
-const webpackConfig = require('@homo/webpack-config')
+const webpackConfig = require('@vapper/webpack-config')
 
 module.exports = class Configer {
   constructor (api) {

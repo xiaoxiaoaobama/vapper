@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { clientPlugin } from 'vue-ssr-prefetcher'
 import createApp from './createApp'
 import { redirect } from './redirect'
-import HomoError from './HomoError'
+import VapperError from './VapperError'
 
 Vue.use(clientPlugin)
 
@@ -13,7 +13,7 @@ router.beforeResolve(async (to, from, next) => {
     const matchedComponents = router.getMatchedComponents(to)
     // no matched routes, reject with 404
     if (!matchedComponents.length) {
-      throw new HomoError({
+      throw new VapperError({
         url: to.path,
         code: 404,
         message: 'Page Not Found'
@@ -26,9 +26,9 @@ router.beforeResolve(async (to, from, next) => {
 
     next()
   } catch (err) {
-    // When `redirect` is called, it essentially throws a custom error(HomoError),
+    // When `redirect` is called, it essentially throws a custom error(VapperError),
     // catches the error and redirects
-    if (err.name === 'HomoError' && err.code === 'REDIRECT') {
+    if (err.name === 'VapperError' && err.code === 'REDIRECT') {
       next(err.redirectURL)
     } else {
       console.error(err)
@@ -39,7 +39,7 @@ router.beforeResolve(async (to, from, next) => {
 router.onReady(() => {
   // In poi, when we fall back to spa mode,
   // the html page doesn't include `#_home_`, so use `#app`
-  const el = document.querySelector('#_homo_') || document.querySelector('#app')
+  const el = document.querySelector('#_vapper_') || document.querySelector('#app')
 
   if (window.__INITIAL_STATE__) {
     const { $$stroe, $$selfStore } = window.__INITIAL_STATE__

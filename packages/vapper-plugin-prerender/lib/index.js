@@ -42,15 +42,15 @@ module.exports = (api, options) => {
   })
 }
 
-module.exports.CLI = (Homo) => {
-  Homo.cli
+module.exports.CLI = (Vapper) => {
+  Vapper.cli
     .command('generate', 'Generate pre-rendered html files')
     .allowUnknownOptions()
     .action(async flags => {
       delete flags['--']
-      const homo = new Homo({ ...(flags || {}), mode: 'production' })
+      const vapper = new Vapper({ ...(flags || {}), mode: 'production' })
 
-      homo.$generate()
+      vapper.$generate()
     })
 }
 

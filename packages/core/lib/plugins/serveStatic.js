@@ -9,7 +9,7 @@ module.exports = (api) => {
     // FIX: Treat URLs with extensions as requests for static resources?
     const hasExt = path.extname(req.url)
     if (hasExt) {
-      req.url = req.url.replace(/^\/_homo_/, '')
+      req.url = req.url.replace(/^\/_vapper_/, '')
 
       api.logger.debug(`
         proxy: ${originalUrl}

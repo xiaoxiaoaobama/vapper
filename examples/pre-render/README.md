@@ -1,6 +1,6 @@
 # pre-render
 
-Pre-render the app with the `@homo/plugin-prerender` plugin.
+Pre-render the app with the `@vapper/plugin-prerender` plugin.
 
 ## Project setup
 
