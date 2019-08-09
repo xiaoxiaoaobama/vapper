@@ -6,6 +6,9 @@
   },
   "main": "lib/index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@hapi/joi": "^15.1.0",
     "@vapper/configer-vue-cli": "^0.1.2",

@@ -3,6 +3,9 @@
   "version": "0.1.2",
   "main": "lib/index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@vapper/webpack-config": "^0.1.2",
     "poi": "^12.7.1"

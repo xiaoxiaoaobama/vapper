@@ -3,6 +3,9 @@
   "version": "0.1.2",
   "main": "lib/index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "webpack": "^4.38.0",
     "webpack-hot-middleware": "^2.25.0"
