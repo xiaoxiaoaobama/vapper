@@ -11,6 +11,7 @@
     "@vue/cli-service": "^3.9.3",
     "chalk": "^2.4.2",
     "gzip-size": "^5.1.1",
+    "log-update": "^3.2.0",
     "pretty-ms": "^5.0.0",
     "text-table": "^0.2.0",
     "vue-template-compiler": "^2.6.10"
