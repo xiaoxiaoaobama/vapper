@@ -1,5 +1,5 @@
 <template>
-  <div id="_vapper_">
+  <div>
     <router-view/>
   </div>
 </template>
