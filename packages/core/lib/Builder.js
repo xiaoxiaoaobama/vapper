@@ -137,7 +137,7 @@ class Builder extends EventEmitter {
       )
       Configer = require('@vapper/configer-vue-cli')
     } else {
-      this.api.logger.debug(`Find builder: \`${builders[0]}\``)
+      this.api.logger.debug(`Find Configer: \`${builders[0]}\``)
       // Only care about the first found builder
       Configer = require(builders[0])
     }
