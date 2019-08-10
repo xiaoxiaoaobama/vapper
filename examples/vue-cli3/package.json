@@ -9,6 +9,7 @@
     "generate": "vapper generate"
   },
   "dependencies": {
+    "@vapper/core": "^0.1.0",
     "@vapper/plugin-prerender": "^0.1.0",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
