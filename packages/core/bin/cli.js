@@ -9,10 +9,17 @@ const config = pluginApi.loadConfig()
 if (config && config.plugins) {
   ;(config.plugins || [])
     .forEach(plugin => {
+      if (typeof plugin === 'string') plugin = require(plugin)
+
       if (typeof plugin.CLI === 'function') {
         plugin.CLI(Vapper)
       } else if (Array.isArray(plugin)) {
-        plugin[0].CLI(Vapper, plugin[0])
+        const options = plugin[1]
+        plugin = typeof plugin[0] === 'string'
+          ? require(plugin[0])
+          : plugin[0]
+
+        plugin.CLI(Vapper, options)
       }
     })
 }

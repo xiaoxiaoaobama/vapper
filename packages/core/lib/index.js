@@ -187,7 +187,6 @@ class Vapper extends PluginApi {
   }
 
   initPlugins () {
-    // const plugins = this.loadDependencies()
     this.buildInPlugins = [
       serveStaticPlugin,
       fallbackSpaPlugin,
@@ -197,10 +196,19 @@ class Vapper extends PluginApi {
     this.buildInPlugins
       .concat((this.options.plugins || []))
       .forEach(plugin => {
+        if (typeof plugin === 'string') plugin = require(plugin)
+
         if (typeof plugin === 'function') {
           plugin.call(this, this)
         } else if (Array.isArray(plugin)) {
-          plugin[0].call(this, this, plugin[1])
+          const options = plugin[1]
+          plugin = typeof plugin[0] === 'string'
+            ? require(plugin[0])
+            : plugin[0]
+
+          plugin.call(this, this, options)
+        } else {
+          this.logger.error('The plugin must be a function or an array')
         }
       })
   }
