@@ -4,8 +4,11 @@ const finalhandler = require('finalhandler')
 module.exports = (api) => {
   api.use((req, res, next) => {
     const meta = api.getRouteMeta(req.url)
+    const needFallback = api.options.ssr
+      ? (meta && meta.ssr === false)
+      : (!meta || meta.ssr !== true)
 
-    if (meta && !meta.ssr) {
+    if (needFallback) {
       api.logger.debug(`Fall back SPA mode, url is: ${req.url}`)
       fallBack(req, res)
       return

@@ -3,6 +3,7 @@ const Joi = require('@hapi/joi')
 exports.options = {
   mode: 'production',
   entry: 'src/main',
+  ssr: true,
   port: 4000,
   host: '0.0.0.0',
   logLevel: 5,
@@ -23,6 +24,7 @@ exports.options = {
 exports.optionsSchema = Joi.object({
   mode: Joi.string().allow('production', 'development'),
   entry: Joi.string(),
+  ssr: Joi.boolean(),
   port: Joi.number(),
   p: Joi.number(),
   host: Joi.string().ip(),
