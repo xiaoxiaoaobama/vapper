@@ -9,6 +9,10 @@ export default async context => {
   Vue.use(serverPlugin)
   const { app, router, store } = createApp()
 
+  context.enhanceFns.forEach(enhanceFn => {
+    enhanceFn({ app, req: context.req, res: context.res })
+  })
+
   // This is a fake rendering in the `setup` to get the router instance
   if (context.fake) {
     throw new VapperError({

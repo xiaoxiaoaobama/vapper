@@ -19,6 +19,13 @@ module.exports = (api, config) => {
   })
 
   config
+    .plugin('webpackbar')
+    .use(require('webpackbar'), [{
+      name: 'Server',
+      color: '#cc00ff'
+    }])
+
+  config
     .plugin('VueSSRServerPlugin')
     .use(require('vue-server-renderer/server-plugin'), [{
       filename: api.options.serverBundleFileName

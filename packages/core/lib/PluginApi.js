@@ -14,7 +14,23 @@ class PluginApi {
     }
     this.allowMiddlewareTypes = ['before:render', 'after:render']
 
+    // Enhance
+    this.enhanceFiles = new Set()
+    this.enhanceTemplate = fs.readFileSync(this.resolveCore('app/enhance.template.js'), 'utf-8')
+    this.enhanceOutput = this.resolveCore('app/.vapper/enhance.js')
+
     this.hooks = new Map()
+  }
+
+  addEnhanceFile (enhance) {
+    // TODO: Check the validity of the enhance parameter
+    this.enhanceFiles.add(enhance)
+  }
+
+  getEnhanceFns () {
+    return Array.from(this.enhanceFiles).map(enhanceObj => {
+      return require(enhanceObj.server)
+    })
   }
 
   /**

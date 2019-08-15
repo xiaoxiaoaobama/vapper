@@ -32,7 +32,6 @@ class PrintStatusPlugin {
           !process.env.CI &&
           process.stdout.isTTY
         ) {
-          this.logger.log()
           const assets = await Promise.all(
             stats.toJson().assets.map(async asset => {
               asset.gzipped = await gzipSize(

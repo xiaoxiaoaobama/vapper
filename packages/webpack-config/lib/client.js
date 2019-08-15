@@ -19,6 +19,13 @@ module.exports = (api, config) => {
       filename: api.options.clientManifestFileName
     }])
 
+  config
+    .plugin('webpackbar')
+    .use(require('webpackbar'), [{
+      name: 'Client',
+      color: 'green'
+    }])
+
   if (!isProd) {
     config
       .plugin('hmr').use(webpack.HotModuleReplacementPlugin)

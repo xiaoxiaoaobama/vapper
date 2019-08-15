@@ -1,5 +1,3 @@
-const webpack = require('webpack')
-const ProgressBar = require('./ProgressBar')
 const webpackConfig = require('@vapper/webpack-config')
 
 module.exports = (api) => {
@@ -15,14 +13,6 @@ module.exports = (api) => {
             {
               printFileStats: true,
               logger: api.logger
-            }
-          ])
-
-        config
-          .plugin('Progress')
-          .use(webpack.ProgressPlugin, [
-            {
-              handler: new ProgressBar().handler
             }
           ])
       })

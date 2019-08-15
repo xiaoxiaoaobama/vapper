@@ -7,7 +7,8 @@ module.exports = {
       {
         routes: ['/foo/bar']
       }
-    ]
+    ],
+    '@vapper/plugin-cookie'
   ],
   htmlMinifier: true
 }

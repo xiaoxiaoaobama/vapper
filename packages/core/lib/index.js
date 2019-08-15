@@ -6,6 +6,7 @@ const compression = require('compression')
 const { minify } = require('html-minifier')
 const merge = require('lodash.merge')
 const { createBundleRenderer } = require('vue-server-renderer')
+const template = require('lodash.template')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
 const Builder = require('./Builder')
@@ -69,6 +70,8 @@ class Vapper extends PluginApi {
 
   async setup () {
     this.invokeHook('before:setup')
+
+    await this.generateEnhanceFile()
 
     if (this.isProd) {
       const serverBundle = JSON.parse(
@@ -134,7 +137,10 @@ class Vapper extends PluginApi {
     this.invokeHook('before:render')
     try {
       this.htmlContent = await this.renderHTML({
-        url: req.url
+        url: req.url,
+        enhanceFns: this.getEnhanceFns(),
+        req,
+        res
       })
 
       this.invokeHook('after:render', this.htmlContent)
@@ -211,6 +217,19 @@ class Vapper extends PluginApi {
           this.logger.error('The plugin must be a function or an array')
         }
       })
+  }
+
+  async generateEnhanceFile () {
+    const compiled = template(this.enhanceTemplate)
+
+    const content = compiled({
+      enhanceFiles: this.enhanceFiles
+    })
+
+    this.logger.debug('Write a enhance file in: ' + this.enhanceOutput)
+    await fs.remove(this.enhanceOutput)
+    await fs.ensureFile(this.enhanceOutput)
+    fs.writeFileSync(this.enhanceOutput, content, 'utf-8')
   }
 
   listen (...args) {

@@ -1,0 +1,6 @@
+{
+  "name": "@vapper/plugin-cookie",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "license": "MIT"
+}
