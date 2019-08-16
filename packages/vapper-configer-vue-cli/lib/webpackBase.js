@@ -15,6 +15,10 @@ module.exports = (api) => {
               logger: api.logger
             }
           ])
+
+        config
+          .plugin('friendly-errors')
+          .init((Plugin, args) => new Plugin({ ...args, clearConsole: false }))
       })
     }
   }

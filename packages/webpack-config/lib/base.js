@@ -25,7 +25,6 @@ module.exports = (api, config) => {
 
   config.plugins
     .delete('progress')
-    .delete('friendly-errors')
 
   TimeFixPlugin.__expression = `require('time-fix-plugin')`
   config.plugin('timefix').use(TimeFixPlugin)
