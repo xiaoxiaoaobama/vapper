@@ -4,8 +4,7 @@
   "scripts": {
     "build": "vapper build",
     "dev": "vapper dev",
-    "start": "vapper start",
-    "generate": "vapper generate"
+    "start": "vapper start"
   },
   "dependencies": {
     "vue": "^2.6.10",
