@@ -138,7 +138,7 @@ class Vapper extends PluginApi {
     try {
       this.htmlContent = await this.renderHTML({
         url: req.url,
-        enhanceFns: this.getEnhanceFns(),
+        enhanceFiles: this.enhanceFiles,
         req,
         res
       })
@@ -222,14 +222,24 @@ class Vapper extends PluginApi {
   async generateEnhanceFile () {
     const compiled = template(this.enhanceTemplate)
 
-    const content = compiled({
+    const clientEnhanceContent = compiled({
+      type: 'client',
+      enhanceFiles: this.enhanceFiles
+    })
+    const serverEnhanceContent = compiled({
+      type: 'server',
       enhanceFiles: this.enhanceFiles
     })
 
-    this.logger.debug('Write a enhance file in: ' + this.enhanceOutput)
-    await fs.remove(this.enhanceOutput)
-    await fs.ensureFile(this.enhanceOutput)
-    fs.writeFileSync(this.enhanceOutput, content, 'utf-8')
+    this.logger.debug('Write a enhance file: ' + this.enhanceClientOutput)
+    this.logger.debug('Write a enhance file: ' + this.enhanceServerOutput)
+
+    await fs.remove(this.enhanceClientOutput)
+    await fs.remove(this.enhanceServerOutput)
+    await fs.ensureFile(this.enhanceClientOutput)
+    await fs.ensureFile(this.enhanceServerOutput)
+    fs.writeFileSync(this.enhanceClientOutput, clientEnhanceContent, 'utf-8')
+    fs.writeFileSync(this.enhanceServerOutput, serverEnhanceContent, 'utf-8')
   }
 
   listen (...args) {

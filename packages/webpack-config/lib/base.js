@@ -6,8 +6,6 @@ module.exports = (api, config) => {
     .set('#entry$', api.resolveCWD(api.options.entry))
     .set('vue$', api.resolveCWD('node_modules/vue/dist/vue.runtime.esm.js'))
 
-  config.stats('none')
-
   config.module
     .rule('vue')
     .use('vue-loader')

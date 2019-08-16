@@ -1,9 +1,9 @@
 const path = require('path')
 
-module.exports = (api, options) => {
+module.exports = (api) => {
   api.addEnhanceFile({
-    client: path.resolve(__dirname, './client.js'),
-    server: path.resolve(__dirname, './server.js'),
+    client: path.resolve(__dirname, './cookie.js'),
+    server: path.resolve(__dirname, './cookie.js'),
     clientModuleName: 'cookie'
   })
 }
