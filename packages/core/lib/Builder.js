@@ -25,7 +25,10 @@ class Builder extends EventEmitter {
 
     // Get webpack config
     const configer = this.loadConfiger()
+    process.env.VAPPER_TARGET = 'server'
     this.serverWebpackConfig = configer.getServerConfig()
+    process.env.VAPPER_TARGET = 'client'
+    console.log(999)
     this.clientWebpackConfig = configer.getClientConfig()
 
     // bundle
