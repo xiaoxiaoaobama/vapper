@@ -24,7 +24,7 @@
   "standard": {
     "ignore": [
       "examples/**",
-      "*.template.js"
+      "*.ejs"
     ]
   },
   "lint-staged": {

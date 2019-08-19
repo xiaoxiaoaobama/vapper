@@ -16,7 +16,7 @@ class PluginApi {
 
     // Enhance
     this.enhanceFiles = new Set()
-    this.enhanceTemplate = fs.readFileSync(this.resolveCore('app/enhance.template.js'), 'utf-8')
+    this.enhanceTemplate = fs.readFileSync(this.resolveCore('app/enhance.template.ejs'), 'utf-8')
     this.enhanceClientOutput = this.resolveCore('app/.vapper/enhanceClient.js')
     this.enhanceServerOutput = this.resolveCore('app/.vapper/enhanceServer.js')
 
@@ -88,7 +88,7 @@ class PluginApi {
 
   getRouteMeta (location) {
     if (!this.router) return null
-    const res = this.router.resolve(location)
+    const res = this.router.resolve({ path: location })
     if (!res.resolved.matched.length) return null
     return res.resolved.meta
   }

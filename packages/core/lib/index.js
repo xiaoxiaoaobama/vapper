@@ -49,8 +49,12 @@ class Vapper extends PluginApi {
 
     this.serverBundle = null
     this.clientManifest = null
-    const templatePath = this.resolveCore('app/index.template.html')
-    this.template = fs.readFileSync(templatePath, 'utf-8')
+    if (this.options.template) {
+      this.template = this.options.template
+    } else {
+      const templatePath = this.resolveCore('app/index.template.html')
+      this.template = fs.readFileSync(templatePath, 'utf-8')
+    }
     this.renderer = null
     this.htmlContent = ''
 
@@ -90,7 +94,11 @@ class Vapper extends PluginApi {
     try {
       await this.renderHTML({ fake: true })
     } catch (err) {
-      this.router = err.router
+      if (err.code === 'FAKE') {
+        this.router = err.router
+      } else {
+        this.logger.error(err)
+      }
     }
 
     // install middleware

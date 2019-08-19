@@ -2,8 +2,14 @@
 import <%- enhanceObj.clientModuleName %> from '<%- type === "client" ? enhanceObj.client : enhanceObj.server %>'
 <% } %>
 
+const fns = []
+
 export default function (options) {
   <% for (const enhanceObj of enhanceFiles) { %>
-  <%- enhanceObj.clientModuleName %>(options)
+  fns.push(<%- enhanceObj.clientModuleName %>(options))
   <% } %>
+}
+
+export function enhanceInstance (opts) {
+  fns.filter(fn => typeof fn === 'function').forEach(fn => fn(opts))
 }

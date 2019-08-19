@@ -1,10 +1,13 @@
 import cookie from 'cookie'
 import { getOptions } from './options'
 
-export default function ({ Vue, pluginRuntimeOptions, res, req }) {
+export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) {
+  if (isFake) return
+
+  const isServer = type === 'server'
   const opts = getOptions(pluginRuntimeOptions)
 
-  const rowCookie = req ? req.headers.cookie : document.cookie
+  const rowCookie = isServer ? req.headers.cookie : document.cookie
 
   const cookieUtils = {
     rowCookie,

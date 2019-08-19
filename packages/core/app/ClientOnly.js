@@ -5,7 +5,7 @@ export default {
     this.$forceUpdate()
   },
   render (h) {
-    const t = this._v('')
+    const t = this._e()
     if (!this.already) {
       return this.$slots.placeholder
         ? this.$slots.placeholder
