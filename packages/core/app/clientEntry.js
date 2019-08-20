@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { clientPlugin } from 'vue-ssr-prefetcher'
+import { clientPlugin } from './prefetcher'
 import createApp from './createApp'
 import { redirect } from './redirect'
 import VapperError from './VapperError'
