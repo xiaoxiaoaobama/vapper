@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box">
     <router-view/>
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style>
-.app {
+.box {
   color: red;
 }
 </style>

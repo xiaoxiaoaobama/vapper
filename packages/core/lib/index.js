@@ -75,8 +75,6 @@ class Vapper extends PluginApi {
   async setup () {
     this.invokeHook('before:setup')
 
-    await this.generateEnhanceFile()
-
     if (this.isProd) {
       const serverBundle = JSON.parse(
         fs.readFileSync(this.resolveOut(this.options.serverBundleFileName), 'utf-8')
@@ -119,6 +117,8 @@ class Vapper extends PluginApi {
   }
 
   async build () {
+    await this.generateEnhanceFile()
+
     if (this.isProd) {
       await fs.remove(this.resolveOut('.'))
       await this.builder.run()

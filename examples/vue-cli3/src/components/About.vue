@@ -10,3 +10,9 @@ export default {
   name: 'About'
 }
 </script>
+
+<style scope>
+.about {
+  color: green;
+}
+</style>
