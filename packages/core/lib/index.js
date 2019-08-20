@@ -119,9 +119,8 @@ class Vapper extends PluginApi {
   }
 
   async build () {
-    await fs.remove(this.resolveOut('.'))
-
     if (this.isProd) {
+      await fs.remove(this.resolveOut('.'))
       await this.builder.run()
       return
     }

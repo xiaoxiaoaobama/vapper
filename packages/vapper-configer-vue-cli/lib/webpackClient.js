@@ -11,8 +11,8 @@ module.exports = (api) => {
         webpackConfig.client(api, config)
 
         config
-          .entry('index')
-          .delete()
+          .entryPoints
+          .delete('index')
 
         config
           .entry('app')
