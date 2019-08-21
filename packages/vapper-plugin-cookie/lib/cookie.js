@@ -12,7 +12,24 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
   const cookieUtils = {
     rowCookie,
     cookies: cookie.parse(rowCookie),
-    get: name => name ? cookieUtils.cookies[name] : cookieUtils.cookies,
+    get: (name) => {
+      const cookieObj = {}
+      if (opts.fromRes) {
+        const responseCookie = cookie.parse(
+          res.getHeader('Set-Cookie')
+            .map(str => {
+              return str.split(';')[0]
+            })
+            .join('; ')
+            .trim()
+        )
+        Object.assign(cookieObj, responseCookie)
+      }
+
+      Object.assign(cookieObj, cookieUtils.cookies)
+
+      return name ? cookieObj[name] : cookieObj
+    },
 
     // Set one or more cookies
     set (name, value, options) {
