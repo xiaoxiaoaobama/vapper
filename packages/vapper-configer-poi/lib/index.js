@@ -3,12 +3,9 @@ const webpackConfig = require('@vapper/webpack-config')
 
 module.exports = class Configer {
   constructor (api) {
-    const { options } = api
-
     this.api = api
-
     this.poi = new Poi()
-    this.poi.mode = this.mode = options.mode
+    this.poi.mode = this.mode = this.api.options.mode
   }
 
   getServerConfig () {

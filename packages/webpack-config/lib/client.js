@@ -2,7 +2,7 @@
 const webpack = require('webpack')
 
 module.exports = (api, config) => {
-  const isProd = api.options.mode === 'production'
+  const isProd = api.isProd
 
   config
     .entry('index')

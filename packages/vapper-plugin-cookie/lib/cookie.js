@@ -14,7 +14,7 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
     cookies: cookie.parse(rowCookie),
     get: (name) => {
       const cookieObj = {}
-      if (opts.fromRes) {
+      if (isServer && opts.fromRes) {
         const responseCookie = cookie.parse(
           res.getHeader('Set-Cookie')
             .map(str => {

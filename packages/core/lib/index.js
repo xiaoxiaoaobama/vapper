@@ -30,7 +30,11 @@ class Vapper extends PluginApi {
       options
     )
 
-    this.isProd = options.mode === defaultOptions.mode
+    this.isProd = this.options.mode === defaultOptions.mode
+
+    // Set environment variables
+    process.env.VAPPER_ENV = this.options.mode
+
     this.logger = new Logger()
     this.logger.setLogLevel(this.options.logLevel)
 
