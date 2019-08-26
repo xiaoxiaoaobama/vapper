@@ -6,7 +6,7 @@
 export default {
   name: 'About',
   created () {
-    this.$root.$$redirect('/foo')
+    this.$$redirect('/foo')
   }
 }
 </script>

@@ -5,6 +5,11 @@ import ClientOnly from './ClientOnly'
 
 Vue.component('ClientOnly', ClientOnly)
 
+// Install vue-meta
+Vue.use(Meta, {
+  keyName: 'head'
+})
+
 // For custom error page
 Vue.mixin({
   data () {
@@ -23,9 +28,11 @@ Vue.mixin({
   }
 })
 
-// Install vue-meta
-Vue.use(Meta, {
-  keyName: 'head'
+Vue.mixin({
+  beforeCreate () {
+    this.$$redirect = this.$root.$$redirect
+    this.$$type = this.$root.$$type
+  }
 })
 
 export default createApp
