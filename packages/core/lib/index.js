@@ -160,6 +160,13 @@ class Vapper extends PluginApi {
       res.end(this.htmlContent)
       next()
     } catch (err) {
+      if (err.code === 'REDIRECT') {
+        res.writeHead(302, {
+          Location: err.redirectURL
+        })
+        res.end()
+        return
+      }
       err.isVapper = true
       next(err)
     }

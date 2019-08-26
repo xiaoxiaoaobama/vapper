@@ -25,6 +25,17 @@ export default async context => {
 
   const { app, router, store } = createApp()
 
+  // Add helpers
+  app.$$redirect = redirect
+  app.$$type = TYPE
+  router.$$redirect = redirect
+  router.$$type = TYPE
+
+  router.onError((err) => {
+    if (err.code === 'REDIRECT') throw err
+    app.error = err
+  })
+
   enhanceInstance({ app, router, store })
 
   // This is a fake rendering in the `setup` to get the router instance
@@ -53,10 +64,6 @@ export default async context => {
 
     throw app.error
   }
-
-  // Add helpers
-  app.$$redirect = redirect
-  app.$$type = TYPE
 
   // The data will be serialized
   context.state = {

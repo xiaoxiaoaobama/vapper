@@ -14,7 +14,12 @@ Vue.mixin({
       : {}
   },
   errorCaptured (err) {
-    if (this.$root === this._self) this.error = err
+    if (this.$root === this._self) {
+      // Display custom error page
+      this.error = err
+      // Throw the error to fall back to SPA mode
+      throw err
+    }
   }
 })
 
