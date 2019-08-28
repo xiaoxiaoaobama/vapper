@@ -19,7 +19,7 @@ Vue.mixin({
       : {}
   },
   errorCaptured (err) {
-    if (this.$root === this._self) {
+    if (this.$root === this._self && !err.isVueSsrPrefetcher) {
       // Display custom error page
       this.error = err
       // Throw the error to fall back to SPA mode

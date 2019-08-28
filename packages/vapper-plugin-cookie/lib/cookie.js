@@ -7,7 +7,8 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
   const isServer = type === 'server'
   const opts = getOptions(pluginRuntimeOptions)
 
-  const rowCookie = isServer ? req.headers.cookie : document.cookie
+  let rowCookie = isServer ? req.headers.cookie : document.cookie
+  rowCookie = rowCookie || ''
 
   const cookieUtils = {
     rowCookie,

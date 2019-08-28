@@ -5,3 +5,5 @@ dist
 .profile
 yarn.lock
 .vapper
+cypress/videos
+cypress/screenshots
