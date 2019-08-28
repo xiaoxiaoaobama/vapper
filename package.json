@@ -13,21 +13,30 @@
   "author": "HcySunYang <HcySunYang@outlook.com>",
   "license": "MIT",
   "devDependencies": {
+    "chalk": "^2.4.2",
     "cypress": "^3.4.1",
     "cz-lerna-changelog": "^2.0.2",
+    "execa": "^2.0.4",
+    "fs-extra": "^8.1.0",
     "husky": "^3.0.1",
     "jest": "^24.8.0",
     "lerna": "^3.14.1",
     "lerna-changelog": "^0.8.2",
     "lint-staged": "^9.2.0",
-    "standard": "^13.0.2"
+    "standard": "^13.0.2",
+    "wait-on": "^3.3.0"
   },
   "standard": {
     "ignore": [
       "examples/**",
       "*.ejs"
     ],
-    "globals": ["describe", "it", "expect", "cy"]
+    "globals": [
+      "describe",
+      "it",
+      "expect",
+      "cy"
+    ]
   },
   "lint-staged": {
     "*.js": [
