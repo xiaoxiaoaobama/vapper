@@ -55,14 +55,14 @@ module.exports = class Configer {
     config
       .plugin('friendly-errors')
       .init((Plugin, args) => new Plugin({ ...args, clearConsole: false }))
-
-    config
-      .entryPoints
-      .delete('index')
   }
 
   serverChainFn (config) {
     webpackConfig.server(this.api, config)
+
+    config
+      .entryPoints
+      .delete('index')
 
     config
       .entry('app')
@@ -72,6 +72,11 @@ module.exports = class Configer {
 
   clientChainFn (config) {
     webpackConfig.client(this.api, config)
+
+    config
+      .entryPoints
+      .delete('index')
+
     config
       .entry('app')
       .clear()
