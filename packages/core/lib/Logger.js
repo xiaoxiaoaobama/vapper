@@ -12,10 +12,7 @@ const chalk = require('chalk')
  */
 class Logger {
   constructor (logLevel = 5) {
-    this.logLevel = logLevel
-    if (typeof logLevel === 'number') {
-      this.setLogLevel(logLevel)
-    }
+    this.setLogLevel(logLevel)
   }
 
   setLogLevel (logLevel) {
@@ -23,7 +20,12 @@ class Logger {
       console.error('logLevel must be a number')
       return
     }
-    this.logLevel = logLevel
+    if (process.env.NODE_ENV === 'test' || process.env.VAPPER_ENV === 'test') {
+      // In the test environment, forced silence.
+      this.logLevel = 0
+    } else {
+      this.logLevel = logLevel
+    }
   }
 
   log (...args) {
