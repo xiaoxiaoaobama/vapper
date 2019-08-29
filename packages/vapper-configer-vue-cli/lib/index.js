@@ -1,7 +1,5 @@
 const webpackConfig = require('@vapper/webpack-config')
-const Service = require(
-  require.resolve('@vue/cli-service', { paths: [process.cwd()] })
-)
+const Service = require('@vue/cli-service')
 
 module.exports = class Configer {
   constructor (api) {

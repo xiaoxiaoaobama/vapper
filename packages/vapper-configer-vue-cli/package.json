@@ -13,5 +13,9 @@
     "pretty-ms": "^5.0.0",
     "string-width": "^4.1.0",
     "text-table": "^0.2.0"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^3.x",
+    "vue-template-compiler": "^2.6.0"
   }
 }
