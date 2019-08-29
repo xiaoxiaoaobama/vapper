@@ -5,6 +5,6 @@ export default function fetch () {
         code: 0,
         data: { name: 'hcy' }
       })
-    }, 2000)
+    }, 200)
   })
 }

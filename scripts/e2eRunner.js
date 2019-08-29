@@ -20,10 +20,14 @@ const fixturesPath = path.resolve(process.cwd(), `./examples`)
 let subprocess
 // Start the project server
 async function setupProject (projectName, npmCommand = 'dev') {
-  subprocess = execa('npm', ['run', npmCommand], {
-    cwd: path.resolve(process.cwd(), `./examples/${projectName}`),
+  const projPath = path.resolve(process.cwd(), `./examples/${projectName}`)
+  const opts = {
+    cwd: projPath,
     stdio: 'inherit'
-  })
+  }
+  const installed = await fs.pathExists(path.resolve(projPath, './node_modules'))
+  if (!installed) await execa('yarn', ['install'], opts)
+  subprocess = execa('npm', ['run', npmCommand], opts)
 }
 
 async function runTest (projectName, npmCommand) {

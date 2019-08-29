@@ -2,7 +2,7 @@
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
-## Setup
+## Setup Project
 
 ```sh
 git clone https://github.com/vapperjs/vapper.git
@@ -10,29 +10,33 @@ cd vapper
 yarn install
 ```
 
-## Run demo
+## Run E2E test
 
-### 1、link
+### 1. link
 
 ```sh
-cd packages/cli
+cd packages/core
 yarn link
 ```
 
-### 2、run
+This makes the `vapper` command globally available.
+
+### 2. run
+
+Projects in the `examples` directory as test fixtures.
+
+Test specified project:
 
 ```sh
-cd examples/vue-cli3
-yarn install
+yarn test [...projectName]
+# E.g
+yarn test poi vue-cli3
+```
 
-# dev
-vapper dev
+Test all project:
 
-# build
-vapper build
-
-# start the production server
-vapper start
+```sh
+yarn test
 ```
 
 ## Author
