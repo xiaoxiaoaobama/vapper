@@ -129,7 +129,7 @@ class Builder extends EventEmitter {
 
   loadConfiger () {
     const builderRE = /^(@vapper\/|vapper-|@[\w-]+\/vapper-)configer-/
-    const builders = this.api.loadDependencies(builderRE)
+    const builders = this.api.pickDependencies(builderRE)
 
     let Configer
 

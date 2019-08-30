@@ -7,3 +7,4 @@ yarn.lock
 .vapper
 cypress/videos
 cypress/screenshots
+coverage

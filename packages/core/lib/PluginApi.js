@@ -44,7 +44,11 @@ class PluginApi {
     return path.resolve(this.cwd, ...args)
   }
 
-  loadDependencies (re) {
+  /**
+   * Pick out the dependencies that match a given rule from all dependencies
+   * @param {RegExp} re
+   */
+  pickDependencies (re) {
     const pkg = require(this.resolveCWD('package.json'))
 
     return Object.keys(pkg.devDependencies || {})
