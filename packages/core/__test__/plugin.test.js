@@ -92,7 +92,7 @@ test('Enhancement files should be added correctly', () => {
 
   expect(vapper.enhanceFiles instanceof Set).toBe(true)
   expect(vapper.enhanceFiles.size).toBe(1)
-  expect(Array.from(vapper.enhanceFiles)[0]).toEqual(enhanceObj)
+  expect(vapper.enhanceFiles).toContain(enhanceObj)
 })
 
 test('Add and call hooks correctly', () => {
@@ -116,12 +116,8 @@ test('Add middleware correctly', () => {
   expect(pluginApi.middlewares['after:render'] instanceof Set).toBe(true)
   expect(pluginApi.middlewares['before:render'].size).toBe(1)
   expect(pluginApi.middlewares['after:render'].size).toBe(1)
-  expect(
-    Array.from(pluginApi.middlewares['before:render'])[0]
-  ).toEqual(mw1)
-  expect(
-    Array.from(pluginApi.middlewares['after:render'])[0]
-  ).toEqual(mw2)
+  expect(pluginApi.middlewares['before:render']).toContain(mw1)
+  expect(pluginApi.middlewares['after:render']).toContain(mw2)
 })
 
 test('Should pick the right dependency', () => {
