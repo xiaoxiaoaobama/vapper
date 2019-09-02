@@ -15,9 +15,9 @@
 
 ## Developed and maintained by
 
-<a herf="https://zhuanlan.zhihu.com/shuidi-fed"><img src="./assets/sd.png" /></a>
+[![](./assets/sd.png)](https://zhuanlan.zhihu.com/shuidi-fed)
 
-<a herf="https://zhuanlan.zhihu.com/shuidi-fed">front-end team of water drop</a>
+[Front-end team of water drop](https://zhuanlan.zhihu.com/shuidi-fed)
 
 ## Setup Project
 
