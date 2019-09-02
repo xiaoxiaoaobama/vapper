@@ -13,6 +13,12 @@
 
 <p align="center"><a href="https://vapperjs.org/">Documentation</a></p>
 
+## Developed and maintained by
+
+<a herf="https://zhuanlan.zhihu.com/shuidi-fed"><img src="./assets/sd.png" /></a>
+
+<a herf="https://zhuanlan.zhihu.com/shuidi-fed">front-end team of water drop</a>
+
 ## Setup Project
 
 ```sh
