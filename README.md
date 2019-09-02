@@ -62,7 +62,7 @@ Test all project:
 yarn test:e2e
 ```
 
-## Author
+## Core Author
 
 **Vapper** © [HcySunYang](https://github.com/HcySunYang), Released under the [MIT](./LICENSE) License.<br>
 Authored and maintained by HcySunYang.
