@@ -1,6 +1,15 @@
 # vapper (WIP)
 
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+**Work is still in progress, please use with caution**
+
+<p align="center">
+  <a href="https://lerna.js.org/"><img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg"></a>
+  <a href="https://www.npmjs.com/package/@vapper/core"><img src="https://img.shields.io/npm/v/@vapper/core.svg" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/@vapper/core"><img src="https://img.shields.io/npm/l/@vapper/core.svg" alt="License"></a>
+  <a href="https://www.patreon.com/HcySunYang"><img src="https://badgen.net/badge/support%20me/donate/ff00ff" alt="Support me"/></a>
+</p>
+
+[Documentation](https://vapperjs.org/)
 
 ## Setup Project
 
@@ -8,6 +17,12 @@
 git clone https://github.com/vapperjs/vapper.git
 cd vapper
 yarn install
+```
+
+## Run unit test
+
+```sh
+yarn test:unit
 ```
 
 ## Run E2E test
@@ -28,15 +43,15 @@ Projects in the `examples` directory as test fixtures.
 Test specified project:
 
 ```sh
-yarn test [...projectName]
+yarn test:e2e [...projectName]
 # E.g
-yarn test poi vue-cli3
+yarn test:e2e poi vue-cli3
 ```
 
 Test all project:
 
 ```sh
-yarn test
+yarn test:e2e
 ```
 
 ## Author
