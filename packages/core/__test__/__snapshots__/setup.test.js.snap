@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dev mode:  Enhance files should be generated correctly 1`] = `
+"
+
+const fns = []
+
+export default function (options) {
+  
+}
+
+export function enhanceInstance (opts) {
+  fns.filter(fn => typeof fn === 'function').forEach(fn => fn(opts))
+}"
+`;
+
+exports[`Dev mode:  Enhance files should be generated correctly 2`] = `
+"
+
+const fns = []
+
+export default function (options) {
+  
+}
+
+export function enhanceInstance (opts) {
+  fns.filter(fn => typeof fn === 'function').forEach(fn => fn(opts))
+}"
+`;
