@@ -1,6 +1,8 @@
 # vapper (WIP)
 
-**Work is still in progress, please use with caution**
+<p align="center"><a href="https://vapperjs.org/" target="_blank" rel="noopener noreferrer"><img width="100" src="https://vapperjs.org/vapper.png" alt="Vapper logo"></a></p>
+
+<p align="center">Work is still in progress, please use with caution</p>
 
 <p align="center">
   <a href="https://lerna.js.org/"><img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg"></a>
@@ -9,7 +11,7 @@
   <a href="https://www.patreon.com/HcySunYang"><img src="https://badgen.net/badge/support%20me/donate/ff00ff" alt="Support me"/></a>
 </p>
 
-[Documentation](https://vapperjs.org/)
+<p align="center"><a href="https://vapperjs.org/">Documentation</a></p>
 
 ## Setup Project
 
