@@ -11,12 +11,41 @@ jest.mock('vue-server-renderer')
 jest.mock('connect')
 jest.mock('compression')
 
+// mock fs-extra
+fs.readFileSync.mockReturnValue('{}')
+
+// mock renderToString
+const mockRenderToString = jest.fn().mockImplementation((ctx, fn) => {
+  const err = { code: 'FAKE', router: { mockRouter: true } }
+  fn(err, '')
+})
+createBundleRenderer.mockImplementation(() => {
+  return {
+    renderToString: mockRenderToString
+  }
+})
+
+// mock connect's use
+const mockUseFn = jest.fn()
+connect.mockImplementation(() => ({ use: mockUseFn }))
+
+// mock compression middleware
+const compressionHandler = () => {}
+compression.mockImplementation(() => {
+  return compressionHandler
+})
+
 beforeEach(() => {
+  fs.readFileSync.mockClear()
   fs.writeFileSync.mockClear()
   Builder.mockClear()
+  Builder.mockRun.mockClear()
+  Builder.mockOn.mockClear()
   createBundleRenderer.mockClear()
   connect.mockClear()
   compression.mockClear()
+  mockUseFn.mockClear()
+  mockRenderToString.mockClear()
 })
 
 describe('Dev mode: ', () => {
@@ -57,27 +86,6 @@ describe('Dev mode: ', () => {
   })
 
   test('Should setup correctly', async () => {
-    // mock renderToString
-    const mockRenderToString = jest.fn().mockImplementation((ctx, fn) => {
-      const err = { code: 'FAKE', router: { mockRouter: true } }
-      fn(err, '')
-    })
-    createBundleRenderer.mockImplementation(() => {
-      return {
-        renderToString: mockRenderToString
-      }
-    })
-
-    // mock connect's use
-    const mockUseFn = jest.fn()
-    connect.mockImplementation(() => ({ use: mockUseFn }))
-
-    // mock compression middleware
-    const compressionHandler = () => {}
-    compression.mockImplementation(() => {
-      return compressionHandler
-    })
-
     const vapper = new Vapper({ mode: 'development' })
     const mockBeforeSetupHook = jest.fn()
     const mockAfterSetupHook = jest.fn()
@@ -103,5 +111,41 @@ describe('Dev mode: ', () => {
     expect(mockUseFn.mock.calls[6][0].name).toMatch(/render/)
     expect(mockUseFn.mock.calls[7][0].__name).toBe('fallback_spa_after')
     expect(mockUseFn.mock.calls[8][0].__name).toBe('micro_caching_after')
+  })
+})
+
+describe('Prod mode: ', () => {
+  test('Should be built correctly', async () => {
+    const vapper = new Vapper({ mode: 'production' })
+
+    await vapper.build()
+
+    expect(Builder.mockRun.mock.calls.length).toBe(1)
+  })
+
+  test('Should setup correctly', async () => {
+    const vapper = new Vapper({ mode: 'production' })
+    const mockBeforeSetupHook = jest.fn()
+    const mockAfterSetupHook = jest.fn()
+    vapper.hookInto('before:setup', mockBeforeSetupHook)
+    vapper.hookInto('after:setup', mockAfterSetupHook)
+    await vapper.setup()
+
+    expect(mockRenderToString).toBeCalledWith({ fake: true }, expect.any(Function))
+    expect(vapper.router).toEqual({ mockRouter: true })
+
+    // hooks
+    expect(mockBeforeSetupHook).toHaveBeenCalledTimes(1)
+    expect(mockAfterSetupHook).toHaveBeenCalledTimes(1)
+
+    // init middlewares
+    expect(mockUseFn.mock.calls.length).toBe(7)
+    expect(mockUseFn.mock.calls[0][0]).toEqual(compressionHandler)
+    expect(mockUseFn.mock.calls[1][0].__name).toBe('serve_static')
+    expect(mockUseFn.mock.calls[2][0].__name).toBe('fallback_spa_pre')
+    expect(mockUseFn.mock.calls[3][0].__name).toBe('micro_caching_pre')
+    expect(mockUseFn.mock.calls[4][0].name).toMatch(/render/)
+    expect(mockUseFn.mock.calls[5][0].__name).toBe('fallback_spa_after')
+    expect(mockUseFn.mock.calls[6][0].__name).toBe('micro_caching_after')
   })
 })

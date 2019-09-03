@@ -6,19 +6,25 @@ mockRun.mockReturnValue({
 })
 
 const mockOn = jest.fn()
-const mockDevMiddleware = {
-  handle: jest.fn()
-}
-const mockHotMiddleware = {
-  handle: jest.fn()
-}
+const mockDevMiddleware = () => {}
+const mockHotMiddleware = () => {}
 
 const Builder = jest.fn().mockImplementation(() => {
   return {
     run: mockRun,
     on: mockOn,
     devMiddleware: mockDevMiddleware,
-    hotMiddleware: mockHotMiddleware
+    hotMiddleware: mockHotMiddleware,
+    clientWebpackConfig: {
+      output: {
+        path: 'mockClientWebpackConfig'
+      }
+    },
+    serverWebpackConfig: {
+      output: {
+        path: 'mockServerWebpackConfig'
+      }
+    }
   }
 })
 
