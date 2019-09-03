@@ -9,7 +9,6 @@ module.exports = (api, config) => {
 
   config.output
     .delete('filename')
-    .delete('publicPath')
     .libraryTarget('commonjs2')
 
   config.externals({

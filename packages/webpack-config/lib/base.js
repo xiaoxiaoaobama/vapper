@@ -6,6 +6,10 @@ module.exports = (api, config) => {
     .set('#entry$', api.resolveCWD(api.options.entry))
     .set('vue$', api.resolveCWD('node_modules/vue/dist/vue.runtime.esm.js'))
 
+  const publicPath = config.output.get('publicPath')
+  config.output
+    .publicPath((api.isProd && publicPath) ? publicPath : '/_vapper_/')
+
   config.module
     .rule('vue')
     .use('vue-loader')

@@ -10,10 +10,6 @@ module.exports = (api, config) => {
     .when(!isProd, entry => entry.add(require.resolve('webpack-hot-middleware/client')))
     .add(api.resolveCore('app/clientEntry.js'))
 
-  const publicPath = config.output.get('publicPath')
-  config.output
-    .publicPath((isProd && publicPath) ? publicPath : '/_vapper_/')
-
   config
     .plugin('VueSSRClientPlugin')
     .use(require('vue-server-renderer/client-plugin'), [{
