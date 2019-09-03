@@ -15,8 +15,7 @@ module.exports = (
 
   let isCacheable = false
   let key = ''
-
-  api.use((req, res, next) => {
+  const preHandler = (req, res, next) => {
     isCacheable = cacheable(req)
 
     if (isCacheable) {
@@ -30,12 +29,17 @@ module.exports = (
       }
     }
     next()
-  })
+  }
+  preHandler.__name = 'micro_caching_pre'
 
-  api.use('after:render', (req, res, next) => {
+  const afterHandler = (req, res, next) => {
     if (isCacheable) {
       microCache.set(key, api.htmlContent)
     }
     next()
-  })
+  }
+  afterHandler.__name = 'micro_caching_after'
+
+  api.use(preHandler)
+  api.use('after:render', afterHandler)
 }

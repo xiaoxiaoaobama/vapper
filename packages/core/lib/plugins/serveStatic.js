@@ -3,7 +3,7 @@ const finalhandler = require('finalhandler')
 const serveStatic = require('serve-static')
 
 module.exports = (api) => {
-  api.use((req, res, next) => {
+  const handler = (req, res, next) => {
     const originalUrl = req.url
 
     // FIX: Treat URLs with extensions as requests for static resources?
@@ -24,5 +24,8 @@ module.exports = (api) => {
     }
 
     next()
-  })
+  }
+  handler.__name = 'serve_static'
+
+  api.use(handler)
 }

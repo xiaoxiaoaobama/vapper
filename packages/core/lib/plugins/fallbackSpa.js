@@ -2,7 +2,7 @@ const serveStatic = require('serve-static')
 const finalhandler = require('finalhandler')
 
 module.exports = (api) => {
-  api.use((req, res, next) => {
+  const preHandler = (req, res, next) => {
     const meta = api.getRouteMeta(req.url)
     const needFallback = api.options.ssr
       ? (meta && meta.ssr === false)
@@ -15,9 +15,10 @@ module.exports = (api) => {
     }
 
     next()
-  })
+  }
+  preHandler.__name = 'fallback_spa_pre'
 
-  api.use('after:render', (err, req, res, next) => {
+  const afterHandler = (err, req, res, next) => {
     if (api.options.fallBackSpa && err && err.isVapper) {
       api.logger.debug(`Server rendering encountered an error:`, err)
       api.logger.debug(`Will fall back SPA mode, url is: ${req.url}`)
@@ -25,7 +26,11 @@ module.exports = (api) => {
       return
     }
     next(err)
-  })
+  }
+  afterHandler.__name = 'fallback_spa_after'
+
+  api.use(preHandler)
+  api.use('after:render', afterHandler)
 
   function fallBack (req, res) {
     if (api.isProd) {
