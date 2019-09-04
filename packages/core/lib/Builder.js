@@ -61,7 +61,7 @@ class Builder extends EventEmitter {
       this.serverCompiler.watch({}, () => {})
     }
 
-    this.serverCompiler.hooks.done.tap('@vapper-builder-vue-cli', () => {
+    this.serverCompiler.hooks.done.tap('@vapper', () => {
       this.compiledHandler('server')
     })
   }
@@ -82,7 +82,7 @@ class Builder extends EventEmitter {
       })
     }
 
-    this.clientCompiler.hooks.done.tap('@vapper-builder-vue-cli', () => {
+    this.clientCompiler.hooks.done.tap('@vapper', () => {
       this.compiledHandler('client')
     })
   }
