@@ -87,6 +87,8 @@ describe('Dev mode: ', () => {
   test('Webpack should be run correctly', async () => {
     const vapper = new Vapper({ mode: 'development' })
     const builder = vapper.builder
+    const mockEmitEvent = jest.fn()
+    builder.on('change', mockEmitEvent)
     await builder.run()
 
     expect(webpack).toHaveBeenCalledTimes(2)
@@ -100,5 +102,10 @@ describe('Dev mode: ', () => {
     })
     expect(webpackHotMiddleware).toHaveBeenCalledWith(compiler, { log: false })
     expect(mockTap).toHaveBeenNthCalledWith(2, '@vapper', expect.any(Function))
+
+    expect(mockEmitEvent).toHaveBeenCalledWith({
+      serverBundle: builder.serverBundle,
+      clientManifest: builder.clientManifest
+    })
   })
 })
