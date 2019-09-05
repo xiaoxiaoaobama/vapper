@@ -14,16 +14,18 @@ const TYPE = 'server'
 export default async context => {
   const isFake = context.fake
 
-  enhanceApp({
+  const ctx = {
     Vue,
     pluginRuntimeOptions: createApp.pluginRuntimeOptions,
     req: context.req,
     res: context.res,
     type: TYPE,
     isFake
-  })
+  }
 
-  const { app, router, store } = createApp()
+  enhanceApp(ctx)
+
+  const { app, router, store } = createApp(ctx)
 
   // Add helpers
   app.$$redirect = redirect

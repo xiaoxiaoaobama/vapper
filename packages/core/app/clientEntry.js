@@ -11,13 +11,15 @@ const TYPE = 'client'
 
 Vue.use(clientPlugin)
 
-enhanceApp({
+const context = {
   Vue,
   pluginRuntimeOptions: createApp.pluginRuntimeOptions,
   type: TYPE
-})
+}
 
-const { app, router, store } = createApp()
+enhanceApp(context)
+
+const { app, router, store } = createApp(context)
 
 // Add helpers
 const redirect = createClientRedirect(router)
