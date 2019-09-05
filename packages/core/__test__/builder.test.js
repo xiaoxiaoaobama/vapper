@@ -62,6 +62,7 @@ VueCliConfiger.mockImplementation(() => {
 })
 
 beforeEach(() => {
+  webpack.mockClear()
   mockWebpackRun.mockClear()
   mockWebpackWatch.mockClear()
   mockTap.mockClear()
@@ -101,6 +102,27 @@ describe('Dev mode: ', () => {
       noInfo: true
     })
     expect(webpackHotMiddleware).toHaveBeenCalledWith(compiler, { log: false })
+    expect(mockTap).toHaveBeenNthCalledWith(2, '@vapper', expect.any(Function))
+
+    expect(mockEmitEvent).toHaveBeenCalledWith({
+      serverBundle: builder.serverBundle,
+      clientManifest: builder.clientManifest
+    })
+  })
+})
+
+describe('Prod mode: ', () => {
+  test('Webpack should be run correctly', async () => {
+    const vapper = new Vapper({ mode: 'production' })
+    const builder = vapper.builder
+    const mockEmitEvent = jest.fn()
+    builder.on('change', mockEmitEvent)
+    await builder.run()
+
+    expect(webpack).toHaveBeenCalledTimes(2)
+    expect(mockWebpackWatch).not.toHaveBeenCalled()
+    expect(mockWebpackRun).toHaveBeenCalledTimes(2)
+    expect(mockTap).toHaveBeenNthCalledWith(1, '@vapper', expect.any(Function))
     expect(mockTap).toHaveBeenNthCalledWith(2, '@vapper', expect.any(Function))
 
     expect(mockEmitEvent).toHaveBeenCalledWith({
