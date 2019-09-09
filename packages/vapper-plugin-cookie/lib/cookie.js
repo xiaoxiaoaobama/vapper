@@ -7,12 +7,11 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
   const isServer = type === 'server'
   const opts = getOptions(pluginRuntimeOptions)
 
-  let rowCookie = isServer ? req.headers.cookie : document.cookie
-  rowCookie = rowCookie || ''
-
   const cookieUtils = {
-    rowCookie,
-    cookies: cookie.parse(rowCookie),
+    getCookies () {
+      const rawCookie = isServer ? req.headers.cookie : document.cookie
+      return cookie.parse(rawCookie || '')
+    },
     get: (name) => {
       const cookieObj = {}
       if (isServer && opts.fromRes) {
@@ -27,7 +26,7 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
         Object.assign(cookieObj, responseCookie)
       }
 
-      Object.assign(cookieObj, cookieUtils.cookies)
+      Object.assign(cookieObj, cookieUtils.getCookies())
 
       return name ? cookieObj[name] : cookieObj
     },
@@ -60,7 +59,7 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
     delete (name, options) {
       if (!name) {
         // remove all
-        Object.keys(cookieUtils.cookies).forEach(name => cookieUtils._delete(name))
+        Object.keys(cookieUtils.getCookies()).forEach(name => cookieUtils._delete(name))
         return
       }
 
