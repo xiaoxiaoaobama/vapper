@@ -15,7 +15,11 @@
   "author": "HcySunYang <HcySunYang@outlook.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "@vue/cli-service": "^3.11.0",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-jest": "^24.9.0",
     "chalk": "^2.4.2",
     "cross-env": "^5.2.0",
     "cypress": "^3.4.1",
@@ -28,6 +32,7 @@
     "lerna-changelog": "^0.8.2",
     "lint-staged": "^9.2.0",
     "standard": "^13.0.2",
+    "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10",
     "wait-on": "^3.3.0"
   },

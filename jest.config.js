@@ -5,5 +5,8 @@ module.exports = {
     '^@vapper/core$': '<rootDir>/packages/core/lib',
     '^@vapper/webpack-config$': '<rootDir>/packages/webpack-config/lib',
     '^@vapper/(.*?)$': '<rootDir>/packages/vapper-$1/lib'
+  },
+  transform: {
+    '^.+\\.js$': 'babel-jest'
   }
 }
