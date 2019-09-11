@@ -51,7 +51,9 @@ const clientPlugin = function (Vue) {
 
       const key = getKey(keyMap, this)
 
-      Object.assign(this, $$selfStore[key] || {})
+      try {
+        Object.assign(this, $$selfStore[key] || {})
+      } catch (err) {}
     },
     errorCaptured: function (err) {
       if (err.isVueSsrPrefetcher) { return false }

@@ -25,7 +25,7 @@ export default async context => {
 
   enhanceApp(ctx)
 
-  const { app, router, store } = createApp(ctx)
+  const { app, router, store, apolloProvider } = createApp(ctx)
 
   // Add helpers
   app.$$redirect = redirect
@@ -66,12 +66,17 @@ export default async context => {
 
     throw app.error
   }
-
-  // The data will be serialized
-  context.state = {
-    $$stroe: store ? store.state : undefined,
-    // vue-ssr-prefetcher
-    $$selfStore: app.$$selfStore
+  context.rendered = () => {
+    // The data will be serialized
+    context.state = {
+      $$stroe: store ? store.state : undefined,
+      // vue-ssr-prefetcher
+      $$selfStore: app.$$selfStore
+    }
+    if (apolloProvider) {
+      // Also inject the apollo cache state
+      context.state.$$apolloState = getApolloStates(apolloProvider)
+    }
   }
 
   // vue-meta
@@ -83,4 +88,17 @@ async function routerReady (router) {
   return new Promise((resolve, reject) => {
     router.onReady(resolve, reject)
   })
+}
+
+function getApolloStates (apolloProvider, options = {}) {
+  const finalOptions = Object.assign({}, {
+    exportNamespace: ''
+  }, options)
+  const states = {}
+  for (const key in apolloProvider.clients) {
+    const client = apolloProvider.clients[key]
+    const state = client.cache.extract()
+    states[`${finalOptions.exportNamespace}${key}`] = state
+  }
+  return states
 }
