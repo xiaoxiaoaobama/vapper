@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/vue-contrib/homo/compare/@vapper/core@0.4.5...@vapper/core@0.5.0) (2019-09-11)
+
+
+### Features
+
+* support vue-apollo ([1d4225a](https://github.com/vue-contrib/homo/commit/1d4225a))
+
+
+
+
+
 ## [0.4.5](https://github.com/vue-contrib/homo/compare/@vapper/core@0.4.4...@vapper/core@0.4.5) (2019-09-10)
 
 
