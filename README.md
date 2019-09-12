@@ -1,4 +1,4 @@
-# vapper (WIP)
+# vapper
 
 <p align="center"><a href="https://vapperjs.org/" target="_blank" rel="noopener noreferrer"><img width="100" src="https://vapperjs.org/vapper.png" alt="Vapper logo"></a></p>
 
