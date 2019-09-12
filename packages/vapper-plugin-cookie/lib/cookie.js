@@ -15,8 +15,9 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
     get: (name) => {
       const cookieObj = {}
       if (isServer && opts.fromRes) {
+        const setCookie = res.getHeader('Set-Cookie') || []
         const responseCookie = cookie.parse(
-          res.getHeader('Set-Cookie')
+          setCookie
             .map(str => {
               return str.split(';')[0]
             })
@@ -40,12 +41,12 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
         cookieUtils._set(name, value, options)
       })
     },
-    _set (name = '', value = '', options = { path: '/' }) {
+    _set (name, value = '', options = { path: '/' }) {
       if (typeof value !== 'string') value = JSON.stringify(value)
 
       if (res) {
         let exists = res.getHeader('Set-Cookie')
-        exists = typeof exists === 'string' ? [exists] : exists
+        exists = typeof exists === 'string' ? [exists] : (exists || [])
 
         exists.push(cookie.serialize(name, value, options))
 
