@@ -5,7 +5,7 @@
 <p align="center">Work is still in progress, please use with caution</p>
 
 <p align="center">
-  <a href="https://circleci.com/gh/vapperjs/vapper/tree/master"><img src="https://img.shields.io/circleci/build/github/vapperjs/vapper/master.svg" alt="Build Status"/></a>
+  <a href="https://circleci.com/gh/vapperjs/vapper"><img src="https://circleci.com/gh/vapperjs/vapper.svg?style=svg" alt="Build Status"/></a>
   <a href="https://lerna.js.org/"><img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="Maintained With lerna"></a>
   <a href="https://www.npmjs.com/package/@vapper/core"><img src="https://img.shields.io/npm/v/@vapper/core.svg" alt="Version"></a>
   <a href="https://www.npmjs.com/package/@vapper/core"><img src="https://img.shields.io/npm/l/@vapper/core.svg" alt="License"></a>
