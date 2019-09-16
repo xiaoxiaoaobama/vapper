@@ -1,4 +1,6 @@
 
+const nodeExternals = require('webpack-node-externals')
+
 module.exports = (api, config) => {
   config
     .entry('index')
@@ -7,13 +9,15 @@ module.exports = (api, config) => {
 
   config.target('node')
 
+  config.devtool('source-map')
+
   config.output
     .delete('filename')
     .libraryTarget('commonjs2')
 
-  config.externals({
-    whitelist: /\.css$/
-  })
+  config.externals(nodeExternals({
+    whitelist: api.options.nodeExternalsWhitelist
+  }))
 
   config
     .plugin('webpackbar')

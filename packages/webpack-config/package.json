@@ -10,6 +10,7 @@
     "time-fix-plugin": "^2.0.6",
     "webpack": "^4.38.0",
     "webpack-hot-middleware": "^2.25.0",
+    "webpack-node-externals": "^1.7.2",
     "webpackbar": "^4.0.0"
   }
 }

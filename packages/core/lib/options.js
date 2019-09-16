@@ -19,7 +19,8 @@ exports.options = {
   serverBundleFileName: 'vue-ssr-server-bundle.json',
   clientManifestFileName: 'vue-ssr-client-manifest.json',
   pageCache: {},
-  rendererOptions: {}
+  rendererOptions: {},
+  nodeExternalsWhitelist: [/\.css$/, /\?vue&type=style/]
 }
 
 exports.optionsSchema = Joi.object({
@@ -51,5 +52,6 @@ exports.optionsSchema = Joi.object({
     cacheable: Joi.func(),
     getCacheKey: Joi.func()
   }),
-  rendererOptions: Joi.object()
+  rendererOptions: Joi.object(),
+  nodeExternalsWhitelist: Joi.array()
 })
