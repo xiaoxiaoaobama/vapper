@@ -46,7 +46,7 @@ router.beforeResolve(async (to, from, next) => {
 
 router.onReady(() => {
   // In poi, when we fall back to spa mode,
-  // the html page doesn't include `#_home_`, so use `#app`
+  // the html page doesn't include `#_vapper_`, so use `#app`
   const el = document.querySelector('#_vapper_') || document.querySelector('#app')
 
   if (window.__INITIAL_STATE__) {
