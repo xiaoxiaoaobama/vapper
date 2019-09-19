@@ -52,6 +52,25 @@ module.exports = class Configer {
         }
       ])
 
+    // Should transpile vapper related code
+    const originJsRuleFn = Array.from(
+      config.module
+        .rule('js')
+        .test(/\.m?jsx?$/)
+        .exclude
+        .store
+    )[0]
+    config.module
+      .rule('js')
+      .test(/\.m?jsx?$/)
+      .exclude
+      .clear()
+      .add(filepath => {
+        if (/@vapper/.test(filepath)) return false
+
+        return originJsRuleFn(filepath)
+      })
+
     config
       .plugin('friendly-errors')
       .init((Plugin, args) => new Plugin({ ...args, clearConsole: false }))
