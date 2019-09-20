@@ -90,11 +90,17 @@ class PluginApi {
     this.middlewares[type].add(fn)
   }
 
-  getRouteMeta (location) {
-    if (!this.router) return null
+  getRouteInfo (location) {
+    if (!this.router) return {}
     const res = this.router.resolve({ path: location })
-    if (!res.resolved.matched.length) return null
-    return res.resolved.meta
+    if (!res.resolved.matched.length) return {}
+    return res.resolved
+  }
+
+  getRouteMeta (location) {
+    const routeInfo = this.getRouteInfo(location)
+
+    return routeInfo.meta || null
   }
 
   hookInto (name, fn) {
