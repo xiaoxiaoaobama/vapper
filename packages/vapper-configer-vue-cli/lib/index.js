@@ -67,7 +67,7 @@ module.exports = class Configer {
       .clear()
       .add(filepath => {
         if (/@vapper/.test(filepath)) return false
-
+        if (!originJsRuleFn) return false
         return originJsRuleFn(filepath)
       })
 
