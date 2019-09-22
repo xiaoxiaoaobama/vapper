@@ -1,6 +1,6 @@
 # with-vue-apollo
 
-Use vue-apollo with vapper
+Use vapper with vue-apollo
 
 ## Project setup
 
