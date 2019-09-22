@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.5.1...@vapper/core@0.6.0) (2019-09-22)
+
+
+### Features
+
+* **core:** support to return current routing information API ([#8](https://github.com/vapperjs/vapper/issues/8)) ([416a6b6](https://github.com/vapperjs/vapper/commit/416a6b6)), closes [#7](https://github.com/vapperjs/vapper/issues/7)
+
+
+
+
+
 ## [0.5.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.5.0...@vapper/core@0.5.1) (2019-09-19)
 
 **Note:** Version bump only for package @vapper/core
