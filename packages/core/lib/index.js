@@ -92,16 +92,8 @@ class Vapper extends PluginApi {
       await this.build()
     }
 
-    // Get the vue-router instance
-    try {
-      await this.renderHTML({ fake: true })
-    } catch (err) {
-      if (err.code === 'FAKE') {
-        this.router = err.router
-      } else {
-        this.logger.error(err)
-      }
-    }
+    // Resolve the vue-router instance
+    await this.resolveRouterInstanceForFake()
 
     // install middleware
     this.app.use(compression())
@@ -135,8 +127,10 @@ class Vapper extends PluginApi {
 
     this.renderer = this.createRenderer({ serverBundle, clientManifest })
 
-    this.builder.on('change', ({ serverBundle, clientManifest }) => {
+    this.builder.on('change', async ({ serverBundle, clientManifest }) => {
       this.renderer = this.createRenderer({ serverBundle, clientManifest })
+      // Update the vue-router instance
+      await this.resolveRouterInstanceForFake()
       this.logger.debug('Renderer updated')
     })
 
@@ -199,6 +193,19 @@ class Vapper extends PluginApi {
         })
       }
     )
+  }
+
+  async resolveRouterInstanceForFake () {
+    // Get the vue-router instance
+    try {
+      await this.renderHTML({ fake: true })
+    } catch (err) {
+      if (err.code === 'FAKE') {
+        this.router = err.router
+      } else {
+        this.logger.error(err)
+      }
+    }
   }
 
   createRenderer ({ serverBundle, clientManifest }) {
