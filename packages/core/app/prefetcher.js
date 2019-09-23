@@ -28,6 +28,7 @@ function serverPlugin (Vue) {
     created: createdHook
   })
 }
+serverPlugin.__name = 'vapperServerPlugin'
 
 const clientPlugin = function (Vue) {
   Vue.prototype.$createFetcher = function (fetcher) {
