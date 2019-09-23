@@ -1,10 +1,10 @@
-import VapperError from './VapperError'
-
-export function redirect (url) {
-  throw new VapperError({
-    code: 'REDIRECT',
-    redirectURL: url
-  })
+export function createServerRedirect (res) {
+  return (url) => {
+    res.writeHead(302, {
+      Location: url
+    })
+    res.end()
+  }
 }
 
 export function createClientRedirect (router) {
