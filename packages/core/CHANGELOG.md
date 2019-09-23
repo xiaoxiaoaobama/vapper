@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.6.1...@vapper/core@0.6.2) (2019-09-23)
+
+
+### Bug Fixes
+
+* **core:** avoid multiple installations in development mode ([504b601](https://github.com/vapperjs/vapper/commit/504b601))
+* **core:** update routing instances in development mode ([821793f](https://github.com/vapperjs/vapper/commit/821793f)), closes [#9](https://github.com/vapperjs/vapper/issues/9)
+
+
+
+
+
 ## [0.6.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.6.0...@vapper/core@0.6.1) (2019-09-23)
 
 
