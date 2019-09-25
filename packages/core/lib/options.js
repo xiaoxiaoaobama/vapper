@@ -20,7 +20,8 @@ exports.options = {
   clientManifestFileName: 'vue-ssr-client-manifest.json',
   pageCache: {},
   rendererOptions: {},
-  nodeExternalsWhitelist: [/\.css$/, /\?vue&type=style/]
+  nodeExternalsWhitelist: [/\.css$/, /\?vue&type=style/],
+  needResolveRouteMeta: true
 }
 
 exports.optionsSchema = Joi.object({
@@ -53,5 +54,6 @@ exports.optionsSchema = Joi.object({
     getCacheKey: Joi.func()
   }),
   rendererOptions: Joi.object(),
-  nodeExternalsWhitelist: Joi.array()
+  nodeExternalsWhitelist: Joi.array(),
+  needResolveRouteMeta: Joi.boolean()
 })

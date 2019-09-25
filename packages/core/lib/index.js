@@ -196,6 +196,7 @@ class Vapper extends PluginApi {
   }
 
   async resolveRouterInstanceForFake () {
+    if (!this.options.needResolveRouteMeta) return
     // Get the vue-router instance
     try {
       await this.renderHTML({ fake: true })
