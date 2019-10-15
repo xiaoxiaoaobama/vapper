@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.7.0...@vapper/core@0.8.0) (2019-10-15)
+
+
+### Features
+
+* manually fall back to SPA mode ([038c37c](https://github.com/vapperjs/vapper/commit/038c37c))
+
+
+
+
+
 # [0.7.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.6.2...@vapper/core@0.7.0) (2019-09-25)
 
 
