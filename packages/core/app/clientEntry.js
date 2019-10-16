@@ -47,7 +47,7 @@ router.beforeResolve(async (to, from, next) => {
 router.onReady(() => {
   // In poi, when we fall back to spa mode,
   // the html page doesn't include `#_vapper_`, so use `#app`
-  const el = document.querySelector('#_vapper_') || document.querySelector('#app')
+  let el = document.querySelector('[data-server-rendered]')
 
   if (window.__INITIAL_STATE__) {
     const { $$stroe, $$selfStore } = window.__INITIAL_STATE__
@@ -64,6 +64,7 @@ router.onReady(() => {
     clientPlugin.$$resolved = true
   } else {
     // fallback SPA mode
+    el = document.querySelector('#_vapper_') || document.querySelector('#app')
     clientPlugin.$$resolved = true
     app.$mount(el)
   }
