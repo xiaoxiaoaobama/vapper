@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.8.0...@vapper/core@0.8.1) (2019-10-16)
+
+
+### Bug Fixes
+
+* adjust the mount point of the spa app ([47899a4](https://github.com/vapperjs/vapper/commit/47899a4))
+
+
+
+
+
 # [0.8.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.7.0...@vapper/core@0.8.0) (2019-10-15)
 
 
