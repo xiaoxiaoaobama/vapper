@@ -12,6 +12,7 @@ export default function createApp () {
   // 2. Create a app instance
   const app = new Vue({
     router,
+    head: {},
     render: h => h(App)
   })
 

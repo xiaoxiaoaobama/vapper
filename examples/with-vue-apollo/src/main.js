@@ -20,6 +20,7 @@ export default function createApp (context) {
   const app = new Vue({
     apolloProvider,
     router,
+    head: {},
     render: h => h(App)
   })
 
