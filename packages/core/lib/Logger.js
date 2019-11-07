@@ -20,7 +20,7 @@ class Logger {
       console.error('logLevel must be a number')
       return
     }
-    if (process.env.NODE_ENV === 'test' || process.env.VAPPER_ENV === 'test') {
+    if (process.env.NODE_ENV === 'unittest' || process.env.VAPPER_ENV === 'unittest') {
       // In the test environment, forced silence.
       this.logLevel = 0
     } else {
