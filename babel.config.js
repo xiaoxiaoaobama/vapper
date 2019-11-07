@@ -1,6 +1,6 @@
 
 module.exports = function (api) {
-  if (api.env('test')) {
+  if (api.env('unittest')) {
     return {
       presets: [
         ['@babel/env', {
