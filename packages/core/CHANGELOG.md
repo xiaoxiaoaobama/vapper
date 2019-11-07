@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.8.1...@vapper/core@0.8.2) (2019-11-07)
+
+
+### Bug Fixes
+
+* modify the env variable name of the unit test ([1bb6fc4](https://github.com/vapperjs/vapper/commit/1bb6fc4))
+
+
+
+
+
 ## [0.8.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.8.0...@vapper/core@0.8.1) (2019-10-16)
 
 
