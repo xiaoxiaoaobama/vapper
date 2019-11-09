@@ -3,6 +3,7 @@ const Vapper = require('@vapper/core')
 const serveStaticPlugin = require('../lib/plugins/serveStatic')
 const fallbackSpaPlugin = require('../lib/plugins/fallbackSpa')
 const microCachingPlugin = require('../lib/plugins/microCaching')
+const separateEntryPlugin = require('../lib/plugins/separateEntry')
 const PluginApi = require('../lib/PluginApi')
 
 // mock a plugin
@@ -17,10 +18,11 @@ beforeEach(() => {
 test('The built-in plugin should be initialized correctly', () => {
   const vapper = new Vapper()
 
-  expect(vapper.buildInPlugins.length).toBe(3)
+  expect(vapper.buildInPlugins.length).toBe(4)
   expect(vapper.buildInPlugins).toEqual([
     serveStaticPlugin,
     fallbackSpaPlugin,
+    separateEntryPlugin,
     [microCachingPlugin, vapper.options.pageCache]
   ])
 })
@@ -91,7 +93,7 @@ test('Enhancement files should be added correctly', () => {
   const vapper = new Vapper(options)
 
   expect(vapper.enhanceFiles instanceof Set).toBe(true)
-  expect(vapper.enhanceFiles.size).toBe(1)
+  expect(vapper.enhanceFiles.size).toBe(2) // Plus a built in (separateEntryPlugin).
   expect(vapper.enhanceFiles).toContain(enhanceObj)
 })
 
