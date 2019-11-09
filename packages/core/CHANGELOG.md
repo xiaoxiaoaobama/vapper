@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.8.2...@vapper/core@0.9.0) (2019-11-09)
+
+
+### Features
+
+* **core:** built-in custom-entry plugin ([059255b](https://github.com/vapperjs/vapper/commit/059255b))
+
+
+
+
+
 ## [0.8.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.8.1...@vapper/core@0.8.2) (2019-11-07)
 
 
