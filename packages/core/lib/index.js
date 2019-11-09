@@ -11,6 +11,7 @@ const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
 const Builder = require('./Builder')
 const serveStaticPlugin = require('./plugins/serveStatic')
+const separateEntryPlugin = require('./plugins/separateEntry')
 const fallbackSpaPlugin = require('./plugins/fallbackSpa')
 const microCachingPlugin = require('./plugins/microCaching')
 const { options: defaultOptions, optionsSchema } = require('./options')
@@ -222,6 +223,7 @@ class Vapper extends PluginApi {
     this.buildInPlugins = [
       serveStaticPlugin,
       fallbackSpaPlugin,
+      separateEntryPlugin,
       [microCachingPlugin, this.options.pageCache]
     ]
 
@@ -250,11 +252,11 @@ class Vapper extends PluginApi {
 
     const clientEnhanceContent = compiled({
       type: 'client',
-      enhanceFiles: this.enhanceFiles
+      enhanceFiles: Array.from(this.enhanceFiles).filter(enhanceObj => enhanceObj.client)
     })
     const serverEnhanceContent = compiled({
       type: 'server',
-      enhanceFiles: this.enhanceFiles
+      enhanceFiles: Array.from(this.enhanceFiles).filter(enhanceObj => enhanceObj.server)
     })
 
     this.logger.debug('Write a enhance file: ' + this.enhanceClientOutput)
