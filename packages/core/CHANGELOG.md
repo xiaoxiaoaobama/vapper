@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.9.0...@vapper/core@0.10.0) (2019-11-11)
+
+
+### Features
+
+* support typescript + ts example ([138a6ad](https://github.com/vapperjs/vapper/commit/138a6ad))
+
+
+
+
+
 # [0.9.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.8.2...@vapper/core@0.9.0) (2019-11-09)
 
 
