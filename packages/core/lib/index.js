@@ -22,6 +22,13 @@ class Vapper extends PluginApi {
     this.app = connect()
     this.cli = cac
 
+    // Check if it is a TypeScript project
+    this.isTSProject = fs.existsSync(this.resolveCWD(defaultOptions.entry + '.ts'))
+    if (this.isTSProject) {
+      defaultOptions.clientEntry = 'src/client.ts'
+      defaultOptions.serverEntry = 'src/server.ts'
+    }
+
     this.defaultOptions = defaultOptions
     this.optionsSchema = optionsSchema
     this.options = merge(
