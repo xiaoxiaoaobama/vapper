@@ -3,6 +3,11 @@ import Meta from 'vue-meta'
 import createApp from '#entry'
 import ClientOnly from './ClientOnly'
 
+// When an async lifecycle hook (usually `created`) throws an error,
+// it needs to be captured using `Vue.config.errorHandler`,
+// but the user has probably already specified it.
+if (!Vue.config.errorHandler) Vue.config.errorHandler = () => {}
+
 Vue.component('ClientOnly', ClientOnly)
 
 // Install vue-meta
@@ -22,8 +27,6 @@ Vue.mixin({
     if (this.$root === this._self && !err.isVueSsrPrefetcher) {
       // Display custom error page
       this.error = err
-      // Throw the error to fall back to SPA mode
-      throw err
     }
   }
 })
