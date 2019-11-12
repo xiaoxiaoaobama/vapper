@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.10.0...@vapper/core@0.11.0) (2019-11-12)
+
+
+### Features
+
+* robust error object ([230d402](https://github.com/vapperjs/vapper/commit/230d402))
+
+
+
+
+
 # [0.10.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.9.0...@vapper/core@0.10.0) (2019-11-11)
 
 
