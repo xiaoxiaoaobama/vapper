@@ -169,8 +169,10 @@ class Vapper extends PluginApi {
         res.end()
         return
       }
-      err.isVapper = true
-      next(err)
+      // The `err` may not be an Error instance in some cases
+      const error = typeof err !== 'object' ? new Error(String(err)) : err
+      error.isVapper = true
+      next(error)
     }
   }
 
