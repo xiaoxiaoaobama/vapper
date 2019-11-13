@@ -2,7 +2,7 @@
 
 <p align="center"><a href="https://vapperjs.org/" target="_blank" rel="noopener noreferrer"><img width="100" src="https://vapperjs.org/vapper.png" alt="Vapper logo"></a></p>
 
-<p align="center">Work is still in progress, please use with caution</p>
+<p align="center">Has not yet reached v1.0, but is almost stable, please use with caution</p>
 
 <p align="center">
   <a href="https://circleci.com/gh/vapperjs/vapper"><img src="https://circleci.com/gh/vapperjs/vapper.svg?style=svg" alt="Build Status"/></a>
