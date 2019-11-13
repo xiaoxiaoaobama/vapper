@@ -35,7 +35,7 @@ exports.optionsSchema = Joi.object({
   template: Joi.alternatives().try(Joi.string(), null),
   port: Joi.number(),
   p: Joi.number(),
-  host: Joi.string().ip(),
+  host: Joi.alternatives().try(Joi.string().ip(), Joi.string().allow('localhost')),
   h: Joi.string().ip(),
   logLevel: Joi.number().min(1).max(5),
   static: Joi.object(),
