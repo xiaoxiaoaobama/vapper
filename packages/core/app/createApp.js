@@ -6,7 +6,15 @@ import ClientOnly from './ClientOnly'
 // When an async lifecycle hook (usually `created`) throws an error,
 // it needs to be captured using `Vue.config.errorHandler`,
 // but the user has probably already specified it.
-if (!Vue.config.errorHandler) Vue.config.errorHandler = () => {}
+if (!Vue.config.errorHandler) {
+  Vue.config.errorHandler = (err, vm, info) => {
+    vm.$root.error = err
+    // Discard the async error because it triggers the `unhandledRejection` event.
+    if (info.indexOf('(Promise/async)') > 0) return
+
+    throw err
+  }
+}
 
 Vue.component('ClientOnly', ClientOnly)
 

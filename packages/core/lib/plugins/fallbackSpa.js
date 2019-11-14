@@ -39,6 +39,11 @@ module.exports = (api) => {
   api.use('after:render', afterHandler)
 
   function fallBack (req, res) {
+    // Prioritize user-defined
+    if (api.options.fallbackSpaHandler) {
+      api.options.fallbackSpaHandler(req, res, api)
+      return
+    }
     if (api.isProd) {
       req.url = '/index.html'
       serveStatic('dist', api.options.static)(req, res, finalhandler(req, res))

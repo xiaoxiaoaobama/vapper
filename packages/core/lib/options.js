@@ -18,6 +18,7 @@ exports.options = {
   plugins: [],
   htmlMinifier: false,
   fallBackSpa: true,
+  fallbackSpaHandler: null,
   serverBundleFileName: 'vue-ssr-server-bundle.json',
   clientManifestFileName: 'vue-ssr-client-manifest.json',
   pageCache: {},
@@ -50,6 +51,7 @@ exports.optionsSchema = Joi.object({
   ),
   htmlMinifier: Joi.alternatives().try(Joi.object(), Joi.boolean()),
   fallBackSpa: Joi.boolean(),
+  fallbackSpaHandler: Joi.alternatives().try(Joi.func(), null),
   serverBundleFileName: Joi.string().regex(/^.+\.json$/),
   clientManifestFileName: Joi.string().regex(/^.+\.json$/),
   pageCache: Joi.object({
