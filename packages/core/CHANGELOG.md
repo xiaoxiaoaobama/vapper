@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.12.1...@vapper/core@0.13.0) (2019-11-14)
+
+
+### Features
+
+* **core:** add a cache for getRouteInfo ([6238343](https://github.com/vapperjs/vapper/commit/6238343))
+* allow custom fallback SPA logic ([038ec32](https://github.com/vapperjs/vapper/commit/038ec32)), closes [#19](https://github.com/vapperjs/vapper/issues/19)
+
+
+
+
+
 ## [0.12.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.12.0...@vapper/core@0.12.1) (2019-11-13)
 
 
