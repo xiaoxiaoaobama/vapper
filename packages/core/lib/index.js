@@ -7,6 +7,7 @@ const { minify } = require('html-minifier')
 const merge = require('lodash.merge')
 const { createBundleRenderer } = require('vue-server-renderer')
 const template = require('lodash.template')
+const slash = require('slash')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
 const Builder = require('./Builder')
@@ -259,13 +260,24 @@ class Vapper extends PluginApi {
   async generateEnhanceFile () {
     const compiled = template(this.enhanceTemplate)
 
+    const transformEnhanceFiles = (type) => {
+      return Array.from(this.enhanceFiles).filter(enhanceObj => enhanceObj[type]).map(enhanceObj => {
+        const serializedPath = slash(path.relative(
+          path.dirname(this.enhanceClientOutput),
+          path.dirname(enhanceObj[type])
+        ))
+        enhanceObj[type] = `${serializedPath}/${enhanceObj.clientModuleName}.js`
+        return enhanceObj
+      })
+    }
+
     const clientEnhanceContent = compiled({
       type: 'client',
-      enhanceFiles: Array.from(this.enhanceFiles).filter(enhanceObj => enhanceObj.client)
+      enhanceFiles: transformEnhanceFiles('client')
     })
     const serverEnhanceContent = compiled({
       type: 'server',
-      enhanceFiles: Array.from(this.enhanceFiles).filter(enhanceObj => enhanceObj.server)
+      enhanceFiles: transformEnhanceFiles('server')
     })
 
     this.logger.debug('Write a enhance file: ' + this.enhanceClientOutput)
