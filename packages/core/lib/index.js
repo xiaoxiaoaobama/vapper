@@ -266,7 +266,7 @@ class Vapper extends PluginApi {
           path.dirname(this.enhanceClientOutput),
           path.dirname(enhanceObj[type])
         ))
-        enhanceObj[type] = `${serializedPath}/${enhanceObj.clientModuleName}.js`
+        enhanceObj[type] = `${serializedPath}/${path.basename(enhanceObj[type])}`
         return enhanceObj
       })
     }
