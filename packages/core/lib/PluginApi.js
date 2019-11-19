@@ -21,7 +21,6 @@ class PluginApi {
     this.enhanceServerOutput = this.resolveCore('app/.vapper/enhanceServer.js')
 
     this.hooks = new Map()
-    this.routeInfoCache = new Map()
   }
 
   addEnhanceFile (enhance) {
@@ -93,14 +92,8 @@ class PluginApi {
 
   getRouteInfo (location) {
     if (!this.router) return {}
-    const existed = this.routeInfoCache.get(location)
-    if (existed) return existed
-
     const res = this.router.resolve({ path: location })
     if (!res.resolved.matched.length) return {}
-
-    this.routeInfoCache.set(location, res.resolved)
-
     return res.resolved
   }
 
