@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/vapperjs/vapper/compare/@vapper/configer-vue-cli@0.4.5...@vapper/configer-vue-cli@0.5.0) (2019-11-21)
+
+
+### Features
+
+* expose more environmental variables ([ab8de26](https://github.com/vapperjs/vapper/commit/ab8de26))
+
+
+
+
+
 ## [0.4.5](https://github.com/vapperjs/vapper/compare/@vapper/configer-vue-cli@0.4.4...@vapper/configer-vue-cli@0.4.5) (2019-09-22)
 
 
