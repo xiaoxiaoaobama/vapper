@@ -12,6 +12,15 @@ module.exports = class Configer {
     const config = this.poi.createWebpackChain({ mode: this.mode })
     webpackConfig.base(this.api, config)
 
+    config.plugin('constants').tap(([options]) => [
+      Object.assign({}, options, {
+        'process.server': process.env.VAPPER_TARGET === 'server',
+        'process.browser': process.env.VAPPER_TARGET === 'client',
+        'process.client': process.env.VAPPER_TARGET === 'client',
+        'process.env.TARGET': JSON.stringify(process.env.VAPPER_TARGET)
+      })
+    ])
+
     // Should transpile vapper related code
     config.module.rule('js').test([/\.m?js$/, /\.jsx$/, /\.ts$/, /\.tsx$/])
       .include.add(/@vapper/)

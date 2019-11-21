@@ -52,6 +52,16 @@ module.exports = class Configer {
         }
       ])
 
+    config
+      .plugin('define')
+      .tap(args => {
+        args[0]['process.env']['TARGET'] = JSON.stringify(process.env.VAPPER_TARGET)
+        args[0]['process.server'] = process.env.VAPPER_TARGET === 'server'
+        args[0]['process.browser'] = process.env.VAPPER_TARGET === 'client'
+        args[0]['process.client'] = process.env.VAPPER_TARGET === 'client'
+        return args
+      })
+
     // Should transpile vapper related code
     const originJsRuleFn = Array.from(
       config.module
