@@ -17,7 +17,7 @@ module.exports = class Configer {
         'process.server': process.env.VAPPER_TARGET === 'server',
         'process.browser': process.env.VAPPER_TARGET === 'client',
         'process.client': process.env.VAPPER_TARGET === 'client',
-        'process.env.TARGET': JSON.stringify(process.env.VAPPER_TARGET)
+        'process.env.VAPPER_TARGET': JSON.stringify(process.env.VAPPER_TARGET)
       })
     ])
 
