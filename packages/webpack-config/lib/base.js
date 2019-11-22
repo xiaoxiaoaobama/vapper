@@ -6,9 +6,13 @@ module.exports = (api, config) => {
     .set('#entry$', api.resolveCWD(api.options.entry))
     .set('vue$', api.resolveCWD('node_modules/vue/dist/vue.runtime.esm.js'))
 
-  const publicPath = config.output.get('publicPath')
+  let publicPath = config.output.get('publicPath')
+  publicPath = api.isProd
+    ? publicPath || '/_vapper/'
+    : publicPath && publicPath !== '/' ? publicPath : '/_vapper_/'
+
   config.output
-    .publicPath((api.isProd && publicPath) ? publicPath : '/_vapper_/')
+    .publicPath(publicPath)
 
   config.module
     .rule('vue')
