@@ -1,6 +1,6 @@
 {
   "name": "@vapper/plugin-prerender",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "lib/index.js",
   "license": "MIT",
   "publishConfig": {
@@ -10,5 +10,6 @@
     "finalhandler": "^1.1.2",
     "fs-extra": "^8.1.0",
     "serve-static": "^1.14.1"
-  }
+  },
+  "gitHead": "e76b3b567661b9845b18799689479754adb24d6a"
 }

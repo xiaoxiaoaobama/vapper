@@ -1,6 +1,6 @@
 {
   "name": "@vapper/core",
-  "version": "0.13.7",
+  "version": "0.13.8",
   "bin": {
     "vapper": "bin/cli.js"
   },
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^15.1.0",
-    "@vapper/configer-vue-cli": "^0.5.3",
+    "@vapper/configer-vue-cli": "^0.5.4",
     "cac": "^6.5.2",
     "compression": "^1.7.4",
     "connect": "^3.7.0",
@@ -31,5 +31,5 @@
     "webpack-dev-middleware": "^3.7.0",
     "webpack-hot-middleware": "^2.25.0"
   },
-  "gitHead": "f14c88bc0b13ca3890b3635be110423e4782c65a"
+  "gitHead": "e76b3b567661b9845b18799689479754adb24d6a"
 }
