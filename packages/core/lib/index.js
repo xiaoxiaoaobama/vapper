@@ -159,6 +159,7 @@ class Vapper extends PluginApi {
 
       this.invokeHook('after:render', this.htmlContent)
 
+      res.setHeader('x-power-by', 'vapper')
       res.setHeader('Content-Type', 'text/html; charset=UTF-8')
       res.end(this.htmlContent)
       next()
