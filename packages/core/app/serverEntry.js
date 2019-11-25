@@ -27,7 +27,7 @@ export default async context => {
     isFake
   }
 
-  enhanceApp(ctx)
+  const fns = enhanceApp(ctx)
 
   const { app, router, store, apolloProvider } = createApp(ctx)
 
@@ -41,7 +41,7 @@ export default async context => {
     app.error = err
   })
 
-  enhanceInstance({ app, router, store })
+  enhanceInstance(fns, { app, router, store })
 
   // This is a fake rendering in the `setup` to get the router instance
   if (isFake) {
