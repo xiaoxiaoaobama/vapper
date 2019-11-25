@@ -17,7 +17,7 @@ const context = {
   type: TYPE
 }
 
-enhanceApp(context)
+const fns = enhanceApp(context)
 
 const { app, router, store } = createApp(context)
 
@@ -28,7 +28,7 @@ app.$$type = TYPE
 router.$$redirect = redirect
 router.$$type = TYPE
 
-enhanceInstance({ app, router, store })
+enhanceInstance(fns, { app, router, store })
 
 router.beforeResolve(async (to, from, next) => {
   const matchedComponents = router.getMatchedComponents(to)
