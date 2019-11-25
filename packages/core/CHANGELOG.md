@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.0...@vapper/core@0.14.1) (2019-11-25)
+
+
+### Bug Fixes
+
+* missing environment variables ([747ede4](https://github.com/vapperjs/vapper/commit/747ede4))
+
+
+
+
+
 # [0.14.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.13.10...@vapper/core@0.14.0) (2019-11-25)
 
 
