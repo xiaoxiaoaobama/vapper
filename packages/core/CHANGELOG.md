@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.10](https://github.com/vapperjs/vapper/compare/@vapper/core@0.13.9...@vapper/core@0.13.10) (2019-11-25)
+
+
+### Bug Fixes
+
+* the same logic on the client side ([bf2ad36](https://github.com/vapperjs/vapper/commit/bf2ad36))
+
+
+
+
+
 ## [0.13.9](https://github.com/vapperjs/vapper/compare/@vapper/core@0.13.8...@vapper/core@0.13.9) (2019-11-25)
 
 
