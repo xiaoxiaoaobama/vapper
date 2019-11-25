@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.13.10...@vapper/core@0.14.0) (2019-11-25)
+
+
+### Features
+
+* support for custom loggers ([2477a53](https://github.com/vapperjs/vapper/commit/2477a53))
+
+
+
+
+
 ## [0.13.10](https://github.com/vapperjs/vapper/compare/@vapper/core@0.13.9...@vapper/core@0.13.10) (2019-11-25)
 
 
