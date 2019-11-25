@@ -11,7 +11,11 @@ const chalk = require('chalk')
  * default: 5
  */
 class Logger {
-  constructor (logLevel = 5) {
+  constructor ({
+    logLevel = 5,
+    logger = console.log
+  } = {}) {
+    this.logger = logger
     this.setLogLevel(logLevel)
   }
 
@@ -29,7 +33,7 @@ class Logger {
   }
 
   log (...args) {
-    console.log(
+    this.logger(
       ...args.map(arg => {
         return typeof arg === 'function' ? arg() : arg
       })

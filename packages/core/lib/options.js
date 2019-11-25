@@ -9,6 +9,7 @@ exports.options = {
   template: null,
   port: 4000,
   host: '0.0.0.0',
+  logger: undefined,
   logLevel: 5,
   static: {
     dotfiles: 'allow',
@@ -38,6 +39,7 @@ exports.optionsSchema = Joi.object({
   p: Joi.number(),
   host: Joi.alternatives().try(Joi.string().ip(), Joi.string().allow('localhost')),
   h: Joi.string().ip(),
+  logger: Joi.alternatives().try(Joi.func()),
   logLevel: Joi.number().min(1).max(5),
   static: Joi.object(),
   plugins: Joi.array().items(

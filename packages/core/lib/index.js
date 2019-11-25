@@ -44,7 +44,7 @@ class Vapper extends PluginApi {
     // Set environment variables
     process.env.VAPPER_ENV = this.options.mode
 
-    this.logger = new Logger()
+    this.logger = new Logger({ logger: this.options.logger })
     this.logger.setLogLevel(this.options.logLevel)
 
     const { error } = this.validateOptions(optionsSchema, this.options)
