@@ -1,8 +1,8 @@
 function serverPlugin (Vue) {
   Vue.prototype.$createFetcher = function (fetcher) {
     const vm = this
-    return function (params) {
-      const p = fetcher(params)
+    return function (...params) {
+      const p = fetcher(...params)
       vm.$$promises.push(p)
       return p
     }
@@ -32,14 +32,14 @@ serverPlugin.__name = 'vapperServerPlugin'
 
 const clientPlugin = function (Vue) {
   Vue.prototype.$createFetcher = function (fetcher) {
-    return function (params) {
+    return function (...params) {
       if (!clientPlugin.$$resolved) {
         // TODO: VapperError
         const err = new Error('vue-ssr-prefetcher: custom error')
         err.isVueSsrPrefetcher = true
         throw err
       }
-      return fetcher(params)
+      return fetcher(...params)
     }
   }
 
