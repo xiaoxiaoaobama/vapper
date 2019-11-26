@@ -23,21 +23,23 @@ Vue.use(Meta, {
   keyName: 'head'
 })
 
-// For custom error page
-Vue.mixin({
-  data () {
-    return this.$root === this._self
-      // `this.error` may already be an error object, such as set in `router.onError`
-      ? { error: this.error }
-      : {}
-  },
-  errorCaptured (err) {
-    if (this.$root === this._self && !err.isVueSsrPrefetcher) {
-      // Display custom error page
-      this.error = err
+if (!process.env.DISABLE_ERROR_HANDLER) {
+  // For custom error page
+  Vue.mixin({
+    data () {
+      return this.$root === this._self
+        // `this.error` may already be an error object, such as set in `router.onError`
+        ? { error: this.error }
+        : {}
+    },
+    errorCaptured (err) {
+      if (this.$root === this._self && !err.isVueSsrPrefetcher) {
+        // Display custom error page
+        this.error = err
+      }
     }
-  }
-})
+  })
+}
 
 Vue.mixin({
   beforeCreate () {
