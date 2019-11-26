@@ -5,12 +5,6 @@ describe('vapper plugin cookie', () => {
   const LocalVue = createLocalVue()
 
   describe('client side', () => {
-    test('operate cookie with isFake should be succeed', () => {
-      cookie({ Vue: LocalVue, type: 'client', res: {}, req: {}, isFake: true })
-      const vm = new LocalVue()
-      expect(vm.$cookie).toBeUndefined()
-    })
-
     test('set & get & delete cookie should be succeed', () => {
       cookie({ Vue: LocalVue, type: 'client' })
       const vm = new LocalVue()
