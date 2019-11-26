@@ -26,10 +26,20 @@ export default async context => {
     type: TYPE,
     isFake
   }
-
-  const fns = enhanceApp(ctx)
+  let fns = []
+  if (!isFake) {
+    fns = enhanceApp(ctx)
+  }
 
   const { app, router, store, apolloProvider } = createApp(ctx)
+
+  // This is a fake rendering in the `setup` to get the router instance
+  if (isFake) {
+    throw new VapperError({
+      code: 'FAKE',
+      router
+    })
+  }
 
   // Add helpers
   app.$$redirect = createServerRedirect(context.res)
@@ -42,14 +52,6 @@ export default async context => {
   })
 
   enhanceInstance(fns, { app, router, store })
-
-  // This is a fake rendering in the `setup` to get the router instance
-  if (isFake) {
-    throw new VapperError({
-      code: 'FAKE',
-      router
-    })
-  }
 
   router.push(context.url)
 

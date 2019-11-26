@@ -2,8 +2,7 @@ import cookie from 'cookie'
 import { getOptions } from './options'
 
 export default function (ctx) {
-  const { Vue, pluginRuntimeOptions, type, res, req, isFake } = ctx
-  if (isFake) return
+  const { Vue, pluginRuntimeOptions, type, res, req } = ctx
 
   const isServer = type === 'server'
   const opts = getOptions(pluginRuntimeOptions)
