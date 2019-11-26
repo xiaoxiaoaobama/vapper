@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.1...@vapper/core@0.14.2) (2019-11-26)
+
+
+### Bug Fixes
+
+* $createFetcher allows multiple parameters to be passed ([33adf2d](https://github.com/vapperjs/vapper/commit/33adf2d))
+
+
+
+
+
 ## [0.14.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.0...@vapper/core@0.14.1) (2019-11-25)
 
 
