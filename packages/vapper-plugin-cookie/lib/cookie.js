@@ -1,7 +1,8 @@
 import cookie from 'cookie'
 import { getOptions } from './options'
 
-export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) {
+export default function (ctx) {
+  const { Vue, pluginRuntimeOptions, type, res, req, isFake } = ctx
   if (isFake) return
 
   const isServer = type === 'server'
@@ -72,6 +73,9 @@ export default function ({ Vue, pluginRuntimeOptions, type, res, req, isFake }) 
       if (cookie) cookieUtils.set(name, '', options)
     }
   }
+
+  // Enhance ctx
+  ctx[opts.propertyName] = cookieUtils
 
   Vue.mixin({
     created () {
