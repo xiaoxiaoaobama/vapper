@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/vapperjs/vapper/compare/@vapper/plugin-cookie@0.4.7...@vapper/plugin-cookie@0.5.0) (2019-11-26)
+
+
+### Features
+
+* cookie plugin enhances ctx ([9be52b5](https://github.com/vapperjs/vapper/commit/9be52b5))
+
+
+
+
+
 ## [0.4.7](https://github.com/vapperjs/vapper/compare/@vapper/plugin-cookie@0.4.6...@vapper/plugin-cookie@0.4.7) (2019-11-22)
 
 **Note:** Version bump only for package @vapper/plugin-cookie
