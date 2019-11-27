@@ -3,11 +3,19 @@ import { createLocalVue } from '@vue/test-utils'
 
 describe('vapper plugin cookie', () => {
   const LocalVue = createLocalVue()
+  LocalVue.mixin({
+    created () {
+      this.$cookie = this.$root.$options.$cookie
+    }
+  })
 
   describe('client side', () => {
     test('set & get & delete cookie should be succeed', () => {
-      cookie({ Vue: LocalVue, type: 'client' })
-      const vm = new LocalVue()
+      const ctx = { type: 'client' }
+      cookie(ctx)
+      const vm = new LocalVue({
+        $cookie: ctx.$cookie
+      })
       expect(vm.$cookie.get()).toEqual({})
       vm.$cookie.set('foo', 1)
       vm.$cookie.set('bar', 2)
@@ -42,8 +50,11 @@ describe('vapper plugin cookie', () => {
 
     test('set & get & delete cookie should be succeed', () => {
       res.headerSent = { 'Set-Cookie': '' }
-      cookie({ Vue: LocalVue, pluginRuntimeOptions: {}, type: 'server', res, req })
-      const vm = new LocalVue()
+      const ctx = { pluginRuntimeOptions: {}, type: 'server', res, req }
+      cookie(ctx)
+      const vm = new LocalVue({
+        $cookie: ctx.$cookie
+      })
       req.headers.cookie = 'foo=1; bar=2'
       expect(vm.$cookie.get('foo')).toBe('1')
       expect(vm.$cookie.get('bar')).toBe('2')
@@ -61,8 +72,11 @@ describe('vapper plugin cookie', () => {
     })
 
     test('operate cookie with fromRes should be succeed', () => {
-      cookie({ Vue: LocalVue, pluginRuntimeOptions: { cookie: { fromRes: true } }, type: 'server', res, req })
-      const vm = new LocalVue()
+      const ctx = { pluginRuntimeOptions: { cookie: { fromRes: true } }, type: 'server', res, req }
+      cookie(ctx)
+      const vm = new LocalVue({
+        $cookie: ctx.$cookie
+      })
       req.headers.cookie = 'foo=1; bar=2'
       expect(vm.$cookie.get('foo')).toBe('1')
       expect(vm.$cookie.get('bar')).toBe('2')
