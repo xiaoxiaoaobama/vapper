@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.6](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.5...@vapper/core@0.14.6) (2019-11-28)
+
+
+### Bug Fixes
+
+* repalce magic string ([c20e168](https://github.com/vapperjs/vapper/commit/c20e168))
+
+
+
+
+
 ## [0.14.5](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.4...@vapper/core@0.14.5) (2019-11-28)
 
 
