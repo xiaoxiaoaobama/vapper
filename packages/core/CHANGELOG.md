@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.5](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.4...@vapper/core@0.14.5) (2019-11-28)
+
+
+### Bug Fixes
+
+* improve serialization of data on the server ([b6c723e](https://github.com/vapperjs/vapper/commit/b6c723e)), closes [#31](https://github.com/vapperjs/vapper/issues/31)
+
+
+
+
+
 ## [0.14.4](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.3...@vapper/core@0.14.4) (2019-11-28)
 
 
