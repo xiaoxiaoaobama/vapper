@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.4](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.3...@vapper/core@0.14.4) (2019-11-28)
+
+
+### Bug Fixes
+
+* **core:** associate the forced fallback with each request ([#30](https://github.com/vapperjs/vapper/issues/30)) ([6e42bc0](https://github.com/vapperjs/vapper/commit/6e42bc0))
+
+
+
+
+
 ## [0.14.3](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.2...@vapper/core@0.14.3) (2019-11-26)
 
 **Note:** Version bump only for package @vapper/core
