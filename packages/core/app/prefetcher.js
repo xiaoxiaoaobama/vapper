@@ -1,6 +1,8 @@
 function serverPlugin (Vue) {
   Vue.prototype.$createFetcher = function (fetcher) {
     const vm = this
+    vm._needSerializeData = true
+
     return function (...params) {
       const p = fetcher(...params)
       vm.$$promises.push(p)
@@ -16,10 +18,14 @@ function serverPlugin (Vue) {
 
     const key = getKey(keyMap, this)
 
+    this.__vapper_data_key = key
     $$selfStore[key] = this.$data
   }
 
   const prefetchHook = function () {
+    // Remove data that does not need to be serialized.
+    // Only components that use `this.$createFetcher` function need to serialize their data.
+    if (!this._needSerializeData) delete this.$root.$$selfStore[this.__vapper_data_key]
     return Promise.all(this.$$promises)
   }
 
