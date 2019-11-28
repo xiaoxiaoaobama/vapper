@@ -1,5 +1,9 @@
 const TimeFixPlugin = require('time-fix-plugin')
 
+function stripSlash (str) {
+  return str.replace(/^(\/)?([^/]+)(\/)?/, (a, b, c) => c)
+}
+
 module.exports = (api, config) => {
   config.resolve.alias
     .set('#', api.resolveCWD('.'))
@@ -8,8 +12,10 @@ module.exports = (api, config) => {
 
   let publicPath = config.output.get('publicPath')
   publicPath = api.isProd
-    ? publicPath || '/_vapper/'
+    ? publicPath || '/_vapper_/'
     : publicPath && publicPath !== '/' ? publicPath : '/_vapper_/'
+  // Set `api.publicPath` for use in plugins, E.g: plugins/fallbackSpa.js / plugins/serveStatic.js
+  api.publicPath = stripSlash(publicPath)
 
   config.output
     .publicPath(publicPath)

@@ -4,6 +4,8 @@ const serveStatic = require('serve-static')
 const Url = require('url-parse')
 
 module.exports = (api) => {
+  const RE = new RegExp(`\\/${api.publicPath}`)
+
   const handler = (req, res, next) => {
     const originalUrl = req.url
 
@@ -12,7 +14,7 @@ module.exports = (api) => {
     const hasExt = path.extname(url.pathname)
 
     if (hasExt) {
-      req.url = req.url.replace(/^\/_vapper_/, '')
+      req.url = req.url.replace(RE, '')
 
       api.logger.debug(`
         proxy: ${originalUrl}

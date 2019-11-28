@@ -48,7 +48,7 @@ module.exports = (api) => {
       req.url = '/index.html'
       serveStatic('dist', api.options.static)(req, res, finalhandler(req, res))
     } else {
-      req.url = '/_vapper_/index.html'
+      req.url = `/${api.publicPath}/index.html`
       const html = api.devMiddleware.fileSystem.readFileSync(
         api.devMiddleware.getFilenameFromUrl(req.url),
         'utf-8'
