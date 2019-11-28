@@ -4,7 +4,7 @@ const finalhandler = require('finalhandler')
 module.exports = (api) => {
   // Exposing the fallback function gives the user more choices
   api.fallbackSPA = (req, res) => {
-    api._forceFallback = true
+    req._forceFallback = true
     api.handler(req, res)
   }
 
@@ -14,8 +14,8 @@ module.exports = (api) => {
       ? (meta && meta.ssr === false)
       : (!meta || meta.ssr !== true)
 
-    if (needFallback || api._forceFallback) {
-      api.logger.debug(`${api._forceFallback ? 'Force' : ''} Fall back SPA mode, url is: ${req.url}`)
+    if (needFallback || req._forceFallback) {
+      api.logger.debug(`${req._forceFallback ? 'Force' : ''} Fall back SPA mode, url is: ${req.url}`)
       fallBack(req, res)
       return
     }
