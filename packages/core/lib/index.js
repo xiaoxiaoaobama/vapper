@@ -141,6 +141,7 @@ class Vapper extends PluginApi {
       // Update the vue-router instance
       await this.resolveRouterInstanceForFake()
       this.logger.debug('Renderer updated')
+      this.emit('rendererUpdated')
     })
 
     this.devMiddleware = this.builder.devMiddleware
@@ -308,6 +309,16 @@ class Vapper extends PluginApi {
 
     this.listen(port, host)
 
+    this.printRunningInfo()
+  }
+
+  printRunningInfo () {
+    const {
+      options: {
+        port,
+        host
+      }
+    } = this
     this.logger.info(`Server running at: http://${host}:${port}`)
   }
 

@@ -1,8 +1,10 @@
 const path = require('path')
 const fs = require('fs')
+const EventEmitter = require('events')
 
-class PluginApi {
+class PluginApi extends EventEmitter {
   constructor () {
+    super()
     // path
     this.cwd = process.cwd()
     this.corePath = path.resolve(__dirname, '../')

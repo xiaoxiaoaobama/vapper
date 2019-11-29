@@ -42,6 +42,7 @@ cli
     delete flags['--']
     const vapper = new Vapper({ ...(flags || {}), mode: 'development' })
     vapper.startServer()
+    vapper.on('rendererUpdated', () => vapper.printRunningInfo())
   })
 
 cli
