@@ -6,7 +6,7 @@ module.exports = class Configer {
     const { options } = api
 
     this.api = api
-    this.mode = options.mode
+    this.mode = options.vueCliMode || options.mode
     this.service = new Service(process.cwd())
     this.service.init(this.mode)
     this.service.webpackChainFns.push(this.baseChainFn.bind(this))

@@ -2,6 +2,7 @@ const Joi = require('@hapi/joi')
 
 exports.options = {
   mode: 'production',
+  vueCliMode: null,
   entry: 'src/main',
   clientEntry: 'src/client.js',
   serverEntry: 'src/server.js',
@@ -30,6 +31,7 @@ exports.options = {
 
 exports.optionsSchema = Joi.object({
   mode: Joi.string().allow('production', 'development'),
+  vueCliMode: Joi.alternatives().try(Joi.string(), null),
   entry: Joi.string(),
   clientEntry: Joi.string(),
   serverEntry: Joi.string(),

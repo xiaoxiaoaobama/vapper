@@ -9,6 +9,7 @@ export default {
   name: 'app',
   created () {
     console.log(this.$cookie)
+    console.log(process.env.VUE_APP_FOO)
   }
 }
 </script>
