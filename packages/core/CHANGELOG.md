@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.6...@vapper/core@0.15.0) (2019-12-02)
+
+
+### Features
+
+* print info when the renderer is updated ([d1010b6](https://github.com/vapperjs/vapper/commit/d1010b6))
+* support for Vue cli --mode ([42b444a](https://github.com/vapperjs/vapper/commit/42b444a)), closes [#18](https://github.com/vapperjs/vapper/issues/18)
+
+
+
+
+
 ## [0.14.6](https://github.com/vapperjs/vapper/compare/@vapper/core@0.14.5...@vapper/core@0.14.6) (2019-11-28)
 
 

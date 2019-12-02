@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/vapperjs/vapper/compare/@vapper/configer-vue-cli@0.5.6...@vapper/configer-vue-cli@0.6.0) (2019-12-02)
+
+
+### Features
+
+* support for Vue cli --mode ([42b444a](https://github.com/vapperjs/vapper/commit/42b444a)), closes [#18](https://github.com/vapperjs/vapper/issues/18)
+
+
+
+
+
 ## [0.5.6](https://github.com/vapperjs/vapper/compare/@vapper/configer-vue-cli@0.5.5...@vapper/configer-vue-cli@0.5.6) (2019-11-28)
 
 **Note:** Version bump only for package @vapper/configer-vue-cli
