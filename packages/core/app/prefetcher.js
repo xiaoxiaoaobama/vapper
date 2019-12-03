@@ -55,9 +55,10 @@ const clientPlugin = function (Vue) {
 
   Vue.mixin({
     beforeCreate: function () {
+      if (!this.$options.needSerialize) return
+
       // The component's own `created` hook
       const selfCreatedHook = this.$options.created[this.$options.created.length - 1]
-      if (selfCreatedHook.constructor.name !== 'AsyncFunction') return
 
       // Rewrite created hook
       this.$options.created[this.$options.created.length - 1] = async function (...args) {
