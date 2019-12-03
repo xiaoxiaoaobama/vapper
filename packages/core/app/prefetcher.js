@@ -38,7 +38,7 @@ function serverPlugin (Vue) {
 
   const prefetchHook = function () {
     // Remove data that does not need to be serialized
-    if (!this.$options.needSerialze) delete this.$root.$$selfStore[this.__vapper_data_key]
+    if (!this.$options.needSerialize) delete this.$root.$$selfStore[this.__vapper_data_key]
     return this.__promiser
   }
 

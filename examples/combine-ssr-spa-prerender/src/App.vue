@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'app',
-  needSerialze: true,
+  needSerialize: true,
   async created () {
     this.res = await fetch()
   }

@@ -14,7 +14,7 @@ export default {
       res: {}
     }
   },
-  needSerialze: true,
+  needSerialize: true,
   async created () {
     this.res = await fetch('Home')
   }

@@ -15,7 +15,7 @@ export default {
     }
   },
   name: 'App',
-  needSerialze: true,
+  needSerialize: true,
   async created() {
     this.res = await fetch()
   }

@@ -14,7 +14,7 @@ export default {
       res2: {}
     }
   },
-  needSerialze: true,
+  needSerialize: true,
   async created () {
     const res1 = await fetch()
     const res2 = await fetch()
