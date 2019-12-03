@@ -166,10 +166,6 @@ class Vapper extends PluginApi {
       next()
     } catch (err) {
       if (err.code === 'REDIRECT') {
-        res.writeHead(302, {
-          Location: err.redirectURL
-        })
-        res.end()
         return
       }
       // The `err` may not be an Error instance in some cases
