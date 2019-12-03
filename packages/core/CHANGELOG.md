@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.4](https://github.com/vapperjs/vapper/compare/@vapper/core@0.15.3...@vapper/core@0.15.4) (2019-12-03)
+
+
+### Bug Fixes
+
+* **core:** repeated client prefetch ([12bce49](https://github.com/vapperjs/vapper/commit/12bce49))
+
+
+
+
+
 ## [0.15.3](https://github.com/vapperjs/vapper/compare/@vapper/core@0.15.2...@vapper/core@0.15.3) (2019-12-03)
 
 
