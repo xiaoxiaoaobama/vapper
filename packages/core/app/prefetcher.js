@@ -1,17 +1,31 @@
 function serverPlugin (Vue) {
-  Vue.prototype.$createFetcher = function (fetcher) {
-    const vm = this
-    vm._needSerializeData = true
+  const beforeCreateHook = function () {
+    this.__promiser = new Promise((resolve, reject) => {
+      this.__resolveData = resolve
+      this.__reject = reject
+    })
 
-    return function (...params) {
-      const p = fetcher(...params)
-      vm.$$promises.push(p)
-      return p
+    // The component's own `created` hook
+    const selfCreatedHook = this.$options.created[this.$options.created.length - 1]
+
+    // Rewrite created hook
+    this.$options.created[this.$options.created.length - 1] = async function (...args) {
+      let pro
+      try {
+        pro = selfCreatedHook.apply(this, args)
+        await pro
+      } catch (e) {
+        this.__reject && this.__reject(e)
+        return e
+      }
+
+      this.__resolveData && this.__resolveData()
+
+      return pro
     }
   }
 
   const createdHook = function () {
-    this.$$promises = []
     const keyMap = this.$root.$$keyMap || (this.$root.$$keyMap = {})
 
     const $$selfStore = this.$root.$$selfStore || (this.$root.$$selfStore = {})
@@ -23,35 +37,39 @@ function serverPlugin (Vue) {
   }
 
   const prefetchHook = function () {
-    // Remove data that does not need to be serialized.
-    // Only components that use `this.$createFetcher` function need to serialize their data.
-    if (!this._needSerializeData) delete this.$root.$$selfStore[this.__vapper_data_key]
-    return Promise.all(this.$$promises)
+    // Remove data that does not need to be serialized
+    if (!this.$options.needSerialze) delete this.$root.$$selfStore[this.__vapper_data_key]
+    return this.__promiser
   }
 
   Vue.mixin({
     serverPrefetch: prefetchHook,
+    beforeCreate: beforeCreateHook,
     created: createdHook
   })
 }
 serverPlugin.__name = 'vapperServerPlugin'
 
 const clientPlugin = function (Vue) {
-  Vue.prototype.$createFetcher = function (fetcher) {
-    return function (...params) {
-      if (!clientPlugin.$$resolved) {
-        // TODO: VapperError
-        const err = new Error('vue-ssr-prefetcher: custom error')
-        err.isVueSsrPrefetcher = true
-        throw err
-      }
-      return fetcher(...params)
-    }
-  }
-
   const keyMap = {}
 
   Vue.mixin({
+    beforeCreate: function () {
+      // The component's own `created` hook
+      const selfCreatedHook = this.$options.created[this.$options.created.length - 1]
+      if (selfCreatedHook.constructor.name !== 'AsyncFunction') return
+
+      // Rewrite created hook
+      this.$options.created[this.$options.created.length - 1] = async function (...args) {
+        if (!clientPlugin.$$resolved) {
+          // TODO: VapperError
+          const err = new Error('vue-ssr-prefetcher: custom error')
+          err.isVueSsrPrefetcher = true
+          throw err
+        }
+        return selfCreatedHook.apply(this, args)
+      }
+    },
     created: function () {
       const $$selfStore = this.$root.$$selfStore
       if (clientPlugin.$$resolved || !$$selfStore) { return }

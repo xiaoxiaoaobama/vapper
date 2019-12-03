@@ -16,9 +16,9 @@ export default {
       res: {}
     }
   },
+  needSerialze: true,
   async created () {
-    const fetchName = this.$createFetcher(fetch)
-    this.res = await fetchName('App')
+    this.res = await fetch('App')
   }
 }
 </script>

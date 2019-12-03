@@ -8,9 +8,9 @@
 <script>
 export default {
   name: 'app',
+  needSerialze: true,
   async created () {
-    const fetchName = this.$createFetcher(fetch)
-    this.res = await fetchName()
+    this.res = await fetch()
   }
 }
 
