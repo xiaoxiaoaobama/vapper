@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.3](https://github.com/vapperjs/vapper/compare/@vapper/core@0.15.2...@vapper/core@0.15.3) (2019-12-03)
+
+
+### Bug Fixes
+
+* **core:** support absolute path redirection + adjustment of server-side redirection ([a8db7bb](https://github.com/vapperjs/vapper/commit/a8db7bb))
+
+
+
+
+
 ## [0.15.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.15.1...@vapper/core@0.15.2) (2019-12-03)
 
 
