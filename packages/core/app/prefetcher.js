@@ -32,13 +32,11 @@ function serverPlugin (Vue) {
 
     const key = getKey(keyMap, this)
 
-    this.__vapper_data_key = key
+    if (!this.$options.needSerialize) return
     $$selfStore[key] = this.$data
   }
 
   const prefetchHook = function () {
-    // Remove data that does not need to be serialized
-    if (!this.$options.needSerialize) delete this.$root.$$selfStore[this.__vapper_data_key]
     return this.__promiser
   }
 
