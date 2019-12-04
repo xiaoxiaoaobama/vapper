@@ -24,7 +24,8 @@ export default async context => {
     req: context.req,
     res: context.res,
     type: TYPE,
-    isFake
+    isFake,
+    replaceState () {} // do nothing
   }
   let fns = []
   if (!isFake) {
@@ -81,7 +82,6 @@ export default async context => {
       context.state.$$apolloState = getApolloStates(apolloProvider)
     }
   }
-
   // vue-meta
   context.meta = app.$meta()
   return app

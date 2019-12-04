@@ -14,7 +14,12 @@ Vue.use(clientPlugin)
 const context = {
   Vue,
   pluginRuntimeOptions: createApp.pluginRuntimeOptions,
-  type: TYPE
+  type: TYPE,
+  replaceState (store) {
+    if (window.__INITIAL_STATE__ && window.__INITIAL_STATE__.$$stroe) {
+      store.replaceState(window.__INITIAL_STATE__.$$stroe)
+    }
+  }
 }
 
 const fns = enhanceApp(context)
@@ -53,6 +58,7 @@ router.onReady(() => {
     const { $$stroe, $$selfStore } = window.__INITIAL_STATE__
 
     // We initialize the store state with the data injected from the server
+    // In version 1.0 it will be removed, it is performed manually by the user(ctx.replaceState()).
     if ($$stroe) store.replaceState($$stroe)
 
     // Add `$$selfStore` to the root component instance
