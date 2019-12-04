@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.15.4...@vapper/core@0.16.0) (2019-12-04)
+
+
+### Features
+
+* support manual injection of store data ([39a0664](https://github.com/vapperjs/vapper/commit/39a0664))
+
+
+
+
+
 ## [0.15.4](https://github.com/vapperjs/vapper/compare/@vapper/core@0.15.3...@vapper/core@0.15.4) (2019-12-03)
 
 
