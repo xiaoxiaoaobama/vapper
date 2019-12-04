@@ -19,7 +19,9 @@ if (config && config.plugins) {
           ? require(plugin[0])
           : plugin[0]
 
-        plugin.CLI(Vapper, options)
+        if (typeof plugin.CLI === 'function') {
+          plugin.CLI(Vapper, options)
+        }
       }
     })
 }
