@@ -7,9 +7,10 @@ function serverPlugin (Vue) {
 
     // The component's own `created` hook
     const selfCreatedHook = this.$options.created[this.$options.created.length - 1]
+    if (selfCreatedHook.__async) return
 
     // Rewrite created hook
-    this.$options.created[this.$options.created.length - 1] = async function (...args) {
+    const asyncHook = async function (...args) {
       let pro
       try {
         pro = selfCreatedHook.apply(this, args)
@@ -23,6 +24,8 @@ function serverPlugin (Vue) {
 
       return pro
     }
+    asyncHook.__async = true // mark
+    this.$options.created[this.$options.created.length - 1] = asyncHook
   }
 
   const createdHook = function () {
