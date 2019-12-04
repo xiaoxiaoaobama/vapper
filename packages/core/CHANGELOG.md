@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.16.1...@vapper/core@0.16.2) (2019-12-04)
+
+
+### Bug Fixes
+
+* maximum call stack size exceeded ([7d3a2a2](https://github.com/vapperjs/vapper/commit/7d3a2a2))
+* type check ([d5b3d7d](https://github.com/vapperjs/vapper/commit/d5b3d7d))
+
+
+
+
+
 ## [0.16.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.16.0...@vapper/core@0.16.1) (2019-12-04)
 
 **Note:** Version bump only for package @vapper/core
