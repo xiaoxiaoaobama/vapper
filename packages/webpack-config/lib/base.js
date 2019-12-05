@@ -42,4 +42,6 @@ module.exports = (api, config) => {
 
   TimeFixPlugin.__expression = `require('time-fix-plugin')`
   config.plugin('timefix').use(TimeFixPlugin)
+
+  config.optimization.runtimeChunk(true)
 }
