@@ -8,3 +8,4 @@ cypress/videos
 cypress/screenshots
 coverage
 .DS_Store
+examples/**/yarn.lock
