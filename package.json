@@ -8,6 +8,7 @@
     "test": "yarn test:unit && yarn test:e2e",
     "test:unit": "cross-env NODE_ENV=unittest jest --coverage",
     "test:e2e": "node ./scripts/e2eRunner.js",
+    "test:stress": "node ./scripts/stressTestRunner.js",
     "lint": "standard --fix",
     "commit": "git-cz"
   },
@@ -19,6 +20,7 @@
     "@babel/preset-env": "^7.6.0",
     "@vue/cli-service": "^3.11.0",
     "@vue/test-utils": "^1.0.0-beta.29",
+    "autocannon": "^4.4.1",
     "babel-jest": "^24.9.0",
     "chalk": "^2.4.2",
     "cross-env": "^5.2.0",

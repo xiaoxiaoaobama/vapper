@@ -1,10 +1,10 @@
 
 const path = require('path')
 const cypress = require('cypress')
-const execa = require('execa')
 const waitOn = require('wait-on')
 const chalk = require('chalk')
 const fs = require('fs-extra')
+const { setupProject, getCurrentProcess, getProjectNames, serverUrl } = require('./utils')
 
 const fixturesPath = path.resolve(process.cwd(), `./examples`)
 
@@ -17,24 +17,13 @@ const fixturesPath = path.resolve(process.cwd(), `./examples`)
  * Test all project: `yarn test`.
  */
 
-let subprocess
-// Start the project server
-async function setupProject (projectName, npmCommand = 'dev') {
-  const projPath = path.resolve(process.cwd(), `./examples/${projectName}`)
-  const opts = {
-    cwd: projPath,
-    stdio: 'inherit'
-  }
-  const installed = await fs.pathExists(path.resolve(projPath, './node_modules'))
-  if (!installed) await execa('yarn', ['install'], opts)
-  subprocess = execa('npm', ['run', npmCommand], opts)
-}
-
 async function runTest (projectName, npmCommand) {
   try {
-    setupProject(projectName, npmCommand)
+    const projPath = path.resolve(fixturesPath, `./${projectName}`)
+    setupProject(projPath, npmCommand)
+
     await waitOn({
-      resources: ['http://0.0.0.0:4000']
+      resources: [serverUrl]
     })
 
     console.log(chalk.green(`Start ${projectName} project.`))
@@ -43,34 +32,17 @@ async function runTest (projectName, npmCommand) {
       spec: `./cypress/integration/${projectName}.js`
     })
 
-    subprocess.kill()
+    const sub = getCurrentProcess()
+    sub && sub.kill()
   } catch (err) {
     console.log(chalk.red('Running test failed:'))
     console.error(err)
   }
 }
 
-async function getProjectNames () {
-  const projectNames = process.argv.slice(2)
-
-  if (!projectNames.length) {
-    const files = await fs.readdir(fixturesPath)
-
-    await Promise.all(
-      files.map(async f => {
-        const stat = await fs.stat(path.resolve(fixturesPath, f))
-        if (stat.isDirectory()) {
-          projectNames.push(f)
-        }
-      })
-    )
-  }
-
-  return projectNames
-}
-
 async function run () {
-  const projectNames = await getProjectNames()
+  const projectNames = await getProjectNames(fixturesPath)
+
   let pn = projectNames.shift()
   while (pn) {
     const testFile = path.resolve(`./cypress/integration/${pn}.js`)

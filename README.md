@@ -63,6 +63,35 @@ Test all project:
 yarn test:e2e
 ```
 
+## Run stress test
+
+### 1. link
+
+```sh
+cd packages/core
+yarn link
+```
+
+This makes the `vapper` command globally available.
+
+### 2. run
+
+Projects in the `examples` directory as test fixtures.
+
+Test specified project:
+
+```sh
+yarn test:stress [...projectName]
+# E.g
+yarn test:stress poi vue-cli3
+```
+
+Test all project:
+
+```sh
+yarn test:stress
+```
+
 ## Core Author
 
 **Vapper** © [HcySunYang](https://github.com/HcySunYang), Released under the [MIT](./LICENSE) License.<br>
