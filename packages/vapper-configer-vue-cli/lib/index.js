@@ -52,6 +52,10 @@ module.exports = class Configer {
         }
       ])
 
+    // Removed cache-loader to avoid accidental Flash of Unstyled Content
+    // in the development environment.
+    config.module.rule('vue').uses.delete('cache-loader')
+
     config
       .plugin('define')
       .tap(args => {
