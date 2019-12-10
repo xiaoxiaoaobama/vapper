@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.3](https://github.com/vapperjs/vapper/compare/@vapper/core@0.16.2...@vapper/core@0.16.3) (2019-12-10)
+
+
+### Bug Fixes
+
+* **core:** optimize merge option strategy ([0fb58bc](https://github.com/vapperjs/vapper/commit/0fb58bc))
+
+
+
+
+
 ## [0.16.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.16.1...@vapper/core@0.16.2) (2019-12-04)
 
 
