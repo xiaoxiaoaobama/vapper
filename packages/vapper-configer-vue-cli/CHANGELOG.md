@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/vapperjs/vapper/compare/@vapper/configer-vue-cli@0.6.1...@vapper/configer-vue-cli@0.6.2) (2019-12-10)
+
+
+### Bug Fixes
+
+* removed cache-loader to avoid accidental FOUC in the dev environment ([49ab44f](https://github.com/vapperjs/vapper/commit/49ab44f))
+
+
+
+
+
 ## [0.6.1](https://github.com/vapperjs/vapper/compare/@vapper/configer-vue-cli@0.6.0...@vapper/configer-vue-cli@0.6.1) (2019-12-10)
 
 **Note:** Version bump only for package @vapper/configer-vue-cli
