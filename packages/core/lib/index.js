@@ -4,7 +4,7 @@ const cac = require('cac')()
 const connect = require('connect')
 const compression = require('compression')
 const { minify } = require('html-minifier')
-const merge = require('lodash.merge')
+const mergeWith = require('lodash.mergewith')
 const { createBundleRenderer } = require('vue-server-renderer')
 const template = require('lodash.template')
 const slash = require('slash')
@@ -32,11 +32,16 @@ class Vapper extends PluginApi {
 
     this.defaultOptions = defaultOptions
     this.optionsSchema = optionsSchema
-    this.options = merge(
+    this.options = mergeWith(
       {},
       defaultOptions,
       this.loadConfig(),
-      options
+      options,
+      function (objValue, srcValue) {
+        if (Array.isArray(objValue)) {
+          return objValue.concat(srcValue)
+        }
+      }
     )
 
     this.isProd = this.options.mode === defaultOptions.mode
