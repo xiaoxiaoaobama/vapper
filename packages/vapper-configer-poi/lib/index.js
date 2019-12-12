@@ -11,15 +11,20 @@ module.exports = class Configer {
   getBaseConfig () {
     const config = this.poi.createWebpackChain({ mode: this.mode })
     webpackConfig.base(this.api, config)
+    const envObject = {
+      'process.server': process.env.VAPPER_TARGET === 'server',
+      'process.browser': process.env.VAPPER_TARGET === 'client',
+      'process.client': process.env.VAPPER_TARGET === 'client',
+      'process.env.VAPPER_TARGET': JSON.stringify(process.env.VAPPER_TARGET),
+      'process.env.VAPPER_ENV': JSON.stringify(process.env.VAPPER_ENV)
+    }
+
+    for (const key in this.api.ENV_OBJECT) {
+      envObject[`process.env.${key}`] = JSON.stringify(this.api.ENV_OBJECT[key])
+    }
 
     config.plugin('constants').tap(([options]) => [
-      Object.assign({}, options, {
-        'process.server': process.env.VAPPER_TARGET === 'server',
-        'process.browser': process.env.VAPPER_TARGET === 'client',
-        'process.client': process.env.VAPPER_TARGET === 'client',
-        'process.env.VAPPER_TARGET': JSON.stringify(process.env.VAPPER_TARGET),
-        'process.env.VAPPER_ENV': JSON.stringify(process.env.VAPPER_ENV)
-      })
+      Object.assign({}, options, envObject)
     ])
 
     // Should transpile vapper related code

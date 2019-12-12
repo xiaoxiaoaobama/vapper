@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const EventEmitter = require('events')
+const dotenv = require('dotenv')
 
 class PluginApi extends EventEmitter {
   constructor () {
@@ -21,6 +22,9 @@ class PluginApi extends EventEmitter {
     this.enhanceTemplate = fs.readFileSync(this.resolveCore('app/enhance.template.ejs'), 'utf-8')
     this.enhanceClientOutput = this.resolveCore('app/.vapper/enhanceClient.js')
     this.enhanceServerOutput = this.resolveCore('app/.vapper/enhanceServer.js')
+
+    // ENV_OBJECT
+    this.ENV_OBJECT = {}
 
     this.hooks = new Map()
   }
@@ -69,6 +73,20 @@ class PluginApi extends EventEmitter {
       return null
     } catch (e) {
       return null
+    }
+  }
+
+  loadEnvFile (key) {
+    const envFilePath = this.resolveCWD(`./.vapper-env${key ? '.' : ''}${key}`)
+    try {
+      const fileStat = fs.statSync(envFilePath)
+      if (fileStat.isFile) {
+        const envContent = fs.readFileSync(envFilePath, 'utf-8')
+        this.ENV_OBJECT = dotenv.parse(envContent)
+      }
+    } catch (e) {
+      if (/no such file or directory/.test(String(e))) return
+      console.error(e)
     }
   }
 

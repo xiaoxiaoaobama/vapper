@@ -44,6 +44,9 @@ class Vapper extends PluginApi {
       }
     )
 
+    // Load env file
+    this.loadEnvFile(this.options.env)
+
     this.isProd = this.options.mode === defaultOptions.mode
 
     // Set environment variables

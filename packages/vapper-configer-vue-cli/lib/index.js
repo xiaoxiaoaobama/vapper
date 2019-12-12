@@ -64,6 +64,11 @@ module.exports = class Configer {
         args[0]['process.server'] = process.env.VAPPER_TARGET === 'server'
         args[0]['process.browser'] = process.env.VAPPER_TARGET === 'client'
         args[0]['process.client'] = process.env.VAPPER_TARGET === 'client'
+
+        for (const key in this.api.ENV_OBJECT) {
+          args[0]['process.env'][key] = JSON.stringify(this.api.ENV_OBJECT[key])
+        }
+
         return args
       })
 
