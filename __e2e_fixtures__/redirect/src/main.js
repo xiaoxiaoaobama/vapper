@@ -18,6 +18,22 @@ export default function createApp () {
         meta: {
           ssr: true
         }
+      },
+      {
+        path: '/bar',
+        name: 'bar',
+        component: () => import('./components/Bar.vue'),
+        meta: {
+          ssr: true
+        }
+      },
+      {
+        path: '/baz',
+        name: 'baz',
+        component: () => import('./components/Baz.vue'),
+        meta: {
+          ssr: true
+        }
       }
     ]
   })

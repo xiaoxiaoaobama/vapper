@@ -1,6 +1,7 @@
 <template>
   <div id="foo">
-    Foo
+    <p class="p1">Foo</p>
+    <router-link class="go-to-bar" :to="{ name: 'bar' }">Go to bar</router-link>
   </div>
 </template>
 
