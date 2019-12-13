@@ -1,6 +1,6 @@
 {
   "name": "@vapper/configer-poi",
-  "version": "0.5.7",
+  "version": "0.6.0",
   "main": "lib/index.js",
   "license": "MIT",
   "publishConfig": {

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.16.4...@vapper/core@0.17.0) (2019-12-13)
+
+
+### Features
+
+* support for .vapper-env file ([#36](https://github.com/vapperjs/vapper/issues/36)) ([94954c3](https://github.com/vapperjs/vapper/commit/94954c3))
+
+
+
+
+
 ## [0.16.4](https://github.com/vapperjs/vapper/compare/@vapper/core@0.16.3...@vapper/core@0.16.4) (2019-12-10)
 
 **Note:** Version bump only for package @vapper/core

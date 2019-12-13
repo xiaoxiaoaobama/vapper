@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/vapperjs/vapper/compare/@vapper/configer-poi@0.5.7...@vapper/configer-poi@0.6.0) (2019-12-13)
+
+
+### Features
+
+* support for .vapper-env file ([#36](https://github.com/vapperjs/vapper/issues/36)) ([94954c3](https://github.com/vapperjs/vapper/commit/94954c3))
+
+
+
+
+
 ## [0.5.7](https://github.com/vapperjs/vapper/compare/@vapper/configer-poi@0.5.6...@vapper/configer-poi@0.5.7) (2019-12-10)
 
 **Note:** Version bump only for package @vapper/configer-poi

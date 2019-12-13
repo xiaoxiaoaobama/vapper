@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/vapperjs/vapper/compare/@vapper/configer-vue-cli@0.6.2...@vapper/configer-vue-cli@0.7.0) (2019-12-13)
+
+
+### Features
+
+* support for .vapper-env file ([#36](https://github.com/vapperjs/vapper/issues/36)) ([94954c3](https://github.com/vapperjs/vapper/commit/94954c3))
+
+
+
+
+
 ## [0.6.2](https://github.com/vapperjs/vapper/compare/@vapper/configer-vue-cli@0.6.1...@vapper/configer-vue-cli@0.6.2) (2019-12-10)
 
 
