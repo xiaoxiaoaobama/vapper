@@ -7,7 +7,7 @@
   "scripts": {
     "test": "yarn test:unit && yarn test:e2e",
     "test:unit": "cross-env NODE_ENV=unittest jest --coverage",
-    "test:e2e": "node ./scripts/e2eRunner.js",
+    "test:e2e": "cross-env NODE_ENV=e2etest node ./scripts/e2eRunner.js",
     "test:stress": "node ./scripts/stressTestRunner.js",
     "lint": "standard --fix",
     "commit": "git-cz"
@@ -41,6 +41,7 @@
   },
   "standard": {
     "ignore": [
+      "__e2e_fixtures__/**",
       "examples/**",
       "*.ejs"
     ],

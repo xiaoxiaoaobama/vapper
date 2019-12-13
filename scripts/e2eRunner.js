@@ -6,7 +6,7 @@ const chalk = require('chalk')
 const fs = require('fs-extra')
 const { setupProject, getCurrentProcess, getProjectNames, serverUrl } = require('./utils')
 
-const fixturesPath = path.resolve(process.cwd(), `./examples`)
+const fixturesPath = path.resolve(process.cwd(), `./__e2e_fixtures__`)
 
 /**
  * Projects in the ../examples directory as test fixtures.

@@ -4,11 +4,17 @@ function stripSlash (str) {
   return str.replace(/^(\/)?([^/]+)(\/)?/, (a, b, c) => c)
 }
 
+const isE2ETest = process.env.NODE_ENV === 'e2etest'
+
 module.exports = (api, config) => {
   config.resolve.alias
     .set('#', api.resolveCWD('.'))
     .set('#entry$', api.resolveCWD(api.options.entry))
-    .set('vue$', api.resolveCWD('node_modules/vue/dist/vue.runtime.esm.js'))
+    .set('vue$',
+      isE2ETest
+        ? api.resolveCore('../../node_modules/vue/dist/vue.runtime.esm.js')
+        : api.resolveCWD('node_modules/vue/dist/vue.runtime.esm.js')
+    )
 
   let publicPath = config.output.get('publicPath')
   publicPath = api.isProd
