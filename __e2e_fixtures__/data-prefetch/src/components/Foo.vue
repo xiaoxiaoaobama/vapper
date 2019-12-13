@@ -1,10 +1,12 @@
 <template>
   <div id="foo">
-    {{ msg }}
+    <p class="p1">{{ msg }}</p>
+    <p class="p2">{{ $store.state.storeMsg }}</p>
   </div>
 </template>
 
 <script>
+import { fetch } from '../fetch'
 export default {
   name: 'Foo',
   data () {
@@ -13,14 +15,7 @@ export default {
   needSerialize: true,
   async created () {
     this.msg = await fetch()
+    await this.$store.dispatch('setFoo')
   }
-}
-
-function fetch () {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve('bar')
-    }, 200) 
-  })
 }
 </script>
