@@ -1,4 +1,10 @@
 version: 2.1
+workflows:
+  version: 2
+  test:
+    jobs:
+      - unit:
+      - e2e:
 jobs:
   unit:
     working_directory: ~/repo
