@@ -65,6 +65,8 @@ yarn test:e2e
 
 ## Run stress test
 
+**This stress test is mainly used to troubleshoot memory leaks in vapper itself.**
+
 Projects in the `examples` directory as test fixtures.
 
 Test specified project:
