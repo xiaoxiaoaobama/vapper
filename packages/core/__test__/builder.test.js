@@ -20,6 +20,7 @@ MemoryFS.mockImplementation(() => {
   return { readFileSync: mockMemoryFSReadFileSync }
 })
 FS.readFileSync.mockReturnValue('{}')
+FS.statSync.mockReturnValue({ isFile: false })
 
 // mock webpack
 const mockWebpackRun = jest.fn()
