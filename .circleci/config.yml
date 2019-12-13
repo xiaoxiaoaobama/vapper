@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  unit:
     working_directory: ~/repo
     docker:
       - image: circleci/node:latest
@@ -18,8 +18,7 @@ jobs:
       - run:
           name: test
           command: yarn test:unit
-jobs:
-  build:
+  e2e:
     docker:
       - image: cypress/base:8
         environment:
