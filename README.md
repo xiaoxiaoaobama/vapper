@@ -9,7 +9,6 @@
   <a href="https://lerna.js.org/"><img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="Maintained With lerna"></a>
   <a href="https://www.npmjs.com/package/@vapper/core"><img src="https://img.shields.io/npm/v/@vapper/core.svg" alt="Version"></a>
   <a href="https://www.npmjs.com/package/@vapper/core"><img src="https://img.shields.io/npm/l/@vapper/core.svg" alt="License"></a>
-  <a href="https://www.patreon.com/HcySunYang"><img src="https://badgen.net/badge/support%20me/donate/ff00ff" alt="Support me"/></a>
 </p>
 
 <p align="center"><a href="https://vapperjs.org/">Documentation</a></p>
