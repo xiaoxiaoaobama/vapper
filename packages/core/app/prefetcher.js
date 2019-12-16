@@ -56,7 +56,7 @@ const clientPlugin = function (Vue) {
 
   Vue.mixin({
     beforeCreate: function () {
-      if (!this.$options.needSerialize) return
+      if (!this.$options.needSerialize && !this.$options.needPrefetch) return
 
       // The component's own `created` hook
       const selfCreatedHook = this.$options.created[this.$options.created.length - 1]

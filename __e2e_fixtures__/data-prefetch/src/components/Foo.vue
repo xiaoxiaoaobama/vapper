@@ -15,7 +15,6 @@ export default {
   needSerialize: true,
   async created () {
     this.msg = await fetch()
-    await this.$store.dispatch('setFoo')
   }
 }
 </script>

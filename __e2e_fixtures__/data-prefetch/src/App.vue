@@ -6,6 +6,13 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return { root: true }
+  },
+  needPrefetch: true,
+  async created () {
+    await this.$store.dispatch('setFoo')
+  }
 }
 </script>
