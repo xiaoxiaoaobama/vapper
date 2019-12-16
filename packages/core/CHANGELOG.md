@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.17.0...@vapper/core@0.18.0) (2019-12-16)
+
+
+### Features
+
+* **core:** add new component option - needPrefetch ([6b46a56](https://github.com/vapperjs/vapper/commit/6b46a56))
+
+
+
+
+
 # [0.17.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.16.4...@vapper/core@0.17.0) (2019-12-13)
 
 
