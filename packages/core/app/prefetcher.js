@@ -17,7 +17,7 @@ function serverPlugin (Vue) {
         await pro
       } catch (e) {
         this.__reject && this.__reject(e)
-        return e
+        throw e
       }
 
       this.__resolveData && this.__resolveData()
