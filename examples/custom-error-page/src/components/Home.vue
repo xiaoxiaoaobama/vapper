@@ -1,12 +1,19 @@
 <template>
-  <div class="home">
-    <!-- There will be an error here -->
-    {{ a.b.c }}
+  <div id="foo">
+    <p class="p1">{{ msg }}</p>
   </div>
 </template>
 
 <script>
+import { fetch } from '../fetch'
 export default {
-  name: 'Home'
+  name: 'Foo',
+  data () {
+    return { msg: '' }
+  },
+  needSerialize: true,
+  async created () {
+    this.msg = await fetch()
+  }
 }
 </script>
