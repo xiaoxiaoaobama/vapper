@@ -59,7 +59,14 @@ const clientPlugin = function (Vue) {
       if (!this.$options.needSerialize && !this.$options.needPrefetch) return
 
       // The component's own `created` hook
-      const selfCreatedHook = this.$options.created[this.$options.created.length - 1]
+      let selfCreatedHook = this.$options.created[this.$options.created.length - 1]
+      // vue-meta will push a new `created` hook function in the `beforeCreate` hook,
+      // so the component's own `created` hook function is the penultimate.
+      // https://github.com/nuxt/vue-meta/blob/master/src/shared/mixin.js#L75-L89
+      if (typeof this.$options.head === 'function') {
+        selfCreatedHook = this.$options.created.splice(this.$options.created.length - 2, 1)
+        this.$options.created[this.$options.created.length] = selfCreatedHook
+      }
 
       // Rewrite created hook
       this.$options.created[this.$options.created.length - 1] = async function (...args) {
