@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.3](https://github.com/vapperjs/vapper/compare/@vapper/core@0.18.2...@vapper/core@0.18.3) (2019-12-23)
+
+**Note:** Version bump only for package @vapper/core
+
+
+
+
+
 ## [0.18.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.18.1...@vapper/core@0.18.2) (2019-12-23)
 
 
