@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.2](https://github.com/vapperjs/vapper/compare/@vapper/core@0.18.1...@vapper/core@0.18.2) (2019-12-23)
+
+
+### Bug Fixes
+
+* **core:** vue-meta causes duplicate data prefetch ([b90d9b4](https://github.com/vapperjs/vapper/commit/b90d9b4)), closes [#39](https://github.com/vapperjs/vapper/issues/39)
+
+
+
+
+
 ## [0.18.1](https://github.com/vapperjs/vapper/compare/@vapper/core@0.18.0...@vapper/core@0.18.1) (2019-12-16)
 
 **Note:** Version bump only for package @vapper/core
