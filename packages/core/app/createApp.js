@@ -11,7 +11,7 @@ Vue.config.errorHandler = (err, vm, info) => {
   originalConfigErrorHandler && originalConfigErrorHandler(err, vm, info)
   vm.$root.error = err
   // Discard the async error because it triggers the `unhandledRejection` event.
-  if (info.indexOf('(Promise/async)') > 0) return
+  if (process.server && info.indexOf('(Promise/async)') > 0) return
 
   throw err
 }
