@@ -41,15 +41,15 @@ export default function createApp () {
   })
 
   // 2. Create a app instance
-  const app = new Vue({
+  const app = {
     router,
     // This is necessary, it is for vue-meta
     head: {},
     render (h) {
       return router.err || this.error ? h('h1', String(router.err || this.error)) : h(App)
     }
-  })
+  }
 
   // 3. return
-  return { app, router }
+  return app
 }

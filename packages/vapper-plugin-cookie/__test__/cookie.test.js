@@ -11,7 +11,7 @@ describe('vapper plugin cookie', () => {
 
   describe('client side', () => {
     test('set & get & delete cookie should be succeed', () => {
-      const ctx = { type: 'client' }
+      const ctx = { type: 'client', rootOptions: {} }
       cookie(ctx)
       const vm = new LocalVue({
         $cookie: ctx.$cookie
@@ -50,7 +50,7 @@ describe('vapper plugin cookie', () => {
 
     test('set & get & delete cookie should be succeed', () => {
       res.headerSent = { 'Set-Cookie': '' }
-      const ctx = { pluginRuntimeOptions: {}, type: 'server', res, req }
+      const ctx = { pluginRuntimeOptions: {}, type: 'server', res, req, rootOptions: {} }
       cookie(ctx)
       const vm = new LocalVue({
         $cookie: ctx.$cookie
@@ -72,7 +72,7 @@ describe('vapper plugin cookie', () => {
     })
 
     test('operate cookie with fromRes should be succeed', () => {
-      const ctx = { pluginRuntimeOptions: { cookie: { fromRes: true } }, type: 'server', res, req }
+      const ctx = { pluginRuntimeOptions: { cookie: { fromRes: true } }, type: 'server', res, req, rootOptions: {} }
       cookie(ctx)
       const vm = new LocalVue({
         $cookie: ctx.$cookie
