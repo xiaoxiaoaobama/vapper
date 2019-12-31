@@ -12,7 +12,6 @@ const TYPE = 'client'
 Vue.use(clientPlugin)
 
 const context = {
-  Vue,
   pluginRuntimeOptions: createApp.pluginRuntimeOptions,
   type: TYPE
 }
