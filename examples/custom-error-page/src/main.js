@@ -29,27 +29,39 @@ export default function createApp () {
     ]
   })
 
-  router.beforeEach((to, from, next) => {
+  router.beforeEach(async (to, from, next) => {
     try {
       if (to.path === '/bar') {
         throw Error('error in the routing guard')
       }
+      next()
     } catch (e) {
-      router.err = e
+      next(e)
     }
-    next()
   })
 
   // 2. Create a app instance
-  const app = new Vue({
+  const app = {
     router,
     // This is necessary, it is for vue-meta
     head: {},
+    ErrorComponent: {
+      props: ['error'],
+      render(h) {
+        // Throws the error again and will fall back the spa mode.
+        if (this.error.code === 404) throw this.error
+
+        return h('div', [
+          h('h1', this.error.code),
+          h('h1', this.error.message)
+        ])
+      }
+    },
     render (h) {
-      return router.err || this.error ? h('h1', String(router.err || this.error)) : h(App)
+      return h(App)
     }
-  })
+  }
 
   // 3. return
-  return { app, router }
+  return app
 }

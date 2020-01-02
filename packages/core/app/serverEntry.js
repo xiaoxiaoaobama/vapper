@@ -36,23 +36,32 @@ export default async context => {
 
   context.rootOptions = rootOptions
 
-  if (!isFake) {
-    enhanceApp(context)
+  enhanceApp(context)
+
+  // This Vue instance for custom error pages
+  if (context.renderError) {
+    if (rootOptions.ErrorComponent) {
+      const app = new Vue({
+        render (h) {
+          return h(rootOptions.ErrorComponent, { props: { error: context.renderError } })
+        }
+      })
+      context.meta = app.$meta()
+      return app
+    } else {
+      throw context.renderError
+    }
   }
 
-  const app = new Vue(context.rootOptions)
-
   // Add helpers
-  app.$$redirect = createServerRedirect(context.res)
-  app.$$type = TYPE
-  router.$$redirect = app.$$redirect
+  router.$$redirect = createServerRedirect(context.res)
   router.$$type = TYPE
+  await router.push(context.url)
 
-  router.onError((err) => {
-    app.error = err
-  })
-
-  router.push(context.url)
+  const app = new Vue(context.rootOptions)
+  // Add helpers
+  app.$$redirect = router.$$redirect
+  app.$$type = TYPE
 
   // Waiting for the route to be ready
   await routerReady(router)
@@ -60,13 +69,11 @@ export default async context => {
   const matchedComponents = router.getMatchedComponents()
   // no matched routes, reject with 404
   if (!matchedComponents.length) {
-    // Add error data - 404
-    app.error = app.error || new VapperError({
+    throw new VapperError({
       url: context.url,
       code: 404,
       message: 'Page Not Found'
     })
-    throw app.error
   }
   context.rendered = () => {
     // The data will be serialized

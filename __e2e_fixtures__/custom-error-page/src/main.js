@@ -32,10 +32,12 @@ export default function createApp () {
   router.beforeEach((to, from, next) => {
     try {
       if (to.path === '/bar') {
-        throw Error('error in the routing guard')
+        const error = Error('error in the routing guard')
+        error.code = 200 // For e2e testing purposes only
+        throw error
       }
     } catch (e) {
-      router.err = e
+      next(e)
     }
     next()
   })
@@ -45,8 +47,17 @@ export default function createApp () {
     router,
     // This is necessary, it is for vue-meta
     head: {},
+    ErrorComponent: {
+      props: ['error'],
+      render(h) {
+        return h('div', [
+          h('h1', this.error.code),
+          h('h2', this.error.message)
+        ])
+      }
+    },
     render (h) {
-      return router.err || this.error ? h('h1', String(router.err || this.error)) : h(App)
+      return h(App)
     }
   }
 

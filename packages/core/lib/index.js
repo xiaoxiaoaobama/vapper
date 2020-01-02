@@ -173,11 +173,38 @@ class Vapper extends PluginApi {
       res.end(this.htmlContent)
       next()
     } catch (err) {
-      if (err.code === 'REDIRECT') {
+      let finallyError = err
+
+      if (finallyError.code === 'REDIRECT') {
         return
       }
+
+      // If the custom error page is enabled, then the "error page" is rendered
+      if (this.options.enableCustomErrorPage) {
+        finallyError.code = typeof finallyError.code !== 'undefined' ? finallyError.code : 500
+        finallyError.message = typeof finallyError.message !== 'undefined'
+          ? finallyError.message
+          : 'Internal Server Error'
+        try {
+          this.htmlContent = await this.renderHTML({
+            renderError: finallyError
+          })
+
+          this.invokeHook('after:render', this.htmlContent)
+
+          res.statusCode = finallyError.code
+          res.statusMessage = finallyError.message
+          res.setHeader('x-power-by', 'vapper')
+          res.setHeader('Content-Type', 'text/html; charset=UTF-8')
+          res.end(this.htmlContent)
+
+          return
+        } catch (errorPageErr) {
+          finallyError = errorPageErr
+        }
+      }
       // The `err` may not be an Error instance in some cases
-      const error = typeof err !== 'object' ? new Error(String(err)) : err
+      const error = typeof finallyError !== 'object' ? new Error(String(finallyError)) : finallyError
       error.isVapper = true
       next(error)
     }
