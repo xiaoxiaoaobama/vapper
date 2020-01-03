@@ -28,12 +28,12 @@ describe('fallbackSpa: ', () => {
     logger: {
       debug: jest.fn()
     },
-    use: jest.fn((title, fn) => {
+    use: jest.fn((typeOrFn, fn) => {
       let name = ''
 
-      if (typeof title === 'function') {
-        name = title.__name
-        orignalPreHandler = title
+      if (typeof typeOrFn === 'function') {
+        name = typeOrFn.__name
+        orignalPreHandler = typeOrFn
       } else {
         name = fn.__name
         orignalAfterHandler = fn
@@ -81,21 +81,21 @@ describe('fallbackSpa: ', () => {
     fallbackSpa(api)
     expect(api.use.mock.calls.length).toBe(2)
     expect(api.use.mock.calls[0][0] === orignalPreHandler).toBe(true)
+    expect(api.use.mock.calls[1][0]).toBe('after:render')
     expect(api.use.mock.calls[1][1] === orignalAfterHandler).toBe(true)
   })
 
-  test('invoke fallbackSPA should succeed', () => {
+  test('manual fallback to SPA should succeed', () => {
     fallbackSpa(api)
     api.fallbackSPA(req, res)
     expect(req._forceFallback).toBe(true)
-    expect(api.handler.mock.calls.length).toBe(1)
+    expect(api.handler).toHaveBeenCalledWith(req, res)
     delete req._forceFallback
   })
 
   describe('preHandler: ', () => {
     beforeAll(() => {
       api.getRouteMeta
-        .mockReturnValueOnce({ ssr: false })
         .mockReturnValueOnce({ ssr: false })
         .mockReturnValueOnce({ ssr: true })
         .mockReturnValue({ ssr: false })
@@ -109,13 +109,13 @@ describe('fallbackSpa: ', () => {
       finalhandler.mockClear()
     })
 
-    test(`should invoke fallBack:
-      1) req._forceFallback is undefined
-      2) meta.ssr is false
-      3) api.options.fallbackSpaHandler is exists
-      4) api.isProd is false
-      5) api.options.ssr is true
-    `, () => {
+    /**
+     * - api.options.ssr is true
+     * - meta.ssr is false
+     * - api.isProd is false
+     * - api.options.fallbackSpaHandler is exists
+     */
+    test('should fallBack when `meta.ssr` is false:', () => {
       api.options.ssr = true
 
       fallbackSpa(api)
@@ -125,34 +125,18 @@ describe('fallbackSpa: ', () => {
       expect(api.getRouteMeta.mock.calls[0][0]).toBe(req.url)
       expect(api.logger.debug.mock.calls.length).toBe(1)
       expect(api.logger.debug.mock.calls[0][0]).toBe(' Fall back SPA mode, url is: url of req')
-      expect(api.options.fallbackSpaHandler.mock.calls.length).toBe(1)
+      expect(api.options.fallbackSpaHandler).toHaveBeenCalledWith(req, res, api)
       expect(next.mock.calls.length).toBe(0)
 
       api.options.ssr = false
     })
 
-    test(`should invoke fallBack:
-      1) req._forceFallback is undefined
-      2) meta.ssr is false
-      3) api.options.fallbackSpaHandler is exists
-      4) api.isProd is false
-    `, () => {
-      fallbackSpa(api)
-      orignalPreHandler(req, res, next)
-      expect(api.getRouteMeta.mock.calls.length).toBe(1)
-      expect(api.getRouteMeta.mock.calls[0][0]).toBe(req.url)
-      expect(api.logger.debug.mock.calls.length).toBe(1)
-      expect(api.logger.debug.mock.calls[0][0]).toBe(' Fall back SPA mode, url is: url of req')
-      expect(api.options.fallbackSpaHandler.mock.calls.length).toBe(1)
-      expect(next.mock.calls.length).toBe(0)
-    })
-
-    test(`should not invoke fallBack:
-      1) req._forceFallback is undefined
-      2) meta.ssr is true
-      3) api.options.fallbackSpaHandler is exists
-      4) api.isProd is false
-    `, () => {
+    /**
+     * - meta.ssr is true
+     * - api.options.fallbackSpaHandler is exists
+     * - api.isProd is false
+     */
+    test('should not fallBack when `meta.ssr` is true:', () => {
       fallbackSpa(api)
       orignalPreHandler(req, res, next)
 
@@ -162,15 +146,17 @@ describe('fallbackSpa: ', () => {
       expect(next.mock.calls.length).toBe(1)
     })
 
-    test(`should invoke fallBack:
-      1) req._forceFallback is true
-      2) meta.ssr is true
-      3) api.options.fallbackSpaHandler is exists
-      4) api.isProd is false
-    `, () => {
+    /**
+     * - req._forceFallback is true
+     * - meta.ssr is true
+     * - api.options.fallbackSpaHandler is exists
+     * - api.isProd is false
+     */
+    test('it should be fallback when calling fallbackSPA manually, although meta.ssr is true:', () => {
       req._forceFallback = true
 
       fallbackSpa(api)
+      req._forceFallback = true
       orignalPreHandler(req, res, next)
 
       expect(api.getRouteMeta.mock.calls.length).toBe(1)
@@ -183,12 +169,7 @@ describe('fallbackSpa: ', () => {
       req._forceFallback = false
     })
 
-    test(`should invoke fallBack:
-      1) req._forceFallback is true
-      2) meta.ssr is true
-      3) api.options.fallbackSpaHandler is not exists
-      4) api.isProd is false
-    `, () => {
+    test('should fallBack with default fallback spa handler(dev):', () => {
       req._forceFallback = true
       delete api.options.fallbackSpaHandler
 
@@ -221,12 +202,7 @@ describe('fallbackSpa: ', () => {
       api.options.fallbackSpaHandler = fallbackSpaHandler
     })
 
-    test(`should invoke fallBack:
-      1) req._forceFallback is true
-      2) meta.ssr is true
-      3) api.options.fallbackSpaHandler is not exists
-      4) api.isProd is true
-    `, () => {
+    test(`should fallBack with default fallback spa handler(prod):`, () => {
       req._forceFallback = true
       api.isProd = true
       delete api.options.fallbackSpaHandler
@@ -256,9 +232,6 @@ describe('fallbackSpa: ', () => {
   })
 
   describe('afterHandler: ', () => {
-    beforeAll(() => {
-    })
-
     afterEach(() => {
       api.logger.debug.mockClear()
       api.options.fallbackSpaHandler.mockClear()
@@ -266,56 +239,15 @@ describe('fallbackSpa: ', () => {
       finalhandler.mockClear()
     })
 
-    test(`should not invoke fallBack:
-      1) api.options.fallBackSpa is false
-      2) err.isVapper is undefined
-      3) api.options.fallbackSpaHandler is exists
-      4) api.isProd is false
-    `, () => {
+    test('should not fallback when not err.isVapper', () => {
       fallbackSpa(api)
       orignalAfterHandler(null, req, res, next)
 
+      expect(api.logger.debug.mock.calls.length).toBe(0)
       expect(next.mock.calls.length).toBe(1)
     })
 
-    test(`should not invoke fallBack:
-      1) api.options.fallBackSpa is true
-      2) err.isVapper is undefined
-      3) api.options.fallbackSpaHandler is exists
-      4) api.isProd is false
-    `, () => {
-      api.options.fallBackSpa = true
-
-      fallbackSpa(api)
-      orignalAfterHandler(null, req, res, next)
-
-      expect(next.mock.calls.length).toBe(1)
-
-      api.options.fallBackSpa = false
-    })
-
-    test(`should not invoke fallBack:
-      1) api.options.fallBackSpa is true
-      2) err.isVapper is false
-      3) api.options.fallbackSpaHandler is exists
-      4) api.isProd is false
-    `, () => {
-      api.options.fallBackSpa = true
-
-      fallbackSpa(api)
-      orignalAfterHandler({ isVapper: false }, req, res, next)
-
-      expect(next.mock.calls.length).toBe(1)
-
-      api.options.fallBackSpa = false
-    })
-
-    test(`should invoke fallBack:
-      1) api.options.fallBackSpa is true
-      2) err.isVapper is true
-      3) api.options.fallbackSpaHandler is exists
-      4) api.isProd is false
-    `, () => {
+    test('should fallBack when err.isVapper is true', () => {
       api.options.fallBackSpa = true
 
       fallbackSpa(api)
