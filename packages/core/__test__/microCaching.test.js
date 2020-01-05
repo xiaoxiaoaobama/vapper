@@ -4,7 +4,7 @@ const mockMicroCacheGet = jest.fn()
 const mockMicroCacheSet = jest.fn()
 const cacheable = jest.fn()
 
-jest.mock('lru-cache', () => jest.fn())
+jest.mock('lru-cache')
 
 LRU.mockImplementation(() => ({
   get: mockMicroCacheGet,
@@ -52,11 +52,7 @@ describe('microCaching: ', () => {
     jest.resetAllMocks()
   })
 
-  test(`init microCaching should succeed:
-    1) cacheable should return false
-    2) cacheOptions.max is default(100)
-    3) cacheOptions.maxAge is default(1000)
-  `, () => {
+  test(`not hit the micro cache`, () => {
     cacheable.mockReturnValueOnce(false)
 
     microCaching(api, { cacheable })
@@ -71,7 +67,7 @@ describe('microCaching: ', () => {
     expect(next.mock.calls.length).toBe(2)
   })
 
-  test('init microCaching should succeed: cacheable should return true', () => {
+  test('hit the micro cache', () => {
     cacheable.mockReturnValueOnce(true)
 
     microCaching(api, { cacheOptions: { max: 200, maxAge: 2000 }, cacheable })
