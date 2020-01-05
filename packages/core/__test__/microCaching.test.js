@@ -11,7 +11,7 @@ LRU.mockImplementation(() => ({
   set: mockMicroCacheSet
 }))
 
-describe('fallbackSpa: ', () => {
+describe('microCaching: ', () => {
   let orignalPreHandler = () => {}
   let orignalAfterHandler = () => {}
   const mockPreHandler = jest.fn()
