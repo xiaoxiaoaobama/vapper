@@ -72,8 +72,8 @@ const clientPlugin = function (Vue) {
       this.$options.created[this.$options.created.length - 1] = async function (...args) {
         if (!clientPlugin.$$resolved) {
           // TODO: VapperError
-          const err = new Error('vue-ssr-prefetcher: custom error')
-          err.isVueSsrPrefetcher = true
+          const err = new Error('vapper-ssr-prefetcher: custom error')
+          err.isVapperSsrPrefetcher = true
           throw err
         }
         return selfCreatedHook.apply(this, args)
@@ -90,7 +90,7 @@ const clientPlugin = function (Vue) {
       } catch (err) {}
     },
     errorCaptured: function (err) {
-      if (err.isVueSsrPrefetcher) { return false }
+      if (err.isVapperSsrPrefetcher) { return false }
       return true
     }
   })

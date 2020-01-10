@@ -4,13 +4,7 @@ exports[`Dev mode:  Enhance files should be generated correctly 1`] = `
 "
 
 export default function (options) {
-  const fns = []
   
-  return fns
-}
-
-export function enhanceInstance (fns, opts) {
-  fns.filter(fn => typeof fn === 'function').forEach(fn => fn(opts))
 }"
 `;
 
@@ -18,12 +12,6 @@ exports[`Dev mode:  Enhance files should be generated correctly 2`] = `
 "
 
 export default function (options) {
-  const fns = []
   
-  return fns
-}
-
-export function enhanceInstance (fns, opts) {
-  fns.filter(fn => typeof fn === 'function').forEach(fn => fn(opts))
 }"
 `;

@@ -1,7 +1,9 @@
 export function fetch () {
   return new Promise((r, j) => {
     setTimeout(() => {
-      j('error')
+      const error = Error('error')
+      error.code = 200 // For e2e testing purposes only
+      j(error)
     }, 200) 
   })
 }

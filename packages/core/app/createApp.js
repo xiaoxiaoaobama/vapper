@@ -9,7 +9,6 @@ import ClientOnly from './ClientOnly'
 const originalConfigErrorHandler = Vue.config.errorHandler
 Vue.config.errorHandler = (err, vm, info) => {
   originalConfigErrorHandler && originalConfigErrorHandler(err, vm, info)
-  vm.$root.error = err
   // Discard the async error because it triggers the `unhandledRejection` event.
   if (process.server && info.indexOf('(Promise/async)') > 0) return
 
@@ -22,24 +21,6 @@ Vue.component('ClientOnly', ClientOnly)
 Vue.use(Meta, {
   keyName: 'head'
 })
-
-if (!process.env.DISABLE_ERROR_HANDLER) {
-  // For custom error page
-  Vue.mixin({
-    data () {
-      return this.$root === this._self
-        // `this.error` may already be an error object, such as set in `router.onError`
-        ? { error: this.error }
-        : {}
-    },
-    errorCaptured (err) {
-      if (this.$root === this._self && !err.isVueSsrPrefetcher) {
-        // Display custom error page
-        this.error = err
-      }
-    }
-  })
-}
 
 Vue.mixin({
   beforeCreate () {

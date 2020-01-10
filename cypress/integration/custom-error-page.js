@@ -3,13 +3,17 @@ describe('Custom error page', function () {
     cy.visit('http://0.0.0.0:4000')
 
     cy.get('h1').should('have.length', 1)
-    cy.get('h1').should('contain', 'error')
+    cy.get('h2').should('have.length', 1)
+    cy.get('h1').should('contain', '200')
+    cy.get('h2').should('contain', 'error')
   })
 
   it('The error occurred in the routing guard', function () {
     cy.visit('http://0.0.0.0:4000/bar')
 
     cy.get('h1').should('have.length', 1)
-    cy.get('h1').should('contain', 'error in the routing guard')
+    cy.get('h2').should('have.length', 1)
+    cy.get('h1').should('contain', '200')
+    cy.get('h2').should('contain', 'error in the routing guard')
   })
 })

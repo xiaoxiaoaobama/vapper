@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 Vue.use(Vuex)
 
 // Export factory function
-export default function createApp (ctx) {
+export default function createApp () {
   const store = new Vuex.Store({
     state: { storeMsg: '' },
     mutations: {
@@ -25,7 +25,6 @@ export default function createApp (ctx) {
       }
     }
   })
-  ctx.replaceState(store)
 
   // 1. Create a router instance
   const router = new VueRouter({
@@ -42,14 +41,14 @@ export default function createApp (ctx) {
   })
 
   // 2. Create a app instance
-  const app = new Vue({
+  const app = {
     router,
     store,
     // This is necessary, it is for vue-meta
     head: {},
     render: h => h(App)
-  })
+  }
 
   // 3. return
-  return { app, router, store }
+  return app
 }

@@ -1,5 +1,12 @@
+import Vue from 'vue'
 import cookie from 'cookie'
 import { getOptions } from './options'
+
+Vue.mixin({
+  created () {
+    this.$cookie = this.$root.$options.$cookie
+  }
+})
 
 export default function (ctx) {
   const { pluginRuntimeOptions, type, res, req } = ctx
@@ -12,7 +19,7 @@ export default function (ctx) {
       const rawCookie = isServer ? req.headers.cookie : document.cookie
       return cookie.parse(rawCookie || '')
     },
-    get: (name) => {
+    get (name) {
       const cookieObj = {}
       if (isServer && opts.fromRes) {
         const setCookie = res.getHeader('Set-Cookie') || []
@@ -74,5 +81,6 @@ export default function (ctx) {
   }
 
   // Enhance ctx
-  ctx[opts.propertyName] = cookieUtils
+  ctx.$cookie = cookieUtils
+  ctx.rootOptions.$cookie = cookieUtils
 }

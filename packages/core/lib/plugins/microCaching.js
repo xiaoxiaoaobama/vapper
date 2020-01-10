@@ -13,14 +13,12 @@ module.exports = (
 ) => {
   const microCache = new LRU(cacheOptions)
 
-  let isCacheable = false
-  let key = ''
   const preHandler = (req, res, next) => {
-    isCacheable = cacheable(req)
+    req.isCacheable = cacheable(req)
 
-    if (isCacheable) {
-      key = getCacheKey(req)
-      const hit = microCache.get(key)
+    if (req.isCacheable) {
+      req.key = getCacheKey(req)
+      const hit = microCache.get(req.key)
 
       if (hit) {
         api.logger.debug(`Hit cache, url: ${req.url}`)
@@ -33,8 +31,8 @@ module.exports = (
   preHandler.__name = 'micro_caching_pre'
 
   const afterHandler = (req, res, next) => {
-    if (isCacheable) {
-      microCache.set(key, api.htmlContent)
+    if (req.isCacheable) {
+      microCache.set(req.key, api.htmlContent)
     }
     next()
   }
