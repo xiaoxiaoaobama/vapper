@@ -2,8 +2,6 @@
 
 <p align="center"><a href="https://vapperjs.org/" target="_blank" rel="noopener noreferrer"><img width="100" src="https://vapperjs.org/vapper.png" alt="Vapper logo"></a></p>
 
-<p align="center">Has not yet reached v1.0, but is almost stable, please use with caution</p>
-
 <p align="center">
   <a href="https://circleci.com/gh/shuidi-fed/vapper"><img src="https://circleci.com/gh/shuidi-fed/vapper.svg?style=svg" alt="Build Status"/></a>
   <a href="https://lerna.js.org/"><img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="Maintained With lerna"></a>
