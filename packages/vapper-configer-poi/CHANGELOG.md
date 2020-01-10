@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/vapperjs/vapper/compare/@vapper/configer-poi@0.6.2...@vapper/configer-poi@1.0.0) (2020-01-10)
+
+**Note:** Version bump only for package @vapper/configer-poi
+
+
+
+
+
 ## [0.6.2](https://github.com/vapperjs/vapper/compare/@vapper/configer-poi@0.6.1...@vapper/configer-poi@0.6.2) (2019-12-16)
 
 **Note:** Version bump only for package @vapper/configer-poi
