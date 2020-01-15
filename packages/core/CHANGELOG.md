@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/vapperjs/vapper/compare/@vapper/core@1.0.0...@vapper/core@1.0.1) (2020-01-15)
+
+
+### Bug Fixes
+
+* **core:** execute enhanceApp before createApp ([9b319ed](https://github.com/vapperjs/vapper/commit/9b319ed)), closes [#53](https://github.com/vapperjs/vapper/issues/53)
+
+
+
+
+
 # [1.0.0](https://github.com/vapperjs/vapper/compare/@vapper/core@0.18.4...@vapper/core@1.0.0) (2020-01-10)
 
 **Note:** Version bump only for package @vapper/core
