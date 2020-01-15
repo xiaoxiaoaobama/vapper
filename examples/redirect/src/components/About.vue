@@ -6,7 +6,7 @@
 export default {
   name: 'About',
   created () {
-    this.$$redirect('https://github.com/HcySunYang')
+    this.$$redirect('/')
   }
 }
 </script>

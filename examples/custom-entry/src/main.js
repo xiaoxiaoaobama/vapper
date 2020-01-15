@@ -9,7 +9,7 @@ export default function createApp () {
   // 1. Create a router instance
   const router = createRouter()
 
-  // 2. Create a app instance
+  // 2. Create root component option
   const app = new Vue({
     router,
     head: {},

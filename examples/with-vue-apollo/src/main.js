@@ -16,7 +16,7 @@ export default function createApp (context) {
     defaultClient: apolloClient,
   })
 
-  // 2. Create a app instance
+  // 2. Create root component option
   const app = new Vue({
     apolloProvider,
     router,

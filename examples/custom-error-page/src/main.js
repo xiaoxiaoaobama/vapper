@@ -40,7 +40,7 @@ export default function createApp () {
     }
   })
 
-  // 2. Create a app instance
+  // 2. Create root component option
   const app = {
     router,
     // This is necessary, it is for vue-meta
