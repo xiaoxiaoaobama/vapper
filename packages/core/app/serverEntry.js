@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { serverPlugin } from './prefetcher'
-import createApp from './createApp'
+import createAppAPI from './createApp'
 import { createServerRedirect } from './redirect'
 import VapperError from './VapperError'
 
@@ -18,12 +18,15 @@ const TYPE = 'server'
 export default async context => {
   const isFake = context.fake
   Object.assign(context, {
-    pluginRuntimeOptions: createApp.pluginRuntimeOptions,
+    pluginRuntimeOptions: createAppAPI.pluginRuntimeOptions,
     type: TYPE,
-    isFake
+    isFake,
+    rootOptions: {}
   })
 
-  const rootOptions = createApp(context)
+  enhanceApp(context)
+
+  const rootOptions = createAppAPI(context)
   const { router, store, apolloProvider } = rootOptions
 
   // This is a fake rendering in the `setup` to get the router instance
@@ -33,10 +36,6 @@ export default async context => {
       router
     })
   }
-
-  context.rootOptions = rootOptions
-
-  enhanceApp(context)
 
   // This Vue instance for custom error pages
   if (context.renderError) {
@@ -58,7 +57,7 @@ export default async context => {
   router.$$type = TYPE
   await router.push(context.url)
 
-  const app = new Vue(context.rootOptions)
+  const app = new Vue(rootOptions)
   // Add helpers
   app.$$redirect = router.$$redirect
   app.$$type = TYPE

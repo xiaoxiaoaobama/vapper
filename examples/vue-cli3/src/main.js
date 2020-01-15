@@ -11,7 +11,6 @@ export default function createApp (ctx) {
 
   // 2. Create a app instance
   const app = {
-    $cookie: ctx.$cookie,
     router,
     head: {},
     render: h => h(App)

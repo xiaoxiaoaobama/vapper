@@ -29,4 +29,9 @@ Vue.mixin({
   }
 })
 
-export default createApp
+export default function createAppAPI (context) {
+  const rootOptions = createApp(context)
+  Object.assign(rootOptions, context.rootOptions)
+  return rootOptions
+}
+createAppAPI.pluginRuntimeOptions = createApp.pluginRuntimeOptions

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { clientPlugin } from './prefetcher'
-import createApp from './createApp'
+import createAppAPI from './createApp'
 import VapperError from './VapperError'
 import { createClientRedirect } from './redirect'
 
@@ -12,15 +12,15 @@ const TYPE = 'client'
 Vue.use(clientPlugin)
 
 const context = {
-  pluginRuntimeOptions: createApp.pluginRuntimeOptions,
-  type: TYPE
+  pluginRuntimeOptions: createAppAPI.pluginRuntimeOptions,
+  type: TYPE,
+  rootOptions: {}
 }
 
-const rootOptions = createApp(context)
-const { router, store } = rootOptions
-context.rootOptions = rootOptions
-
 enhanceApp(context)
+
+const rootOptions = createAppAPI(context)
+const { router, store } = rootOptions
 
 // We initialize the store state with the data injected from the server
 if (window.__INITIAL_STATE__ && window.__INITIAL_STATE__.$$stroe) {
