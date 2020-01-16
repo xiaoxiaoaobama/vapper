@@ -27,14 +27,15 @@ if (window.__INITIAL_STATE__ && window.__INITIAL_STATE__.$$stroe) {
   store.replaceState(window.__INITIAL_STATE__.$$stroe)
 }
 
-const app = new Vue(rootOptions)
-
-// Add helpers
 const redirect = createClientRedirect(router)
-app.$$redirect = redirect
-app.$$type = TYPE
+// Add helpers to router
 router.$$redirect = redirect
 router.$$type = TYPE
+
+const app = new Vue(rootOptions)
+// Add helpers to app
+app.$$redirect = redirect
+app.$$type = TYPE
 
 router.beforeResolve(async (to, from, next) => {
   const matchedComponents = router.getMatchedComponents(to)
