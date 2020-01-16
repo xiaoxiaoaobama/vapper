@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/vapperjs/vapper/compare/@vapper/core@1.0.1...@vapper/core@1.0.2) (2020-01-16)
+
+
+### Bug Fixes
+
+* cannot redirect on client ([59a485c](https://github.com/vapperjs/vapper/commit/59a485c)), closes [#54](https://github.com/vapperjs/vapper/issues/54)
+
+
+
+
+
 ## [1.0.1](https://github.com/vapperjs/vapper/compare/@vapper/core@1.0.0...@vapper/core@1.0.1) (2020-01-15)
 
 
