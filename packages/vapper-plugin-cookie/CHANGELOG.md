@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/vapperjs/vapper/compare/@vapper/plugin-cookie@1.0.0...@vapper/plugin-cookie@1.0.1) (2020-01-16)
+
+
+### Bug Fixes
+
+* mock cookie in fake environment ([a080bc6](https://github.com/vapperjs/vapper/commit/a080bc6)), closes [#55](https://github.com/vapperjs/vapper/issues/55)
+
+
+
+
+
 # [1.0.0](https://github.com/vapperjs/vapper/compare/@vapper/plugin-cookie@0.5.4...@vapper/plugin-cookie@1.0.0) (2020-01-10)
 
 **Note:** Version bump only for package @vapper/plugin-cookie
