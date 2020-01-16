@@ -9,12 +9,12 @@ Vue.mixin({
 })
 
 export default function (ctx) {
-  const { pluginRuntimeOptions, type, res, req } = ctx
+  const { pluginRuntimeOptions, type, res, req, isFake } = ctx
 
   const isServer = type === 'server'
   const opts = getOptions(pluginRuntimeOptions)
 
-  const cookieUtils = {
+  let cookieUtils = {
     getCookies () {
       const rawCookie = isServer ? req.headers.cookie : document.cookie
       return cookie.parse(rawCookie || '')
@@ -77,6 +77,17 @@ export default function (ctx) {
       const cookie = cookieUtils.get(name)
       options.expires = new Date(0)
       if (cookie) cookieUtils.set(name, '', options)
+    }
+  }
+
+  if (isFake) {
+    cookieUtils = {
+      getCookies () {},
+      get () {},
+      set () {},
+      _set () {},
+      delete () {},
+      _delete () {}
     }
   }
 
