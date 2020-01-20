@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/vapperjs/vapper/compare/@vapper/core@1.0.3...@vapper/core@1.0.4) (2020-01-20)
+
+
+### Bug Fixes
+
+* remove comments ([9933298](https://github.com/vapperjs/vapper/commit/9933298))
+
+
+
+
+
 ## [1.0.3](https://github.com/vapperjs/vapper/compare/@vapper/core@1.0.2...@vapper/core@1.0.3) (2020-01-20)
 
 
