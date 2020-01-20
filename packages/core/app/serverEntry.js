@@ -55,6 +55,11 @@ export default async context => {
   // Add helpers
   router.$$redirect = createServerRedirect(context.res)
   router.$$type = TYPE
+
+  if (router.options.base) {
+    context.url = getLocation(router.options.base, context.url)
+  }
+
   await router.push(context.url)
 
   const app = new Vue(rootOptions)
@@ -64,6 +69,10 @@ export default async context => {
 
   // Waiting for the route to be ready
   await routerReady(router)
+
+  console.log('======')
+  console.log(router.options.base)
+  console.log(router.getMatchedComponents())
 
   const matchedComponents = router.getMatchedComponents()
   // no matched routes, reject with 404
@@ -108,4 +117,13 @@ function getApolloStates (apolloProvider, options = {}) {
     states[`${finalOptions.exportNamespace}${key}`] = state
   }
   return states
+}
+
+function getLocation (base, url) {
+  let path = decodeURI(url)
+  base = base.replace(/\/$/, '')
+  if (base && path.indexOf(base) === 0) {
+    path = path.slice(base.length)
+  }
+  return path[0] === '/' ? path : '/' + path
 }
