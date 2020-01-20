@@ -70,10 +70,6 @@ export default async context => {
   // Waiting for the route to be ready
   await routerReady(router)
 
-  console.log('======')
-  console.log(router.options.base)
-  console.log(router.getMatchedComponents())
-
   const matchedComponents = router.getMatchedComponents()
   // no matched routes, reject with 404
   if (!matchedComponents.length) {
