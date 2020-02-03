@@ -13,7 +13,9 @@ module.exports = (api, config) => {
     .set('vue$',
       isE2ETest
         ? api.resolveCore('../../node_modules/vue/dist/vue.runtime.esm.js')
-        : api.resolveCWD('node_modules/vue/dist/vue.runtime.esm.js')
+        : api.options.runtimeCompiler
+          ? api.resolveCWD('node_modules/vue/dist/vue.esm.js')
+          : api.resolveCWD('node_modules/vue/dist/vue.runtime.esm.js')
     )
 
   let publicPath = config.output.get('publicPath')
