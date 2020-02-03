@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/vapperjs/vapper/compare/@vapper/webpack-config@1.0.0...@vapper/webpack-config@1.1.0) (2020-02-03)
+
+
+### Features
+
+* **core:** support runtimeCompiler ([426f2b6](https://github.com/vapperjs/vapper/commit/426f2b6)), closes [#60](https://github.com/vapperjs/vapper/issues/60)
+
+
+
+
+
 # [1.0.0](https://github.com/vapperjs/vapper/compare/@vapper/webpack-config@0.5.6...@vapper/webpack-config@1.0.0) (2020-01-10)
 
 **Note:** Version bump only for package @vapper/webpack-config

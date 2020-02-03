@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/vapperjs/vapper/compare/@vapper/core@1.0.4...@vapper/core@1.1.0) (2020-02-03)
+
+
+### Features
+
+* **core:** support runtimeCompiler ([426f2b6](https://github.com/vapperjs/vapper/commit/426f2b6)), closes [#60](https://github.com/vapperjs/vapper/issues/60)
+
+
+
+
+
 ## [1.0.4](https://github.com/vapperjs/vapper/compare/@vapper/core@1.0.3...@vapper/core@1.0.4) (2020-01-20)
 
 
