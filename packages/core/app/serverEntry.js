@@ -63,6 +63,7 @@ export default async context => {
   await router.push(context.url)
 
   const app = new Vue(rootOptions)
+  app.initialState = rootOptions.initialState
   // Add helpers
   app.$$redirect = router.$$redirect
   app.$$type = TYPE
@@ -84,7 +85,8 @@ export default async context => {
     context.state = {
       $$stroe: store ? store.state : undefined,
       // vue-ssr-prefetcher
-      $$selfStore: app.$$selfStore
+      $$selfStore: app.$$selfStore,
+      ...(rootOptions.initialState || {})
     }
     if (apolloProvider) {
       // Also inject the apollo cache state
