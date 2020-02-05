@@ -1,0 +1,17 @@
+{
+  "name": "initial-state",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vapper dev"
+  },
+  "dependencies": {
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.7"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^3.9.0",
+    "babel-plugin-import": "^1.13.0",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
