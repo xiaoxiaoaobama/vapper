@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/vapperjs/vapper/compare/@vapper/core@1.2.0...@vapper/core@1.2.1) (2020-02-05)
+
+
+### Bug Fixes
+
+* **core:** :bug: fix prefetcher async hook with vue-meta ([#61](https://github.com/vapperjs/vapper/issues/61)) ([8e55871](https://github.com/vapperjs/vapper/commit/8e55871))
+
+
+
+
+
 # [1.2.0](https://github.com/vapperjs/vapper/compare/@vapper/core@1.1.1...@vapper/core@1.2.0) (2020-02-05)
 
 
