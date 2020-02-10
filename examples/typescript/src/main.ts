@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { CreateElement } from 'vue'
 import createRouter from './createRouter'
 import App from './App.vue'
 
@@ -10,15 +10,15 @@ export default function createApp () {
   const router = createRouter()
 
   // 2. Create root component option
-  const app = new Vue({
+  const app = {
     router,
     head: {},
-    render (h) {
+    render (h: CreateElement) {
       return h(App)
     }
-  })
+  }
 
   // 3. return
-  return { app, router }
+  return app
 }
 
