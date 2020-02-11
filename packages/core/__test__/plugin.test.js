@@ -97,6 +97,16 @@ test('Enhancement files should be added correctly', () => {
   expect(vapper.enhanceFiles).toContain(enhanceObj)
 })
 
+test('webpack chain fns should be added correctly', () => {
+  const vapper = new Vapper()
+
+  expect(vapper.webpackChainFns.length).toBe(0)
+  const fn = () => {}
+  vapper.chainWebpack(fn)
+  expect(vapper.webpackChainFns.length).toBe(1)
+  expect(vapper.webpackChainFns[0]).toBe(fn)
+})
+
 test('Add and call hooks correctly', () => {
   const pluginApi = new PluginApi()
   const hookFn = jest.fn()

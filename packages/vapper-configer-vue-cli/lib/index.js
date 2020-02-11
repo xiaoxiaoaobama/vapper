@@ -9,7 +9,10 @@ module.exports = class Configer {
     this.mode = options.vueCliMode || options.mode
     this.service = new Service(process.cwd())
     this.service.init(this.mode)
+
     this.service.webpackChainFns.push(this.baseChainFn.bind(this))
+    // Apply user-defined webpack chain functions
+    this.service.webpackChainFns.push(...api.webpackChainFns)
 
     this.serverChainFn = this.serverChainFn.bind(this)
     this.clientChainFn = this.clientChainFn.bind(this)

@@ -11,6 +11,12 @@ module.exports = class Configer {
   getBaseConfig () {
     const config = this.poi.createWebpackChain({ mode: this.mode })
     webpackConfig.base(this.api, config)
+
+    // Apply user-defined webpack chain functions
+    if (this.api.webpackChainFns.length) {
+      this.api.webpackChainFns.forEach(fn => fn(config))
+    }
+
     const envObject = {
       'process.server': process.env.VAPPER_TARGET === 'server',
       'process.browser': process.env.VAPPER_TARGET === 'client',

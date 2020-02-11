@@ -23,10 +23,16 @@ class PluginApi extends EventEmitter {
     this.enhanceClientOutput = this.resolveCore('app/.vapper/enhanceClient.js')
     this.enhanceServerOutput = this.resolveCore('app/.vapper/enhanceServer.js')
 
+    this.webpackChainFns = []
+
     // ENV_OBJECT
     this.ENV_OBJECT = {}
 
     this.hooks = new Map()
+  }
+
+  chainWebpack (fn) {
+    this.webpackChainFns.push(fn)
   }
 
   addEnhanceFile (enhance) {

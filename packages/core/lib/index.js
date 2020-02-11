@@ -66,8 +66,6 @@ class Vapper extends PluginApi {
       }
     }
 
-    this.builder = new Builder(this)
-
     this.serverBundle = null
     this.clientManifest = null
     if (this.options.template) {
@@ -87,6 +85,8 @@ class Vapper extends PluginApi {
     this.router = null
 
     this.initPlugins()
+
+    this.builder = new Builder(this)
   }
 
   get handler () {
