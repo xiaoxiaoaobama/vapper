@@ -44,6 +44,15 @@ class PluginApi extends EventEmitter {
 
   addEnhanceFile (enhance) {
     // TODO: Check the validity of the enhance parameter
+    /**
+     * interface enhanceObj {
+     *    client: string
+     *    clientOptions: object
+     *    server: string
+     *    serverOptions: object
+     *    clientModuleName: string
+     * }
+     */
     this.enhanceFiles.add(enhance)
   }
 
