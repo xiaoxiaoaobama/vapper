@@ -118,16 +118,26 @@ class Vapper extends PluginApi {
     await this.resolveRouterInstanceForFake()
 
     // install middleware
+    // before:setup
+    for (const m of this.middlewares[this.allowMiddlewareTypes[2]]) {
+      this.app.use(m)
+    }
     this.app.use(compression())
     if (!this.isProd) {
       this.app.use(this.devMiddleware)
       this.app.use(this.hotMiddleware)
     }
+    // before:render
     for (const m of this.middlewares[this.allowMiddlewareTypes[0]]) {
       this.app.use(m)
     }
     this.app.use(this.render.bind(this))
+    // after:render
     for (const m of this.middlewares[this.allowMiddlewareTypes[1]]) {
+      this.app.use(m)
+    }
+    // after:setup
+    for (const m of this.middlewares[this.allowMiddlewareTypes[3]]) {
       this.app.use(m)
     }
 

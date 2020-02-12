@@ -121,15 +121,31 @@ test('Add middleware correctly', () => {
   const pluginApi = new PluginApi()
   const mw1 = () => {}
   const mw2 = () => {}
-  pluginApi.use(mw1)
-  pluginApi.use('after:render', mw2)
+  const mw3 = () => {}
+  const mw4 = () => {}
+  const mw5 = () => {}
 
+  pluginApi.use('before:setup', mw1)
+  pluginApi.use('before:render', mw2)
+  pluginApi.use('after:render', mw3)
+  pluginApi.use(mw4)
+  pluginApi.use('after:setup', mw5)
+
+  expect(pluginApi.middlewares['before:setup'] instanceof Set).toBe(true)
   expect(pluginApi.middlewares['before:render'] instanceof Set).toBe(true)
   expect(pluginApi.middlewares['after:render'] instanceof Set).toBe(true)
-  expect(pluginApi.middlewares['before:render'].size).toBe(1)
+  expect(pluginApi.middlewares['after:setup'] instanceof Set).toBe(true)
+
+  expect(pluginApi.middlewares['before:setup'].size).toBe(1)
+  expect(pluginApi.middlewares['before:render'].size).toBe(2)
   expect(pluginApi.middlewares['after:render'].size).toBe(1)
-  expect(pluginApi.middlewares['before:render']).toContain(mw1)
-  expect(pluginApi.middlewares['after:render']).toContain(mw2)
+  expect(pluginApi.middlewares['after:setup'].size).toBe(1)
+
+  expect(pluginApi.middlewares['before:setup']).toContain(mw1)
+  expect(pluginApi.middlewares['before:render']).toContain(mw2)
+  expect(pluginApi.middlewares['before:render']).toContain(mw4)
+  expect(pluginApi.middlewares['after:render']).toContain(mw3)
+  expect(pluginApi.middlewares['after:setup']).toContain(mw5)
 })
 
 test('Should pick the right dependency', () => {

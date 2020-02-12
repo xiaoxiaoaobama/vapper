@@ -12,10 +12,17 @@ class PluginApi extends EventEmitter {
 
     // server middlewares
     this.middlewares = {
+      'before:setup': new Set(),
       'before:render': new Set(),
-      'after:render': new Set()
+      'after:render': new Set(),
+      'after:setup': new Set()
     }
-    this.allowMiddlewareTypes = ['before:render', 'after:render']
+    this.allowMiddlewareTypes = [
+      'before:render',
+      'after:render',
+      'before:setup',
+      'after:setup'
+    ]
 
     // Enhance
     this.enhanceFiles = new Set()
@@ -108,7 +115,7 @@ class PluginApi extends EventEmitter {
 
     if (!this.allowMiddlewareTypes.includes(type)) {
       console.error(
-        `The type of middleware must be either a or b.` +
+        `The type of middleware must be \`allowMiddlewareTypes\`(${this.allowMiddlewareTypes}). \n` +
         `The type of error you provide is: ${type}`
       )
       return
