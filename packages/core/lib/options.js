@@ -29,7 +29,8 @@ exports.options = {
   nodeExternalsWhitelist: [/\.css$/, /\?vue&type=style/],
   needResolveRouteMeta: true,
   env: '',
-  runtimeCompiler: false
+  runtimeCompiler: false,
+  enhanceFileImportsOption: {}
 }
 
 exports.optionsSchema = Joi.object({
@@ -71,5 +72,6 @@ exports.optionsSchema = Joi.object({
   nodeExternalsWhitelist: Joi.array(),
   needResolveRouteMeta: Joi.boolean(),
   env: Joi.alternatives().try(Joi.string(), ''),
-  runtimeCompiler: Joi.boolean()
+  runtimeCompiler: Joi.boolean(),
+  enhanceFileImportsOption: Joi.object()
 })

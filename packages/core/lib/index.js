@@ -7,6 +7,8 @@ const { minify } = require('html-minifier')
 const mergeWith = require('lodash.mergewith')
 const { createBundleRenderer } = require('vue-server-renderer')
 const template = require('lodash.template')
+const serialize = require('serialize-javascript')
+const { serializeFunction } = require('./serialize')
 const slash = require('slash')
 const PluginApi = require('./PluginApi')
 const Logger = require('./Logger')
@@ -83,6 +85,9 @@ class Vapper extends PluginApi {
 
     // When `setup` is complete, it is an instance of vue-router
     this.router = null
+
+    this.clientEnhanceFileName = '.vapper_client.js'
+    this.serverEnhanceFileName = '.vapper_server.js'
 
     this.initPlugins()
 
@@ -290,8 +295,48 @@ class Vapper extends PluginApi {
       })
   }
 
+  async compileEnhanceFile (type, templatePath, compileOptions) {
+    const templateFile = fs.readFileSync(templatePath)
+
+    const templateOptions = {
+      imports: {
+        serialize,
+        serializeFunction,
+        ...this.options.enhanceFileImportsOption
+      },
+      interpolate: /<%=([\s\S]+?)%>/g
+    }
+
+    const templateFunction = template(templateFile, templateOptions)
+
+    const content = templateFunction({
+      options: {
+        ...compileOptions
+      }
+    })
+
+    const compiledFilePath = path.resolve(
+      path.dirname(templatePath),
+      type === 'client' ? this.clientEnhanceFileName : this.serverEnhanceFileName
+    )
+
+    this.logger.debug(`Generate ${type} enhance file: ${compiledFilePath}`)
+
+    await fs.remove(compiledFilePath)
+    await fs.ensureFile(compiledFilePath)
+    fs.writeFileSync(compiledFilePath, content, 'utf-8')
+  }
+
   async generateEnhanceFile () {
     const compiled = template(this.enhanceTemplate)
+
+    this.enhanceFiles.forEach(async enhanceObj => {
+      const { client, clientOptions, server, serverOptions } = enhanceObj
+
+      // compile client and server plugin templates
+      client && this.compileEnhanceFile('client', client, clientOptions)
+      server && this.compileEnhanceFile('server', server, serverOptions)
+    })
 
     const transformEnhanceFiles = (type) => {
       return Array.from(this.enhanceFiles).filter(enhanceObj => enhanceObj[type]).map(enhanceObj => {
@@ -299,7 +344,11 @@ class Vapper extends PluginApi {
           path.dirname(this.enhanceClientOutput),
           path.dirname(enhanceObj[type])
         ))
-        enhanceObj[type] = `${serializedPath}/${path.basename(enhanceObj[type])}`
+
+        enhanceObj[type] = type === 'client'
+          ? `${serializedPath}/${this.clientEnhanceFileName}`
+          : `${serializedPath}/${this.serverEnhanceFileName}`
+
         return enhanceObj
       })
     }

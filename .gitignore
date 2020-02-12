@@ -3,7 +3,7 @@ dist
 .history
 *.log
 .profile
-.vapper
+.vapper*
 cypress/videos
 cypress/screenshots
 coverage
