@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/vapperjs/vapper/compare/@vapper/configer-poi@1.0.2...@vapper/configer-poi@1.1.0) (2020-02-12)
+
+
+### Features
+
+* **core:** apply user-defined webpack chain functions ([e0d7abf](https://github.com/vapperjs/vapper/commit/e0d7abf))
+
+
+
+
+
 ## [1.0.2](https://github.com/vapperjs/vapper/compare/@vapper/configer-poi@1.0.1...@vapper/configer-poi@1.0.2) (2020-02-03)
 
 **Note:** Version bump only for package @vapper/configer-poi

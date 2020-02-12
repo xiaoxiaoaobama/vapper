@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/vapperjs/vapper/compare/@vapper/core@1.2.1...@vapper/core@1.3.0) (2020-02-12)
+
+
+### Features
+
+* **core:** apply user-defined webpack chain functions ([e0d7abf](https://github.com/vapperjs/vapper/commit/e0d7abf))
+* **core:** optional compilation of enhancement files ([7860633](https://github.com/vapperjs/vapper/commit/7860633))
+* **core:** supports `before:setup/after:setup` middleware hook ([#70](https://github.com/vapperjs/vapper/issues/70)) ([bc80086](https://github.com/vapperjs/vapper/commit/bc80086))
+* **core:** supports compilation of enhanced files ([#68](https://github.com/vapperjs/vapper/issues/68)) ([3e60910](https://github.com/vapperjs/vapper/commit/3e60910))
+
+
+
+
+
 ## [1.2.1](https://github.com/vapperjs/vapper/compare/@vapper/core@1.2.0...@vapper/core@1.2.1) (2020-02-05)
 
 
