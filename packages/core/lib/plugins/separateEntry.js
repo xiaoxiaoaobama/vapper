@@ -3,7 +3,8 @@ const fs = require('fs-extra')
 
 module.exports = function (api) {
   const enhanceObj = {
-    clientModuleName: 'defaultEnhanceClientApp'
+    clientModuleName: 'defaultEnhanceClientApp',
+    needCompile: false
   }
 
   const clientPath = path.isAbsolute(api.options.clientEntry)

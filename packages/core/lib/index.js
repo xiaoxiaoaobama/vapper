@@ -341,11 +341,11 @@ class Vapper extends PluginApi {
     const compiled = template(this.enhanceTemplate)
 
     this.enhanceFiles.forEach(async enhanceObj => {
-      const { client, clientOptions, server, serverOptions } = enhanceObj
+      const { client, clientOptions, server, serverOptions, needCompile } = enhanceObj
 
       // compile client and server plugin templates
-      client && this.compileEnhanceFile('client', client, clientOptions)
-      server && this.compileEnhanceFile('server', server, serverOptions)
+      needCompile !== false && client && this.compileEnhanceFile('client', client, clientOptions)
+      needCompile !== false && server && this.compileEnhanceFile('server', server, serverOptions)
     })
 
     const transformEnhanceFiles = (type) => {
@@ -356,8 +356,8 @@ class Vapper extends PluginApi {
         ))
 
         enhanceObj[type] = type === 'client'
-          ? `${serializedPath}/${this.clientEnhanceFileName}`
-          : `${serializedPath}/${this.serverEnhanceFileName}`
+          ? `${serializedPath}/${enhanceObj.needCompile !== false ? this.clientEnhanceFileName : path.basename(enhanceObj[type])}`
+          : `${serializedPath}/${enhanceObj.needCompile !== false ? this.serverEnhanceFileName : path.basename(enhanceObj[type])}`
 
         return enhanceObj
       })

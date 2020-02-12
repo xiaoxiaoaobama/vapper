@@ -51,6 +51,7 @@ class PluginApi extends EventEmitter {
      *    server: string
      *    serverOptions: object
      *    clientModuleName: string
+     *    needCompile: boolean
      * }
      */
     this.enhanceFiles.add(enhance)
