@@ -285,11 +285,11 @@ class Vapper extends PluginApi {
     ]
 
     // These plugins need to be applied last
-    const appendPlugins = [separateEntryPlugin]
+    this.appendPlugins = [separateEntryPlugin]
 
     this.buildInPlugins
       .concat((this.options.plugins || []))
-      .concat(appendPlugins)
+      .concat(this.appendPlugins)
       .forEach(plugin => {
         if (typeof plugin === 'string') plugin = require(plugin)
 

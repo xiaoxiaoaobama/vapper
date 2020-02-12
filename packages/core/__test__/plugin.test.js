@@ -18,13 +18,15 @@ beforeEach(() => {
 test('The built-in plugin should be initialized correctly', () => {
   const vapper = new Vapper()
 
-  expect(vapper.buildInPlugins.length).toBe(4)
+  expect(vapper.buildInPlugins.length).toBe(3)
   expect(vapper.buildInPlugins).toEqual([
     serveStaticPlugin,
     fallbackSpaPlugin,
-    separateEntryPlugin,
     [microCachingPlugin, vapper.options.pageCache]
   ])
+
+  expect(vapper.appendPlugins.length).toBe(1)
+  expect(vapper.appendPlugins).toEqual([separateEntryPlugin])
 })
 
 test('Function type plugin should be initialized correctly', () => {
