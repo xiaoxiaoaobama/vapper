@@ -281,12 +281,15 @@ class Vapper extends PluginApi {
     this.buildInPlugins = [
       serveStaticPlugin,
       fallbackSpaPlugin,
-      separateEntryPlugin,
       [microCachingPlugin, this.options.pageCache]
     ]
 
+    // These plugins need to be applied last
+    const appendPlugins = [separateEntryPlugin]
+
     this.buildInPlugins
       .concat((this.options.plugins || []))
+      .concat(appendPlugins)
       .forEach(plugin => {
         if (typeof plugin === 'string') plugin = require(plugin)
 
