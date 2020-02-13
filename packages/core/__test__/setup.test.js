@@ -1,5 +1,6 @@
 const Vapper = require('@vapper/core')
 const fs = require('fs-extra')
+const path = require('path')
 const Builder = require('../lib/Builder')
 const { createBundleRenderer } = require('vue-server-renderer')
 const connect = require('connect')
@@ -10,9 +11,6 @@ jest.mock('../lib/Builder')
 jest.mock('vue-server-renderer')
 jest.mock('connect')
 jest.mock('compression')
-
-// mock fs-extra
-fs.readFileSync.mockReturnValue('{}')
 
 // mock renderToString
 const mockRenderToString = jest.fn().mockImplementation((ctx, fn) => {
@@ -36,6 +34,8 @@ compression.mockImplementation(() => {
 })
 
 beforeEach(() => {
+  fs.remove.mockClear()
+  fs.ensureFile.mockClear()
   fs.readFileSync.mockClear()
   fs.writeFileSync.mockClear()
   Builder.mockClear()
@@ -58,6 +58,21 @@ describe('Dev mode: ', () => {
     expect(fs.writeFileSync.mock.calls[0][1]).toMatchSnapshot()
     expect(fs.writeFileSync.mock.calls[1][0]).toBe(vapper.enhanceServerOutput)
     expect(fs.writeFileSync.mock.calls[1][1]).toMatchSnapshot()
+  })
+
+  test('Enhance files should be compiled correctly', async () => {
+    // mock fs-extra
+    fs.readFileSync.mockReturnValue('<%= foo %>')
+
+    const vapper = new Vapper({ mode: 'development' })
+    await vapper.compileEnhanceFile('client', 'client.js', { foo: 'foo' })
+    const p = path.resolve(
+      path.dirname('client.js'),
+      '.vapper_client.js'
+    )
+    expect(fs.remove).toHaveBeenCalledWith(p)
+    expect(fs.ensureFile).toHaveBeenCalledWith(p)
+    expect(fs.writeFileSync).toHaveBeenCalledWith(p, 'foo', 'utf-8')
   })
 
   test('Should be built correctly', async () => {
@@ -86,6 +101,9 @@ describe('Dev mode: ', () => {
   })
 
   test('Should setup correctly', async () => {
+    // mock fs-extra
+    fs.readFileSync.mockReturnValue('{}')
+
     const vapper = new Vapper({ mode: 'development' })
     const mockBeforeSetupHook = jest.fn()
     const mockAfterSetupHook = jest.fn()

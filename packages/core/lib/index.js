@@ -323,9 +323,7 @@ class Vapper extends PluginApi {
     const templateFunction = template(templateFile, templateOptions)
 
     const content = templateFunction({
-      options: {
-        ...compileOptions
-      }
+      ...compileOptions
     })
 
     const compiledFilePath = path.resolve(
