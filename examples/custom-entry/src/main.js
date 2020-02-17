@@ -10,15 +10,15 @@ export default function createApp () {
   const router = createRouter()
 
   // 2. Create root component option
-  const app = new Vue({
+  const app = {
     router,
     head: {},
     render (h) {
       return h(App)
     }
-  })
+  }
 
   // 3. return
-  return { app, router }
+  return app
 }
 

@@ -17,14 +17,14 @@ export default function createApp (context) {
   })
 
   // 2. Create root component option
-  const app = new Vue({
+  const app = {
     apolloProvider,
     router,
     head: {},
     render: h => h(App)
-  })
+  }
 
   // 3. return
-  return { app, router, apolloProvider }
+  return app
 }
 
