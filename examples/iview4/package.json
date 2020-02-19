@@ -9,7 +9,7 @@
     "generate": "vapper generate"
   },
   "dependencies": {
-    "@vapper/core": "^0.17.0",
+    "@vapper/core": "^1.3.0",
     "view-design": "^4.0.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7"
