@@ -8,7 +8,7 @@ describe('Data prefetch', function () {
     cy.get('.p2').should('contain', 'bar')
 
     cy.window().its('__INITIAL_STATE__').should('deep.equal', {
-      $$stroe: {
+      $$store: {
         storeMsg: 'bar'
       },
       $$selfStore: {

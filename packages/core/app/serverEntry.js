@@ -83,7 +83,7 @@ export default async context => {
   context.rendered = () => {
     // The data will be serialized
     context.state = {
-      $$stroe: store ? store.state : undefined,
+      $$store: store ? store.state : undefined,
       // vue-ssr-prefetcher
       $$selfStore: app.$$selfStore,
       ...(rootOptions.initialState || {})
