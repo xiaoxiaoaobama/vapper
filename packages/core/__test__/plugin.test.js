@@ -82,8 +82,7 @@ test('String type plugin with parameters should be initialized correctly', () =>
 test('Enhancement files should be added correctly', () => {
   const enhanceObj = {
     client: 'client.js',
-    server: 'server.js',
-    clientModuleName: 'test'
+    server: 'server.js'
   }
   const enhancePlugin = jest.fn(function (api) {
     api.addEnhanceFile(enhanceObj)

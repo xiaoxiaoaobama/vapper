@@ -1,9 +1,9 @@
-<% for (const enhanceObj of enhanceFiles) { %>
-import <%- enhanceObj.clientModuleName %> from '<%- type === "client" ? enhanceObj.client : enhanceObj.server %>'
+<% for (const key in enhanceFiles) { %>
+import <%- "pluginModule_" + key %> from '<%- type === "client" ? enhanceFiles[key].client : enhanceFiles[key].server %>'
 <% } %>
 
 export default function (options) {
-  <% for (const enhanceObj of enhanceFiles) { %>
-    <%- enhanceObj.clientModuleName %>(options)
+  <% for (const key in enhanceFiles) { %>
+    <%- "pluginModule_" + key %>(options)
   <% } %>
 }
