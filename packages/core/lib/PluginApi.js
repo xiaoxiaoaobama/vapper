@@ -50,7 +50,6 @@ class PluginApi extends EventEmitter {
      *    clientOptions: object
      *    server: string
      *    serverOptions: object
-     *    clientModuleName: string
      *    needCompile: boolean
      * }
      */
