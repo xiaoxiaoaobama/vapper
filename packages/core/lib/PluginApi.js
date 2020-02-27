@@ -87,15 +87,11 @@ class PluginApi extends EventEmitter {
   loadConfig () {
     const p = this.resolveCWD('vapper.config.js')
 
-    try {
-      const configFileStat = fs.statSync(p)
-      if (configFileStat.isFile) {
-        return require(p)
-      }
-      return null
-    } catch (e) {
-      return null
+    const configFileStat = fs.statSync(p)
+    if (configFileStat.isFile) {
+      return require(p)
     }
+    return null
   }
 
   loadEnvFile (key) {
