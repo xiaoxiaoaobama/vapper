@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/vapperjs/vapper/compare/@vapper/core@1.3.1...@vapper/core@1.4.0) (2020-02-28)
+
+
+### Features
+
+* **plugin:** remove clientModuleName option when calling api.addEnhanceFile ([#78](https://github.com/vapperjs/vapper/issues/78)) ([f0c8ea3](https://github.com/vapperjs/vapper/commit/f0c8ea3)), closes [#76](https://github.com/vapperjs/vapper/issues/76)
+
+
+
+
+
 ## [1.3.1](https://github.com/vapperjs/vapper/compare/@vapper/core@1.3.0...@vapper/core@1.3.1) (2020-02-21)
 
 **Note:** Version bump only for package @vapper/core
