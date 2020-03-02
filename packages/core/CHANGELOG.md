@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/vapperjs/vapper/compare/@vapper/core@1.4.0...@vapper/core@1.5.0) (2020-03-02)
+
+
+### Features
+
+* **core:** support templatePath option ([4171923](https://github.com/vapperjs/vapper/commit/4171923))
+
+
+
+
+
 # [1.4.0](https://github.com/vapperjs/vapper/compare/@vapper/core@1.3.1...@vapper/core@1.4.0) (2020-02-28)
 
 
