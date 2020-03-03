@@ -1,0 +1,16 @@
+{
+  "name": "@vapper/plugin-sentry",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@sentry/browser": "^5.13.0",
+    "@sentry/integrations": "^5.13.0",
+    "@sentry/node": "^5.13.1",
+    "@sentry/webpack-plugin": "^1.10.0",
+    "deepmerge": "^4.2.2"
+  }
+}
