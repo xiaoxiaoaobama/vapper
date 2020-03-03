@@ -1,6 +1,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const cac = require('cac')()
+const chokidar = require('chokidar')
 const connect = require('connect')
 const compression = require('compression')
 const { minify } = require('html-minifier')
@@ -70,12 +71,9 @@ class Vapper extends PluginApi {
 
     this.serverBundle = null
     this.clientManifest = null
-    if (this.options.template) {
-      this.template = this.options.template
-    } else {
-      const templatePath = this.resolveCore('app/index.template.html')
-      this.template = fs.readFileSync(templatePath, 'utf-8')
-    }
+
+    this.initTemplate()
+
     this.renderer = null
     this.htmlContent = ''
 
@@ -96,6 +94,33 @@ class Vapper extends PluginApi {
 
   get handler () {
     return this.app
+  }
+
+  initTemplate () {
+    if (this.options.template) {
+      // The template option
+      this.template = this.options.template
+    } else if (this.options.templatePath) {
+      // The templatePath option
+      const templateFileStat = fs.statSync(this.options.templatePath)
+      if (templateFileStat.isFile) {
+        this.template = fs.readFileSync(this.options.templatePath, 'utf-8')
+        // Watch the changes of this template file
+        chokidar.watch(this.options.templatePath, {
+          ignoreInitial: true
+        }).on('all', () => {
+          // we need to update the renderer
+          this.template = fs.readFileSync(this.options.templatePath, 'utf-8')
+          this.updateRenderer()
+        })
+      } else {
+        this.logger.error(`Invalid template file, the path is: ${this.options.templatePath}.`)
+      }
+    } else {
+      // Use default template
+      const templatePath = this.resolveCore('app/index.template.html')
+      this.template = fs.readFileSync(templatePath, 'utf-8')
+    }
   }
 
   async setup () {
@@ -159,12 +184,8 @@ class Vapper extends PluginApi {
 
     this.renderer = this.createRenderer({ serverBundle, clientManifest })
 
-    this.builder.on('change', async ({ serverBundle, clientManifest }) => {
-      this.renderer = this.createRenderer({ serverBundle, clientManifest })
-      // Update the vue-router instance
-      await this.resolveRouterInstanceForFake()
-      this.logger.debug('Renderer updated')
-      this.emit('rendererUpdated')
+    this.builder.on('change', ({ serverBundle, clientManifest }) => {
+      this.updateRenderer({ serverBundle, clientManifest })
     })
 
     this.devMiddleware = this.builder.devMiddleware
@@ -275,6 +296,20 @@ class Vapper extends PluginApi {
       template: this.template,
       clientManifest
     })
+  }
+
+  async updateRenderer ({ serverBundle, clientManifest } = {}) {
+    this.serverBundle = serverBundle || this.serverBundle
+    this.clientManifest = clientManifest || this.clientManifest
+
+    this.renderer = this.createRenderer({
+      serverBundle: this.serverBundle,
+      clientManifest: this.clientManifest
+    })
+    // Update the vue-router instance
+    await this.resolveRouterInstanceForFake()
+    this.logger.debug('Renderer updated')
+    this.emit('rendererUpdated')
   }
 
   initPlugins () {

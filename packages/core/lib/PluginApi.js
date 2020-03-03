@@ -94,6 +94,7 @@ class PluginApi extends EventEmitter {
       }
       return null
     } catch (e) {
+      process.env.NODE_ENV !== 'unittest' && console.error(e)
       return null
     }
   }
