@@ -51,21 +51,12 @@ module.exports = (api, pluginOptions) => {
   ])
 
   if (!options.dsn) {
-    api.logger.debug('Errors will not be logged because no DSN has been provided')
+    api.logger.error('Errors will not be logged because no DSN has been provided')
     return
   }
 
   options.clientConfig = deepMerge.all([options.config, options.clientConfig])
   options.serverConfig = deepMerge.all([options.config, options.serverConfig])
-
-  // TODO:
-  // if (!options.disableServerRelease) {
-  //   options.webpackConfig.include.push(`${buildDirRelative}/dist/server`)
-  // }
-
-  // if (!options.disableClientRelease) {
-  //   options.webpackConfig.include.push(`${buildDirRelative}/dist/client`)
-  // }
 
   if (options.config.release && !options.webpackConfig.release) {
     options.webpackConfig.release = options.config.release
@@ -122,27 +113,17 @@ module.exports = (api, pluginOptions) => {
 
   if (!options.disabled) {
     api.chainWebpack(config => {
+      const buildDirPath = config.output.get('path')
       const publicPath = api.publicPath
 
+      options.webpackConfig.include.push(buildDirPath)
       options.webpackConfig.urlPrefix = publicPath.startsWith('/') ? `~${publicPath}` : publicPath
 
       if (!options.publishRelease || !api.isProd) {
         return
       }
 
-      if (process.client) {
-        config.devtool = 'source-map'
-      }
-
-      // TODO:
-      // if (isClient && ssr) {
-      //   return
-      // }
-
-      // // when in spa mode upload only at modern build if enabled
-      // if (isClient && !isModern && this.options.modern) {
-      //   return
-      // }
+      config.devtool('source-map')
 
       config
         .plugin('webpackSentry')
