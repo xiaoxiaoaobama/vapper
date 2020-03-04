@@ -62,7 +62,7 @@ describe('Dev mode: ', () => {
 
   test('Enhance files should be compiled correctly', async () => {
     // mock fs-extra
-    fs.readFileSync.mockReturnValue('<%= foo %>')
+    fs.readFileSync.mockReturnValue('<%= options.foo %>')
 
     const vapper = new Vapper({ mode: 'development' })
     await vapper.compileEnhanceFile('client', 'client.js', { foo: 'foo' })
