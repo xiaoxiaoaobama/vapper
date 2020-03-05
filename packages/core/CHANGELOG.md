@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/vapperjs/vapper/compare/@vapper/core@1.5.0...@vapper/core@1.6.0) (2020-03-05)
+
+
+### Features
+
+* **core:** passing the options parameter when parsing plugin template ([#82](https://github.com/vapperjs/vapper/issues/82)) ([b3d50e7](https://github.com/vapperjs/vapper/commit/b3d50e7))
+* **core:** supports access the req/res through component instance ([63b4683](https://github.com/vapperjs/vapper/commit/63b4683))
+
+
+
+
+
 # [1.5.0](https://github.com/vapperjs/vapper/compare/@vapper/core@1.4.0...@vapper/core@1.5.0) (2020-03-02)
 
 
