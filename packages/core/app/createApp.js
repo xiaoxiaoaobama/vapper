@@ -26,12 +26,16 @@ Vue.mixin({
   beforeCreate () {
     this.$$redirect = this.$root.$$redirect
     this.$$type = this.$root.$$type
+    this.$$req = this.$root.$options.req
+    this.$$res = this.$root.$options.res
   }
 })
 
 export default function createAppAPI (context) {
   const rootOptions = createApp(context)
-  Object.assign(rootOptions, context.rootOptions)
-  return rootOptions
+  return Object.assign({
+    req: context.req,
+    res: context.res
+  }, rootOptions, context.rootOptions)
 }
 createAppAPI.pluginRuntimeOptions = createApp.pluginRuntimeOptions
