@@ -1,0 +1,45 @@
+/**
+ * Copy from https://github.com/lancedikson/bowser/blob/master/src/constants.js
+ * Modified by: HcySunYang
+ */
+
+export const BROWSER_MAP = {
+  amazon_silk: 'Amazon Silk',
+  android: 'Android Browser',
+  bada: 'Bada',
+  blackberry: 'BlackBerry',
+  chrome: 'Chrome',
+  chromium: 'Chromium',
+  electron: 'Electron',
+  epiphany: 'Epiphany',
+  firefox: 'Firefox',
+  focus: 'Focus',
+  generic: 'Generic',
+  googlebot: 'Googlebot',
+  google_search: 'Google Search',
+  ie: 'Internet Explorer',
+  k_meleon: 'K-Meleon',
+  maxthon: 'Maxthon',
+  edge: 'Microsoft Edge',
+  mz: 'MZ Browser',
+  naver: 'NAVER Whale Browser',
+  opera: 'Opera',
+  opera_coast: 'Opera Coast',
+  phantomjs: 'PhantomJS',
+  puffin: 'Puffin',
+  qupzilla: 'QupZilla',
+  qq: 'QQ Browser',
+  qqlite: 'QQ Browser Lite',
+  safari: 'Safari',
+  sailfish: 'Sailfish',
+  samsung_internet: 'Samsung Internet for Android',
+  seamonkey: 'SeaMonkey',
+  sleipnir: 'Sleipnir',
+  swing: 'Swing',
+  tizen: 'Tizen',
+  uc: 'UC Browser',
+  vivaldi: 'Vivaldi',
+  webos: 'WebOS Browser',
+  wechat: 'WeChat',
+  yandex: 'Yandex Browser'
+}

@@ -16,12 +16,16 @@ export default {
   },
   needSerialize: true,
   async created () {
+    console.log(this.$browser)
     const res1 = await fetch()
     const res2 = await fetch()
 
     this.res1 = res1
 
     this.res2 = res2
+  },
+  mounted () {
+    console.log(this.$browser)
   }
 }
 </script>

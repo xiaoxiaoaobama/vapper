@@ -1,4 +1,5 @@
 const prerender = require('@vapper/plugin-prerender')
+const platform = require('../../packages/vapper-plugin-platform')
 
 module.exports = {
   plugins: [
@@ -8,7 +9,8 @@ module.exports = {
         routes: ['/foo/bar']
       }
     ],
-    '@vapper/plugin-cookie'
+    '@vapper/plugin-cookie',
+    platform
   ],
   htmlMinifier: true
 }
