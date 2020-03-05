@@ -7,7 +7,7 @@ const Integrations = require('@sentry/integrations')
 const filterDisabledIntegration = integrations => Object.keys(integrations)
   .filter(key => integrations[key])
 
-module.exports = (api, pluginOptions) => {
+module.exports = (api, pluginOptions = {}) => {
   const defaultOptions = {
     dsn: '',
     disableClientSide: false,
@@ -100,7 +100,7 @@ module.exports = (api, pluginOptions) => {
     })
 
     process.sentry = Sentry
-    api.logger.success('Started logging errors to Sentry')
+    api.logger.debug('Started logging errors to Sentry')
 
     api.addEnhanceFile({
       needCompile: false,
@@ -111,25 +111,23 @@ module.exports = (api, pluginOptions) => {
     // TODO: Sentry.Handlers.errorHandler()
   }
 
-  if (!options.disabled) {
-    api.chainWebpack(config => {
-      const buildDirPath = config.output.get('path')
-      const publicPath = api.publicPath
+  api.chainWebpack(config => {
+    const buildDirPath = config.output.get('path')
+    const publicPath = api.publicPath
 
-      options.webpackConfig.include.push(buildDirPath)
-      options.webpackConfig.urlPrefix = publicPath.startsWith('/') ? `~${publicPath}` : publicPath
+    options.webpackConfig.include.push(buildDirPath)
+    options.webpackConfig.urlPrefix = publicPath.startsWith('/') ? `~${publicPath}` : publicPath
 
-      if (!options.publishRelease || !api.isProd) {
-        return
-      }
+    if (!options.publishRelease || !api.isProd) {
+      return
+    }
 
-      config.devtool('source-map')
+    config.devtool('source-map')
 
-      config
-        .plugin('webpackSentry')
-        .use(WebpackPlugin, [options.webpackConfig])
+    config
+      .plugin('webpackSentry')
+      .use(WebpackPlugin, [options.webpackConfig])
 
-      api.logger.debug('Enabling uploading of release sourcemaps to Sentry')
-    })
-  }
+    api.logger.debug('Enabling uploading of release sourcemaps to Sentry')
+  })
 }

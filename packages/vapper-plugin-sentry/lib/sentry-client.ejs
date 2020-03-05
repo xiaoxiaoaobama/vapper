@@ -2,6 +2,12 @@ import VueLib from 'vue'
 import * as Sentry from '@sentry/browser'
 import { <%= Object.keys(options.integrations).map(integration => integration).join(', ') %> } from '@sentry/integrations'
 
+VueLib.mixin({
+  created () {
+    this.$sentry = this.$root.$options.$sentry
+  }
+})
+
 export default function (ctx) {
   const opts = Object.assign({}, <%= serialize(options.config) %>, {
     integrations: [
@@ -19,4 +25,5 @@ export default function (ctx) {
   Sentry.init(opts)
 
   ctx.$sentry = Sentry
+  ctx.rootOptions.$sentry = Sentry
 }
